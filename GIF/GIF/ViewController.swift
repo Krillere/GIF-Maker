@@ -9,6 +9,7 @@
 import Cocoa
 
 class ViewController: NSViewController {
+    // MARK: Fields
     @IBOutlet var imageCollectionView:NSCollectionView!
     @IBOutlet var secondsPerFrameTextField:NSTextField!
     @IBOutlet var addFrameButton:NSButton!
@@ -45,8 +46,9 @@ class ViewController: NSViewController {
         }
     }
 
+    
     // MARK: UI
-    // Adds a new frame
+    // Adds a new frame (Insert a 'nil' value into 'currentImages')
     @IBAction func addFrameButtonClicked(sender: AnyObject?) {
         if let indexPath = selectedRow {
             currentImages.insert(nil, at: indexPath.item+1)
@@ -86,7 +88,7 @@ class ViewController: NSViewController {
         
     }
     
-    // Load a gif
+    // Load a gif from a file
     @IBAction func loadGIFButtonClicked(sender: AnyObject?) {
         // SHow file panel
         let panel = NSOpenPanel()
