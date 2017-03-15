@@ -31,6 +31,7 @@ class ViewController: NSViewController {
                                                name: NSNotification.Name(rawValue: "ImageClicked"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.imageDraggedToImageView(sender:)),
                                                name: NSNotification.Name(rawValue: "ImageChanged"), object: nil)
+
     }
 
     override func viewDidAppear() {
@@ -57,6 +58,7 @@ class ViewController: NSViewController {
         imageCollectionView.reloadData()
     }
     
+    // Export a gif
     @IBAction func exportGIF(sender: AnyObject?) {
         guard let loops = Int(loopsTextField.stringValue),
               let spf = Float(secondsPerFrameTextField.stringValue) else {
@@ -134,6 +136,8 @@ class ViewController: NSViewController {
             self.addFrameButton.becomeFirstResponder()
         }
     }
+    
+    var indexPathsOfItemsBeingDragged: Set<IndexPath>!
 }
 
 // MARK: NSCollectionView
@@ -141,7 +145,9 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
     
     // Sets up the collection view variables (Could probably be done in IB)
     // https://www.raywenderlich.com/145978/nscollectionview-tutorial
+    // https://www.raywenderlich.com/132268/advanced-collection-views-os-x-tutorial
     fileprivate func configureCollectionView() {
+        // Layout
         let flowLayout = NSCollectionViewFlowLayout()
         flowLayout.itemSize = NSSize(width: 200.0, height: 220.0)
         flowLayout.sectionInset = EdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
@@ -151,6 +157,9 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
         
         view.wantsLayer = true
         
+        // Drag
+        imageCollectionView.register(forDraggedTypes: NSImage.imageTypes())
+        imageCollectionView.setDraggingSourceOperationMask(NSDragOperation.every, forLocal: true)
     }
     
     
@@ -198,4 +207,69 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
     }
 
     // MARK: Drag and drop
+    private func collectionView(collectionView: NSCollectionView, canDragItemsAtIndexes indexes: NSIndexSet, withEvent event: NSEvent) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, pasteboardWriterForItemAt indexPath: IndexPath) -> NSPasteboardWriting? {
+        guard let item = collectionView.item(at: indexPath) as? FrameCollectionViewItem,
+              let imgView = item.imageView,
+              let img = imgView.image else {
+                return nil
+        }
+        
+        return img
+    }
+    
+    
+    // When dragging starts?
+    func collectionView(_ collectionView: NSCollectionView, draggingSession session: NSDraggingSession, willBeginAt screenPoint: NSPoint, forItemsAt indexPaths: Set<IndexPath>) {
+        indexPathsOfItemsBeingDragged = indexPaths
+    }
+    
+    // Dragging ends?
+    func collectionView(_ collectionView: NSCollectionView, draggingSession session: NSDraggingSession, endedAt screenPoint: NSPoint, dragOperation operation: NSDragOperation) {
+        indexPathsOfItemsBeingDragged = nil
+    }
+    
+    // Can this be done?
+    func collectionView(_ collectionView: NSCollectionView, validateDrop draggingInfo: NSDraggingInfo, proposedIndexPath proposedDropIndexPath: AutoreleasingUnsafeMutablePointer<NSIndexPath>, dropOperation proposedDropOperation: UnsafeMutablePointer<NSCollectionViewDropOperation>) -> NSDragOperation {
+        
+        if proposedDropOperation.pointee == NSCollectionViewDropOperation.on {
+            proposedDropOperation.pointee = NSCollectionViewDropOperation.before
+        }
+        
+        if indexPathsOfItemsBeingDragged == nil {
+            return NSDragOperation.copy
+        } else {
+            return NSDragOperation.move
+        }
+    }
+    
+    // On complete
+    func collectionView(_ collectionView: NSCollectionView, acceptDrop draggingInfo: NSDraggingInfo, indexPath: IndexPath, dropOperation: NSCollectionViewDropOperation) -> Bool {
+        if indexPathsOfItemsBeingDragged == nil {
+            return true
+        }
+        
+        let indexPathOfFirstItemBeingDragged = indexPathsOfItemsBeingDragged.first!
+        var toIndexPath: IndexPath
+        if indexPathOfFirstItemBeingDragged.compare(indexPath) == .orderedAscending {
+            toIndexPath = IndexPath(item: indexPath.item-1, section: indexPath.section)
+        }
+        else {
+            toIndexPath = IndexPath(item: indexPath.item, section: indexPath.section)
+        }
+        
+        // The index we're moving, the image, and the destination
+        let dragItem = indexPathOfFirstItemBeingDragged.item
+        let curImage = currentImages[dragItem]
+        let newItem = toIndexPath.item
+        currentImages.remove(at: dragItem)
+        currentImages.insert(curImage, at: newItem)
+        
+        imageCollectionView.reloadData()
+        imageCollectionView.deselectAll(nil)
+        return true
+    }
 }
