@@ -99,7 +99,7 @@ class ViewController: NSViewController {
                 // Load image from file
                 if let url = panel.url,
                    let image = NSImage(contentsOf: url) {
-                    // Set values required
+                    // Set values from the .GIF
                     let newValues = GIFHandler.loadGIF(with: image)
                     
                     self.currentImages = newValues.images
@@ -237,6 +237,7 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
         return true
     }
     
+    // Add the image from the cell to the drag'n'drop handler
     func collectionView(_ collectionView: NSCollectionView, pasteboardWriterForItemAt indexPath: IndexPath) -> NSPasteboardWriting? {
         guard let item = collectionView.item(at: indexPath) as? FrameCollectionViewItem,
               let imgView = item.imageView,

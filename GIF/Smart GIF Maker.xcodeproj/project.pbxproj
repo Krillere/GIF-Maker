@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AA8F63921E787DE2000965B5 /* GIF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GIF.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA8F63921E787DE2000965B5 /* Smart GIF Maker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smart GIF Maker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA8F63951E787DE2000965B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA8F63971E787DE2000965B5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AA8F63991E787DE2000965B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -53,7 +53,7 @@
 		AA8F63931E787DE2000965B5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AA8F63921E787DE2000965B5 /* GIF.app */,
+				AA8F63921E787DE2000965B5 /* Smart GIF Maker.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -86,9 +86,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AA8F63911E787DE2000965B5 /* GIF */ = {
+		AA8F63911E787DE2000965B5 /* Smart GIF Maker */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AA8F63A11E787DE2000965B5 /* Build configuration list for PBXNativeTarget "GIF" */;
+			buildConfigurationList = AA8F63A11E787DE2000965B5 /* Build configuration list for PBXNativeTarget "Smart GIF Maker" */;
 			buildPhases = (
 				AA8F638E1E787DE2000965B5 /* Sources */,
 				AA8F638F1E787DE2000965B5 /* Frameworks */,
@@ -98,9 +98,9 @@
 			);
 			dependencies = (
 			);
-			name = GIF;
+			name = "Smart GIF Maker";
 			productName = GIF;
-			productReference = AA8F63921E787DE2000965B5 /* GIF.app */;
+			productReference = AA8F63921E787DE2000965B5 /* Smart GIF Maker.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -125,7 +125,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AA8F638D1E787DE2000965B5 /* Build configuration list for PBXProject "GIF" */;
+			buildConfigurationList = AA8F638D1E787DE2000965B5 /* Build configuration list for PBXProject "Smart GIF Maker" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -138,7 +138,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AA8F63911E787DE2000965B5 /* GIF */,
+				AA8F63911E787DE2000965B5 /* Smart GIF Maker */,
 			);
 		};
 /* End PBXProject section */
@@ -306,7 +306,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AA8F638D1E787DE2000965B5 /* Build configuration list for PBXProject "GIF" */ = {
+		AA8F638D1E787DE2000965B5 /* Build configuration list for PBXProject "Smart GIF Maker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA8F639F1E787DE2000965B5 /* Debug */,
@@ -315,7 +315,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AA8F63A11E787DE2000965B5 /* Build configuration list for PBXNativeTarget "GIF" */ = {
+		AA8F63A11E787DE2000965B5 /* Build configuration list for PBXNativeTarget "Smart GIF Maker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA8F63A21E787DE2000965B5 /* Debug */,

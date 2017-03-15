@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AA8F63911E787DE2000965B5"
-               BuildableName = "GIF.app"
-               BlueprintName = "GIF"
-               ReferencedContainer = "container:GIF.xcodeproj">
+               BuildableName = "Smart GIF Maker.app"
+               BlueprintName = "Smart GIF Maker"
+               ReferencedContainer = "container:Smart GIF Maker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AA8F63911E787DE2000965B5"
-            BuildableName = "GIF.app"
-            BlueprintName = "GIF"
-            ReferencedContainer = "container:GIF.xcodeproj">
+            BuildableName = "Smart GIF Maker.app"
+            BlueprintName = "Smart GIF Maker"
+            ReferencedContainer = "container:Smart GIF Maker.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AA8F63911E787DE2000965B5"
-            BuildableName = "GIF.app"
-            BlueprintName = "GIF"
-            ReferencedContainer = "container:GIF.xcodeproj">
+            BuildableName = "Smart GIF Maker.app"
+            BlueprintName = "Smart GIF Maker"
+            ReferencedContainer = "container:Smart GIF Maker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AA8F63911E787DE2000965B5"
-            BuildableName = "GIF.app"
-            BlueprintName = "GIF"
-            ReferencedContainer = "container:GIF.xcodeproj">
+            BuildableName = "Smart GIF Maker.app"
+            BlueprintName = "Smart GIF Maker"
+            ReferencedContainer = "container:Smart GIF Maker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
