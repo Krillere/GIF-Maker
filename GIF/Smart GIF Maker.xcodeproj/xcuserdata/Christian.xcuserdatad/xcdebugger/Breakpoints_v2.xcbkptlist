@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GIF/ViewController.swift"
-            timestampString = "511296724.426389"
+            timestampString = "511298995.210577"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
             landmarkName = "collectionView(_:didSelectItemsAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GIF/ViewController.swift"
-            timestampString = "511296724.426389"
+            timestampString = "511298995.210577"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
             landmarkName = "collectionView(_:didDeselectItemsAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GIF/ViewController.swift"
-            timestampString = "511296724.426389"
+            timestampString = "511298995.210577"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "269"
-            endingLineNumber = "269"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
             landmarkName = "collectionView(_:validateDrop:proposedIndexPath:dropOperation:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,12 +122,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GIF/ViewController.swift"
-            timestampString = "511296724.426389"
+            timestampString = "511298995.210577"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "295"
-            endingLineNumber = "295"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
             landmarkName = "collectionView(_:acceptDrop:indexPath:dropOperation:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GIF/FrameCollectionViewItem.swift"
+            timestampString = "511298859.19905"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "setHighlight(selected:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

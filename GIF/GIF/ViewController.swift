@@ -58,6 +58,7 @@ class ViewController: NSViewController {
         }
 
         imageCollectionView.reloadData()
+        deselectAll()
     }
     
     // Export a gif
@@ -190,6 +191,15 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
         imageCollectionView.setDraggingSourceOperationMask(NSDragOperation.every, forLocal: true)
     }
     
+    // Deselects all items
+    func deselectAll() {
+        let paths = imageCollectionView.indexPathsForVisibleItems()
+        for path in paths {
+            if let item = imageCollectionView.item(at: path) as? FrameCollectionViewItem {
+                item.setHighlight(selected: false)
+            }
+        }
+    }
     
     // MARK: General delegate / datasource (num items and items themselves)
     public func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
@@ -217,7 +227,7 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
     
     // Selection
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
-        collectionView.deselectAll(nil)
+        deselectAll()
         
         for indexPath in indexPaths {
             guard let item = collectionView.item(at: indexPath) as? FrameCollectionViewItem else {continue}
@@ -231,7 +241,7 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
     
     func collectionView(_ collectionView: NSCollectionView, didDeselectItemsAt indexPaths: Set<IndexPath>) {
         selectedRow = nil
-        collectionView.deselectAll(nil)
+        deselectAll()
     }
 
     // MARK: Drag and drop
