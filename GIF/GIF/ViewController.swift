@@ -11,9 +11,12 @@ import Cocoa
 class ViewController: NSViewController {
     @IBOutlet var imageCollectionView:NSCollectionView!
     @IBOutlet var secondsPerFrameTextField:NSTextField!
+    @IBOutlet var addFrameButton:NSButton!
     @IBOutlet var loopsTextField:NSTextField!
     
     var currentImages:[NSImage?] = [nil] // Default is 1 empty image, to show something in UI
+    var selectedRow:IndexPath? = nil
+
     
     // MARK: View setup
     override func viewDidLoad() {
@@ -30,6 +33,11 @@ class ViewController: NSViewController {
                                                name: NSNotification.Name(rawValue: "ImageChanged"), object: nil)
     }
 
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        addFrameButton.becomeFirstResponder()
+    }
+    
     override var representedObject: Any? {
         didSet {
         // Update the view, if already loaded.
@@ -37,8 +45,15 @@ class ViewController: NSViewController {
     }
 
     // MARK: UI
+    // Adds a new frame
     @IBAction func addFrameButtonClicked(sender: AnyObject?) {
-        currentImages.append(nil)
+        if let indexPath = selectedRow {
+            currentImages.insert(nil, at: indexPath.item+1)
+        }
+        else {
+            currentImages.append(nil)
+        }
+
         imageCollectionView.reloadData()
     }
     
@@ -87,6 +102,9 @@ class ViewController: NSViewController {
                     self.imageCollectionView.reloadData()
                 }
             }
+            
+            imgView.resignFirstResponder()
+            self.addFrameButton.becomeFirstResponder()
         }
     }
 }
@@ -109,6 +127,7 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
     }
     
     
+    // MARK: General delegate / datasource (num items and items themselves)
     public func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: "FrameCollectionViewItem", for: indexPath)
         
@@ -132,9 +151,24 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
     }
     
     
-    func numberOfSections(in collectionView: NSCollectionView) -> Int {
-        return 1
+    // Selection
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        collectionView.deselectAll(nil)
+        
+        for indexPath in indexPaths {
+            guard let item = collectionView.item(at: indexPath) as? FrameCollectionViewItem else {continue}
+            
+            selectedRow = indexPath
+            item.setHighlight(selected: true)
+            
+            break
+        }
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, didDeselectItemsAt indexPaths: Set<IndexPath>) {
+        selectedRow = nil
+        collectionView.deselectAll(nil)
     }
 
-    
+    // MARK: Drag and drop
 }

@@ -692,7 +692,7 @@
                                     <rect key="frame" x="1" y="1" width="846" height="462"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <collectionView id="QWv-z0-wuy">
+                                        <collectionView selectable="YES" id="QWv-z0-wuy">
                                             <rect key="frame" x="0.0" y="0.0" width="846" height="462"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="ptw-g3-O4M">
@@ -806,6 +806,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addFrameButton" destination="grP-pd-YOJ" id="edU-bC-Otm"/>
                         <outlet property="imageCollectionView" destination="QWv-z0-wuy" id="IvU-QJ-7y0"/>
                         <outlet property="loopsTextField" destination="tuJ-Kc-Dut" id="ZB5-Dl-MTM"/>
                         <outlet property="secondsPerFrameTextField" destination="dzh-bE-5mK" id="jFg-9s-9L5"/>
