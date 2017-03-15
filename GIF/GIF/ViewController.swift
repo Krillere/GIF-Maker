@@ -11,19 +11,23 @@ import Cocoa
 class ViewController: NSViewController {
     @IBOutlet var imageCollectionView:NSCollectionView!
     @IBOutlet var secondsPerFrameTextField:NSTextField!
+    @IBOutlet var loopsTextField:NSTextField!
     
     var currentImages:[NSImage?] = [nil] // Default is 1 empty image, to show something in UI
     
     // MARK: View setup
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureCollectionView()
         
-        
         // Listeners
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.removeFrameCalled(sender:)), name: NSNotification.Name(rawValue: "RemoveFrame"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.clickedImageView(sender:)), name: NSNotification.Name(rawValue: "ImageClicked"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.imageDraggedToImageView(sender:)), name: NSNotification.Name(rawValue: "ImageChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.removeFrameCalled(sender:)),
+                                               name: NSNotification.Name(rawValue: "RemoveFrame"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.clickedImageView(sender:)),
+                                               name: NSNotification.Name(rawValue: "ImageClicked"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.imageDraggedToImageView(sender:)),
+                                               name: NSNotification.Name(rawValue: "ImageChanged"), object: nil)
     }
 
     override var representedObject: Any? {
@@ -42,6 +46,7 @@ class ViewController: NSViewController {
     func removeFrameCalled(sender: NSNotification) {
         guard let object = sender.object as? FrameCollectionViewItem else { return }
         
+        // Remove the index and reload everything
         let index = object.itemIndex
         currentImages.remove(at: index)
         
@@ -49,15 +54,21 @@ class ViewController: NSViewController {
     }
 
     // An image was dragged to an imageView
+    // Replace the image at the views location to the new one
     func imageDraggedToImageView(sender: NSNotification) {
-        guard let imgView = sender.object as? DragNotificationImageView else { return }
-        print("Image drag!")
+        guard let imgView = sender.object as? DragNotificationImageView,
+              let owner = imgView.ownerCollectionViewItem,
+              let img = imgView.image else { return }
+        
+        currentImages[owner.itemIndex] = img
+        self.imageCollectionView.reloadData()
     }
     
     // An ImageView was clicked
     // Show an open dialog and insert image in view and 'currentImages'
     func clickedImageView(sender: NSNotification) {
-        guard let imgView = sender.object as? DragNotificationImageView, let owner = imgView.ownerCollectionViewItem else { return }
+        guard let imgView = sender.object as? DragNotificationImageView,
+              let owner = imgView.ownerCollectionViewItem else { return }
         
         // Show panel
         let panel = NSOpenPanel()
@@ -66,6 +77,7 @@ class ViewController: NSViewController {
         panel.canChooseFiles = true
         panel.allowedFileTypes = ["png", "jpg", "jpeg", "gif", "tiff"]
         panel.beginSheetModal(for: self.view.window!) { (response) -> Void in
+            
             // Insert image into imageview and 'currentImages' and reload
             if response == NSFileHandlingPanelOKButton {
                 let URL = panel.url
