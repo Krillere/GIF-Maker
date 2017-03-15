@@ -11,10 +11,7 @@
 		AA8F63981E787DE2000965B5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8F63971E787DE2000965B5 /* ViewController.swift */; };
 		AA8F639A1E787DE2000965B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8F63991E787DE2000965B5 /* Assets.xcassets */; };
 		AA8F639D1E787DE2000965B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA8F639B1E787DE2000965B5 /* Main.storyboard */; };
-		AA8F63A51E787DEC000965B5 /* banana.gif in Resources */ = {isa = PBXBuildFile; fileRef = AA8F63A41E787DEC000965B5 /* banana.gif */; };
 		AA8F63A71E788BEE000965B5 /* GIFHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8F63A61E788BEE000965B5 /* GIFHandler.swift */; };
-		AA8F63A91E789896000965B5 /* banana1.gif in Resources */ = {isa = PBXBuildFile; fileRef = AA8F63A81E789896000965B5 /* banana1.gif */; };
-		AA8F63AB1E789D97000965B5 /* banana2.gif in Resources */ = {isa = PBXBuildFile; fileRef = AA8F63AA1E789D97000965B5 /* banana2.gif */; };
 		AACB80041E795D5D00A3F195 /* FrameCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */; };
 		AACB80051E795D5D00A3F195 /* FrameCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */; };
 		AACB80081E796A7400A3F195 /* DragNotificationImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */; };
@@ -27,10 +24,7 @@
 		AA8F63991E787DE2000965B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA8F639C1E787DE2000965B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AA8F639E1E787DE2000965B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AA8F63A41E787DEC000965B5 /* banana.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = banana.gif; sourceTree = "<group>"; };
 		AA8F63A61E788BEE000965B5 /* GIFHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFHandler.swift; sourceTree = "<group>"; };
-		AA8F63A81E789896000965B5 /* banana1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = banana1.gif; sourceTree = "<group>"; };
-		AA8F63AA1E789D97000965B5 /* banana2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = banana2.gif; sourceTree = "<group>"; };
 		AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameCollectionViewItem.swift; sourceTree = "<group>"; };
 		AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FrameCollectionViewItem.xib; sourceTree = "<group>"; };
 		AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragNotificationImageView.swift; sourceTree = "<group>"; };
@@ -66,9 +60,6 @@
 		AA8F63941E787DE2000965B5 /* GIF */ = {
 			isa = PBXGroup;
 			children = (
-				AA8F63A81E789896000965B5 /* banana1.gif */,
-				AA8F63AA1E789D97000965B5 /* banana2.gif */,
-				AA8F63A41E787DEC000965B5 /* banana.gif */,
 				AA8F63951E787DE2000965B5 /* AppDelegate.swift */,
 				AA8F63971E787DE2000965B5 /* ViewController.swift */,
 				AA8F63991E787DE2000965B5 /* Assets.xcassets */,
@@ -152,9 +143,6 @@
 			files = (
 				AACB80051E795D5D00A3F195 /* FrameCollectionViewItem.xib in Resources */,
 				AA8F639A1E787DE2000965B5 /* Assets.xcassets in Resources */,
-				AA8F63AB1E789D97000965B5 /* banana2.gif in Resources */,
-				AA8F63A91E789896000965B5 /* banana1.gif in Resources */,
-				AA8F63A51E787DEC000965B5 /* banana.gif in Resources */,
 				AA8F639D1E787DE2000965B5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
