@@ -3,3 +3,4 @@ Small application that allows the user to modify or create gifs. Drag and drop i
 
 
 Screenshots:
+![New window](screenshots/ss1.png)
