@@ -13,7 +13,10 @@ class FrameCollectionViewItem: NSCollectionViewItem {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.wantsLayer = true
-        view.layer?.backgroundColor = NSColor.lightGray.cgColor
+        view.layer?.backgroundColor = NSColor.clear.cgColor
     }
     
+    func setFrameNumber(_ n: Int) {
+        self.textField?.stringValue = "Frame "+String(n)
+    }
 }

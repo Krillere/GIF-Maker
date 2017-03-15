@@ -34,5 +34,17 @@ class GIFHandler {
      
      var fileSave = CGImageDestinationFinalize(dst)
      */
+    
+    func getFrameCount() -> Int {
+        return frames.count
+    }
+    
+    func getFrames() -> [NSImage] {
+        return frames
+    }
+    
+    func getFrame(at: Int) -> NSImage {
+        return frames[at]
+    }
  
 }

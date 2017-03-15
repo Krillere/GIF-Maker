@@ -10,7 +10,11 @@ import Cocoa
 
 class ViewController: NSViewController {
     @IBOutlet var imageCollectionView:NSCollectionView!
-
+    @IBOutlet var secondsPerFrameTextField:NSTextField!
+    
+    var currentImages:[NSImage?] = [nil] // Default is 1 empty image, to show something in UI
+    
+    // MARK: View setup
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
@@ -28,6 +32,11 @@ class ViewController: NSViewController {
         }
     }
 
+    // MARK: UI
+    @IBAction func addFrameButtonClicked(sender: AnyObject?) {
+        currentImages.append(nil)
+        imageCollectionView.reloadData()
+    }
 
 }
 
@@ -35,8 +44,8 @@ class ViewController: NSViewController {
 extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
     fileprivate func configureCollectionView() {
         
-        let flowLayout = NSCollectionViewFlowLayout()a
-        flowLayout.itemSize = NSSize(width: 160.0, height: 140.0)
+        let flowLayout = NSCollectionViewFlowLayout()
+        flowLayout.itemSize = NSSize(width: 200.0, height: 220.0)
         flowLayout.sectionInset = EdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
         flowLayout.minimumInteritemSpacing = 20.0
         flowLayout.minimumLineSpacing = 20.0
@@ -44,21 +53,23 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
         
         view.wantsLayer = true
         
-        imageCollectionView.layer?.backgroundColor = NSColor.black.cgColor
     }
     
     
     public func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: "FrameCollectionViewItem", for: indexPath)
+        
         guard let frameCollectionViewItem = item as? FrameCollectionViewItem else { print("NO"); return item}
+        frameCollectionViewItem.setFrameNumber(indexPath.item+1)
         
         return item
     }
 
     
     public func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return currentImages.count
     }
+    
     
     func numberOfSections(in collectionView: NSCollectionView) -> Int {
         return 1
