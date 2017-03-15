@@ -17,6 +17,7 @@
 		AA8F63AB1E789D97000965B5 /* banana2.gif in Resources */ = {isa = PBXBuildFile; fileRef = AA8F63AA1E789D97000965B5 /* banana2.gif */; };
 		AACB80041E795D5D00A3F195 /* FrameCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */; };
 		AACB80051E795D5D00A3F195 /* FrameCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */; };
+		AACB80081E796A7400A3F195 /* DragNotificationImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		AA8F63AA1E789D97000965B5 /* banana2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = banana2.gif; sourceTree = "<group>"; };
 		AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameCollectionViewItem.swift; sourceTree = "<group>"; };
 		AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FrameCollectionViewItem.xib; sourceTree = "<group>"; };
+		AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragNotificationImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		AACB80061E795D7200A3F195 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */,
 				AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */,
 				AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */,
 			);
@@ -164,6 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA8F63981E787DE2000965B5 /* ViewController.swift in Sources */,
+				AACB80081E796A7400A3F195 /* DragNotificationImageView.swift in Sources */,
 				AA8F63961E787DE2000965B5 /* AppDelegate.swift in Sources */,
 				AACB80041E795D5D00A3F195 /* FrameCollectionViewItem.swift in Sources */,
 				AA8F63A71E788BEE000965B5 /* GIFHandler.swift in Sources */,

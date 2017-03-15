@@ -19,4 +19,8 @@ class FrameCollectionViewItem: NSCollectionViewItem {
     func setFrameNumber(_ n: Int) {
         self.textField?.stringValue = "Frame "+String(n)
     }
+    
+    @IBAction func removeMe(sender: AnyObject?) {
+        print("Remove me!")
+    }
 }

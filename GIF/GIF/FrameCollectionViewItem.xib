@@ -19,7 +19,7 @@
             <rect key="frame" x="0.0" y="0.0" width="200" height="220"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wwL-y8-YJX">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wwL-y8-YJX" customClass="DragNotificationImageView" customModule="GIF" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="20" width="200" height="200"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="194" id="Mlv-fb-lne"/>
@@ -34,10 +34,26 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cEm-Va-vEd">
+                    <rect key="frame" x="2" y="2" width="28" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="28" id="DIx-BF-TUo"/>
+                        <constraint firstAttribute="height" constant="18" id="qxI-3b-RH2"/>
+                    </constraints>
+                    <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="NSTrashEmpty" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xnI-dx-63J">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                        <font key="font" metaFont="systemBold" size="12"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="removeMeWithSender:" target="8hu-CX-LPd" id="dag-XR-FqS"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
+                <constraint firstItem="cEm-Va-vEd" firstAttribute="top" secondItem="wwL-y8-YJX" secondAttribute="bottom" constant="2" id="10U-oa-vcd"/>
                 <constraint firstAttribute="trailing" secondItem="njh-Y3-7K3" secondAttribute="trailing" constant="3" id="SAR-gp-bj5"/>
                 <constraint firstItem="njh-Y3-7K3" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="3" id="bEG-Kg-cLW"/>
+                <constraint firstItem="cEm-Va-vEd" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="2" id="hRs-kS-d3R"/>
                 <constraint firstAttribute="trailing" secondItem="wwL-y8-YJX" secondAttribute="trailing" constant="3" id="nCZ-OO-aQK"/>
                 <constraint firstAttribute="bottom" secondItem="njh-Y3-7K3" secondAttribute="bottom" constant="3" id="oWq-gX-qcZ"/>
                 <constraint firstItem="wwL-y8-YJX" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="3" id="u69-sj-gHB"/>
@@ -54,4 +70,7 @@
             </connections>
         </collectionViewItem>
     </objects>
+    <resources>
+        <image name="NSTrashEmpty" width="32" height="32"/>
+    </resources>
 </document>
