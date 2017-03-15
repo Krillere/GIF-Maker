@@ -9,6 +9,7 @@
 import Cocoa
 
 class FrameCollectionViewItem: NSCollectionViewItem {
+    var itemIndex = -1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,5 +23,17 @@ class FrameCollectionViewItem: NSCollectionViewItem {
     
     @IBAction func removeMe(sender: AnyObject?) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "RemoveFrame"), object: self)
+    }
+    
+    func setImage(_ img: NSImage) {
+        if let imgView = self.imageView as? DragNotificationImageView {
+            imgView.image = img
+        }
+    }
+    
+    func resetImage() {
+        if let imgView = self.imageView as? DragNotificationImageView {
+            imgView.image = nil
+        }
     }
 }
