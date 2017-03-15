@@ -716,19 +716,6 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="grP-pd-YOJ">
-                                <rect key="frame" x="0.0" y="464" width="106" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="94" id="XLl-5S-4DO"/>
-                                </constraints>
-                                <buttonCell key="cell" type="push" title="Add Frame" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="faV-Hr-vwm">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="addFrameButtonClickedWithSender:" target="XfG-lQ-9wD" id="lIm-Dv-ffx"/>
-                                </connections>
-                            </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdb-IB-kUc">
                                 <rect key="frame" x="671" y="473" width="125" height="17"/>
                                 <constraints>
@@ -785,8 +772,21 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="grP-pd-YOJ">
+                                <rect key="frame" x="121" y="464" width="106" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="94" id="XLl-5S-4DO"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Add Frame" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="faV-Hr-vwm">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="addFrameButtonClickedWithSender:" target="XfG-lQ-9wD" id="Pf2-ft-GZB"/>
+                                </connections>
+                            </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6an-BA-AHa">
-                                <rect key="frame" x="104" y="464" width="107" height="32"/>
+                                <rect key="frame" x="225" y="464" width="107" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="95" id="QHh-Pr-6VN"/>
                                 </constraints>
@@ -795,11 +795,25 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="exportGIFWithSender:" target="XfG-lQ-9wD" id="EE5-JC-dky"/>
+                                    <action selector="exportGIFButtonClickedWithSender:" target="XfG-lQ-9wD" id="003-yi-t1b"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jpq-ce-ENr">
+                                <rect key="frame" x="1" y="464" width="97" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="85" id="3zn-hq-BbJ"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Load .GIF" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nwy-Ee-Zyk">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="loadGIFButtonClickedWithSender:" target="XfG-lQ-9wD" id="N95-7a-N2F"/>
                                 </connections>
                             </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="jpq-ce-ENr" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="6" id="BM8-zl-V3l"/>
                             <constraint firstItem="5As-yW-scq" firstAttribute="top" secondItem="tuJ-Kc-Dut" secondAttribute="bottom" constant="6" id="Cqx-6u-cX5"/>
                             <constraint firstItem="5As-yW-scq" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="FGs-Xt-LoV"/>
                             <constraint firstItem="grP-pd-YOJ" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="6" id="GIE-QF-Ls4"/>
@@ -808,10 +822,12 @@
                             <constraint firstItem="5As-yW-scq" firstAttribute="top" secondItem="dzh-bE-5mK" secondAttribute="bottom" constant="6" id="Pnp-ZU-Reh"/>
                             <constraint firstItem="5As-yW-scq" firstAttribute="top" secondItem="CkX-nG-WFq" secondAttribute="bottom" constant="9" id="S0L-qf-qY5"/>
                             <constraint firstAttribute="trailing" secondItem="5As-yW-scq" secondAttribute="trailing" id="U50-pA-tqN"/>
+                            <constraint firstItem="5As-yW-scq" firstAttribute="top" secondItem="jpq-ce-ENr" secondAttribute="bottom" constant="7" id="VsD-mv-9eh"/>
                             <constraint firstItem="kdb-IB-kUc" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="XEL-NC-SLp"/>
-                            <constraint firstItem="grP-pd-YOJ" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="6" id="Xyl-iQ-4Ep"/>
+                            <constraint firstItem="grP-pd-YOJ" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="127" id="Xyl-iQ-4Ep"/>
                             <constraint firstItem="CkX-nG-WFq" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="a15-MX-hw9"/>
                             <constraint firstItem="dzh-bE-5mK" firstAttribute="leading" secondItem="kdb-IB-kUc" secondAttribute="trailing" constant="1" id="bNJ-GQ-gkz"/>
+                            <constraint firstItem="jpq-ce-ENr" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="7" id="bTT-Ey-FSw"/>
                             <constraint firstItem="6an-BA-AHa" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="6" id="d8v-Mq-7lz"/>
                             <constraint firstItem="dzh-bE-5mK" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="6" id="eng-2K-XVQ"/>
                             <constraint firstItem="6an-BA-AHa" firstAttribute="leading" secondItem="grP-pd-YOJ" secondAttribute="trailing" constant="10" id="fhN-9p-tJX"/>

@@ -79,7 +79,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "68"
             endingLineNumber = "68"
-            landmarkName = "createGIF(with:loops:secondsPrFrame:)"
+            landmarkName = "createGIFData(with:loops:secondsPrFrame:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -95,7 +95,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "210"
             endingLineNumber = "210"
-            landmarkName = "collectionView(collectionView:canDragItemsAtIndexes:withEvent:)"
+            landmarkName = "collectionView(_:didDeselectItemsAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

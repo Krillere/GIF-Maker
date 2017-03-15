@@ -59,7 +59,7 @@ class ViewController: NSViewController {
     }
     
     // Export a gif
-    @IBAction func exportGIF(sender: AnyObject?) {
+    @IBAction func exportGIFButtonClicked(sender: AnyObject?) {
         guard let loops = Int(loopsTextField.stringValue),
               let spf = Float(secondsPerFrameTextField.stringValue) else {
                 print("Nope.")
@@ -84,6 +84,32 @@ class ViewController: NSViewController {
             }
         }
         
+    }
+    
+    // Load a gif
+    @IBAction func loadGIFButtonClicked(sender: AnyObject?) {
+        // SHow file panel
+        let panel = NSOpenPanel()
+        panel.allowedFileTypes = ["gif"]
+        panel.allowsMultipleSelection = false
+        panel.allowsOtherFileTypes = false
+        panel.canChooseDirectories = false
+        panel.begin { (res) in
+            if res == NSFileHandlingPanelOKButton {
+                // Load image from file
+                if let url = panel.url,
+                   let image = NSImage(contentsOf: url) {
+                    // Set values required
+                    let newValues = GIFHandler.loadGIF(with: image)
+                    
+                    self.currentImages = newValues.images
+                    self.secondsPerFrameTextField.stringValue = String(newValues.secondsPrFrame)
+                    self.loopsTextField.stringValue = String(newValues.loops)
+                    
+                    self.imageCollectionView.reloadData()
+                }
+            }
+        }
     }
     
     // A frame wants to be removed (Get index of sender, and remove from 'currentImages')
