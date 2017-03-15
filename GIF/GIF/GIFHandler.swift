@@ -47,4 +47,46 @@ class GIFHandler {
         return frames[at]
     }
  
+    
+    // MARK: Making gifs from iamges
+    // Creates and saves a gif
+    static func createAndSaveGIF(with images: [NSImage], savePath: URL, loops: Int = 0, secondsPrFrame: Float = 0.2) {
+        let data = GIFHandler.createGIFData(with: images, loops: loops, secondsPrFrame: secondsPrFrame)
+        
+        do {
+            try data.write(to: savePath)
+        }
+        catch {
+            print("Error: \(error)")
+        }
+    }
+    
+    // Creates and returns an NSImage from given images
+    static func createGIF(with images: [NSImage], loops: Int = 0, secondsPrFrame: Float = 0.2) -> NSImage? {
+        let data = GIFHandler.createGIFData(with: images, loops: loops, secondsPrFrame: secondsPrFrame)
+        let img = NSImage(data: data)
+        return img
+    }
+    
+    // Creates NSData from given images
+    static func createGIFData(with images: [NSImage], loops: Int = 0, secondsPrFrame: Float = 0.2) -> Data {
+        // Loop count and seconds pr. frame
+        let prep = NSDictionary(dictionary: [kCGImagePropertyGIFDictionary:NSDictionary(dictionary: [kCGImagePropertyGIFDelayTime: secondsPrFrame, kCGImagePropertyGIFLoopCount: loops])])
+        
+        // Destination
+        guard let dataObj = CFDataCreateMutable(nil, 0),
+            let dst = CGImageDestinationCreateWithData(dataObj, kUTTypeGIF, images.count, nil) else { fatalError("Can't create gif") }
+        //guard let dst = CGImageDestinationCreateWithURL(savePath as CFURL, kUTTypeGIF, images.count, nil) else { return }
+        
+        for n in 0 ..< images.count {
+            let anImage = images[n]
+            if let imageRef = anImage.cgImage(forProposedRect: nil, context: nil, hints: nil) {
+                CGImageDestinationAddImage(dst, imageRef, prep as CFDictionary)
+            }
+        }
+        
+        let _ = CGImageDestinationFinalize(dst)
+        let retData = dataObj as Data
+        return retData
+    }
 }

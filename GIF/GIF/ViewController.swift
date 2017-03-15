@@ -57,6 +57,33 @@ class ViewController: NSViewController {
         imageCollectionView.reloadData()
     }
     
+    @IBAction func exportGIF(sender: AnyObject?) {
+        guard let loops = Int(loopsTextField.stringValue),
+              let spf = Float(secondsPerFrameTextField.stringValue) else {
+                print("Nope.")
+                return
+        }
+        
+        // Remove empty images
+        var tmpImages:[NSImage] = []
+        for img in currentImages {
+            if let img = img {
+                tmpImages.append(img)
+            }
+        }
+        
+        let panel = NSSavePanel()
+        panel.allowedFileTypes = ["gif"]
+        panel.begin { (res) in
+            if res == NSFileHandlingPanelOKButton {
+                if let url = panel.url {
+                    GIFHandler.createAndSaveGIF(with: tmpImages, savePath: url, loops: loops, secondsPrFrame: spf)
+                }
+            }
+        }
+        
+    }
+    
     // A frame wants to be removed (Get index of sender, and remove from 'currentImages')
     func removeFrameCalled(sender: NSNotification) {
         guard let object = sender.object as? FrameCollectionViewItem else { return }

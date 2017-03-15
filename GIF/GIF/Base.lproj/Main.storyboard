@@ -716,9 +716,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="grP-pd-YOJ">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="grP-pd-YOJ">
                                 <rect key="frame" x="0.0" y="464" width="106" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="94" id="XLl-5S-4DO"/>
+                                </constraints>
                                 <buttonCell key="cell" type="push" title="Add Frame" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="faV-Hr-vwm">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -783,21 +785,39 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6an-BA-AHa">
+                                <rect key="frame" x="104" y="464" width="107" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="95" id="QHh-Pr-6VN"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Export .GIF" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QCf-MV-cKv">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="exportGIFWithSender:" target="XfG-lQ-9wD" id="EE5-JC-dky"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="5As-yW-scq" firstAttribute="top" secondItem="tuJ-Kc-Dut" secondAttribute="bottom" constant="6" id="Cqx-6u-cX5"/>
                             <constraint firstItem="5As-yW-scq" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="FGs-Xt-LoV"/>
+                            <constraint firstItem="grP-pd-YOJ" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="6" id="GIE-QF-Ls4"/>
                             <constraint firstItem="CkX-nG-WFq" firstAttribute="leading" secondItem="tuJ-Kc-Dut" secondAttribute="trailing" constant="1" id="Gms-ZU-FId"/>
                             <constraint firstItem="tuJ-Kc-Dut" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="6" id="Pm3-BL-8cb"/>
                             <constraint firstItem="5As-yW-scq" firstAttribute="top" secondItem="dzh-bE-5mK" secondAttribute="bottom" constant="6" id="Pnp-ZU-Reh"/>
                             <constraint firstItem="5As-yW-scq" firstAttribute="top" secondItem="CkX-nG-WFq" secondAttribute="bottom" constant="9" id="S0L-qf-qY5"/>
                             <constraint firstAttribute="trailing" secondItem="5As-yW-scq" secondAttribute="trailing" id="U50-pA-tqN"/>
                             <constraint firstItem="kdb-IB-kUc" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="XEL-NC-SLp"/>
+                            <constraint firstItem="grP-pd-YOJ" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="6" id="Xyl-iQ-4Ep"/>
                             <constraint firstItem="CkX-nG-WFq" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="a15-MX-hw9"/>
                             <constraint firstItem="dzh-bE-5mK" firstAttribute="leading" secondItem="kdb-IB-kUc" secondAttribute="trailing" constant="1" id="bNJ-GQ-gkz"/>
+                            <constraint firstItem="6an-BA-AHa" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="6" id="d8v-Mq-7lz"/>
                             <constraint firstItem="dzh-bE-5mK" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="6" id="eng-2K-XVQ"/>
+                            <constraint firstItem="6an-BA-AHa" firstAttribute="leading" secondItem="grP-pd-YOJ" secondAttribute="trailing" constant="10" id="fhN-9p-tJX"/>
                             <constraint firstItem="vvf-C1-zZH" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="fmi-Em-h4u"/>
                             <constraint firstAttribute="bottom" secondItem="5As-yW-scq" secondAttribute="bottom" id="kRU-Cu-Fhi"/>
+                            <constraint firstItem="5As-yW-scq" firstAttribute="top" secondItem="6an-BA-AHa" secondAttribute="bottom" constant="7" id="ovs-E6-SKl"/>
                             <constraint firstAttribute="trailing" secondItem="dzh-bE-5mK" secondAttribute="trailing" constant="6" id="rT4-Sa-5Fq"/>
                             <constraint firstItem="5As-yW-scq" firstAttribute="top" secondItem="vvf-C1-zZH" secondAttribute="bottom" constant="9" id="uMF-7D-uc7"/>
                             <constraint firstItem="kdb-IB-kUc" firstAttribute="leading" secondItem="CkX-nG-WFq" secondAttribute="trailing" constant="39" id="vkB-EF-7Hi"/>
