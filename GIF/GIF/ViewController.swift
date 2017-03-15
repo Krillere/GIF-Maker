@@ -18,12 +18,12 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        /*if let image = NSImage(contentsOfFile: Bundle.main.path(forResource: "banana", ofType: "gif")!),
-            let tmp = NSImage(contentsOfFile: Bundle.main.path(forResource: "banana1", ofType: "gif")!) {
-            
-            let gif = GIFHandler(gif: image)
-            gif.pushFrame(frame: tmp)
-        }*/
+        
+        
+        // Listeners
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.removeFrameCalled(sender:)), name: NSNotification.Name(rawValue: "RemoveFrame"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.clickedImageView(sender:)), name: NSNotification.Name(rawValue: "ImageClicked"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.imageDraggedToImageView(sender:)), name: NSNotification.Name(rawValue: "ImageChanged"), object: nil)
     }
 
     override var representedObject: Any? {
@@ -37,7 +37,22 @@ class ViewController: NSViewController {
         currentImages.append(nil)
         imageCollectionView.reloadData()
     }
+    
+    // A frame wants to be removed
+    func removeFrameCalled(sender: NSNotification) {
+        guard let object = sender.object as? FrameCollectionViewItem else { return }
+        print("Remove i ViewController: \(object)")
+    }
 
+    // An image was dragged to an imageView
+    func imageDraggedToImageView(sender: NSNotification) {
+        guard let imgView = sender.object as? DragNotificationImageView else { return }
+    }
+    
+    // An ImageView was clicked
+    func clickedImageView(sender: NSNotification) {
+        guard let imgView = sender.object as? DragNotificationImageView else { return }
+    }
 }
 
 // MARK: NSCollectionView

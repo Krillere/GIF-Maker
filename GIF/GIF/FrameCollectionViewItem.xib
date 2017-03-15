@@ -25,6 +25,9 @@
                         <constraint firstAttribute="height" constant="194" id="Mlv-fb-lne"/>
                     </constraints>
                     <imageCell key="cell" selectable="YES" editable="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="LOv-di-G3W"/>
+                    <connections>
+                        <outlet property="ownerCollectionViewItem" destination="8hu-CX-LPd" id="GDG-lq-Xit"/>
+                    </connections>
                 </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="njh-Y3-7K3">
                     <rect key="frame" x="1" y="3" width="198" height="17"/>
@@ -41,7 +44,7 @@
                         <constraint firstAttribute="height" constant="18" id="qxI-3b-RH2"/>
                     </constraints>
                     <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="NSTrashEmpty" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xnI-dx-63J">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="systemBold" size="12"/>
                     </buttonCell>
                     <connections>

@@ -9,7 +9,8 @@
 import Cocoa
 
 class DragNotificationImageView: NSImageView {
-
+    @IBOutlet var ownerCollectionViewItem:FrameCollectionViewItem!
+    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
 
@@ -17,7 +18,7 @@ class DragNotificationImageView: NSImageView {
     }
     
     override func draggingEnded(_ sender: NSDraggingInfo?) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ImageChanged"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ImageChanged"), object: self)
     }
     
     override func mouseDown(with event: NSEvent) {
@@ -26,7 +27,7 @@ class DragNotificationImageView: NSImageView {
 
     override func mouseUp(with event: NSEvent) {
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ImageClicked"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ImageClicked"), object: self)
         }
     }
     

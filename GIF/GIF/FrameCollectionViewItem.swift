@@ -21,6 +21,6 @@ class FrameCollectionViewItem: NSCollectionViewItem {
     }
     
     @IBAction func removeMe(sender: AnyObject?) {
-        print("Remove me!")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "RemoveFrame"), object: self)
     }
 }

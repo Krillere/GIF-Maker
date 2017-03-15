@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GIF/DragNotificationImageView.swift"
-            timestampString = "511273604.726267"
+            timestampString = "511274607.277289"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
             landmarkName = "draggingEnded(_:)"
             landmarkType = "7">
          </BreakpointContent>
