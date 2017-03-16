@@ -45,9 +45,32 @@ class ViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
+    
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowPreview" {
+            if let viewController = segue.destinationController as? PreviewViewController {
+                guard let loops = Int(loopsTextField.stringValue),
+                    let spf = Float(secondsPerFrameTextField.stringValue) else {
+                        print("Nope.")
+                        return
+                }
+                
+                // Remove empty images
+                var tmpImages:[NSImage] = []
+                for img in currentImages {
+                    if let img = img {
+                        tmpImages.append(img)
+                    }
+                }
+                
+                let previewImg = GIFHandler.createGIF(with: tmpImages, loops: loops, secondsPrFrame: spf)
+                viewController.previewImage = previewImg
+            }
+        }
+    }
 
     
-    // MARK: UI
+    // MARK: Buttons
     // Adds a new frame
     @IBAction func addFrameButtonClicked(sender: AnyObject?) {
         if let indexPath = selectedRow { // Add after selectedRow
@@ -116,6 +139,32 @@ class ViewController: NSViewController {
         }
     }
     
+    // Reset everything
+    @IBAction func resetButtonClicked(sender: AnyObject?) {
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.informativeText = "This will remove everything, are you sure?"
+        alert.messageText = "Are you sure?"
+        alert.addButton(withTitle: "Yes")
+        alert.addButton(withTitle: "No")
+        
+        alert.beginSheetModal(for: self.view.window!) { (resp) in
+            if resp == NSAlertFirstButtonReturn { // Yes clicked, reset
+                self.currentImages = [nil]
+                self.secondsPerFrameTextField.stringValue = "0.2"
+                self.loopsTextField.stringValue = "0"
+                self.imageCollectionView.reloadData()
+                self.deselectAll()
+            }
+        }
+    }
+    
+    // Preview
+    @IBAction func previewButtonClicked(sender: AnyObject?) {
+        self.performSegue(withIdentifier: "ShowPreview", sender: self)
+    }
+    
+    // MARK: NotificationCenter calls (Used by UI components)
     // A frame wants to be removed (Get index of sender, and remove from 'currentImages')
     func removeFrameCalled(sender: NSNotification) {
         guard let object = sender.object as? FrameCollectionViewItem else { return }
