@@ -187,8 +187,11 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
         view.wantsLayer = true
         
         // Drag
-        imageCollectionView.register(forDraggedTypes: NSImage.imageTypes())
+        var dragTypes = NSImage.imageTypes()
+        dragTypes.append(NSURLPboardType)
+        imageCollectionView.register(forDraggedTypes: dragTypes)
         imageCollectionView.setDraggingSourceOperationMask(NSDragOperation.every, forLocal: true)
+        imageCollectionView.setDraggingSourceOperationMask(NSDragOperation.every, forLocal: false)
     }
     
     // Deselects all items
@@ -209,7 +212,7 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
         guard let frameCollectionViewItem = item as? FrameCollectionViewItem else { print("NO"); return item}
         frameCollectionViewItem.setFrameNumber(indexPath.item+1)
         frameCollectionViewItem.itemIndex = indexPath.item
-        frameCollectionViewItem.resetImage()
+        frameCollectionViewItem.resetImage() // Remove current image
         
         // If we have an image, insert it here
         if let img = currentImages[indexPath.item] {
@@ -266,12 +269,12 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
         indexPathsOfItemsBeingDragged = indexPaths
     }
     
-    // Dragging ends?
+    // Dragging ends, reset drag variables
     func collectionView(_ collectionView: NSCollectionView, draggingSession session: NSDraggingSession, endedAt screenPoint: NSPoint, dragOperation operation: NSDragOperation) {
         indexPathsOfItemsBeingDragged = nil
     }
     
-    // Can this be done?
+    // Is the drag allowed (And if so, what type of event is needed?)
     func collectionView(_ collectionView: NSCollectionView, validateDrop draggingInfo: NSDraggingInfo, proposedIndexPath proposedDropIndexPath: AutoreleasingUnsafeMutablePointer<NSIndexPath>, dropOperation proposedDropOperation: UnsafeMutablePointer<NSCollectionViewDropOperation>) -> NSDragOperation {
         
         if proposedDropOperation.pointee == NSCollectionViewDropOperation.on {
@@ -285,12 +288,38 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
         }
     }
     
-    // On complete
+    // On drag complete
     func collectionView(_ collectionView: NSCollectionView, acceptDrop draggingInfo: NSDraggingInfo, indexPath: IndexPath, dropOperation: NSCollectionViewDropOperation) -> Bool {
+        // From outside (Finder, or whatever)
         if indexPathsOfItemsBeingDragged == nil {
+            
+            // Enumerate URLs, load images, and insert into currentImages
+            var dropped:[NSImage] = []
+            draggingInfo.enumerateDraggingItems(options: NSDraggingItemEnumerationOptions.concurrent, for: collectionView, classes: [NSURL.self], searchOptions: [NSPasteboardURLReadingFileURLsOnlyKey : NSNumber(value: true)]) { (draggingItem, idx, stop) in
+                if let url = draggingItem.item as? URL,
+                   let image = NSImage(contentsOf: url){
+                    dropped.append(image)
+                }
+            }
+            
+            // One empty frame, remove this and insert new images
+            if currentImages.count == 1 && currentImages[0] == nil {
+                currentImages.removeAll()
+                currentImages = dropped
+            }
+            else { // Append to frames already in view
+                for n in 0 ..< dropped.count {
+                    currentImages.insert(dropped[n], at: indexPath.item+n)
+                }
+            }
+            
+            // Reload
+            imageCollectionView.reloadData()
+            
             return true
         }
         
+        // From inside the collectionview
         let indexPathOfFirstItemBeingDragged = indexPathsOfItemsBeingDragged.first!
         var toIndexPath: IndexPath
         if indexPathOfFirstItemBeingDragged.compare(indexPath) == .orderedAscending {
@@ -309,6 +338,7 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
         
         imageCollectionView.reloadData()
         imageCollectionView.deselectAll(nil)
+        
         return true
     }
 }
