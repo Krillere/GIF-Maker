@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GIF/GIFHandler.swift"
-            timestampString = "511296293.615154"
+            timestampString = "511396767.557413"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "createGIFData(with:loops:secondsPrFrame:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -160,6 +160,22 @@
             startingLineNumber = "346"
             endingLineNumber = "346"
             landmarkName = "collectionView(_:validateDrop:proposedIndexPath:dropOperation:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GIF/GIFHandler.swift"
+            timestampString = "511396767.557413"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "loadGIF(with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
