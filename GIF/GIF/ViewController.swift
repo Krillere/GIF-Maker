@@ -52,13 +52,13 @@ class ViewController: NSViewController {
     @IBAction func addFrameButtonClicked(sender: AnyObject?) {
         if let indexPath = selectedRow { // Add after selectedRow
             currentImages.insert(nil, at: indexPath.item+1)
+            selectedRow = IndexPath(item: indexPath.item+1, section: 0)
         }
         else { // Add empty frame
             currentImages.append(nil)
         }
 
-        imageCollectionView.reloadData()
-        deselectAll()
+        self.imageCollectionView.reloadData()
     }
     
     // Export a gif
@@ -109,6 +109,7 @@ class ViewController: NSViewController {
                     self.secondsPerFrameTextField.stringValue = String(newValues.secondsPrFrame)
                     self.loopsTextField.stringValue = String(newValues.loops)
                     
+                    self.selectedRow = nil
                     self.imageCollectionView.reloadData()
                 }
             }
@@ -123,6 +124,7 @@ class ViewController: NSViewController {
         let index = object.itemIndex
         currentImages.remove(at: index)
         
+        deselectAll()
         imageCollectionView.reloadData()
     }
 
@@ -134,6 +136,7 @@ class ViewController: NSViewController {
               let img = imgView.image else { return }
         
         currentImages[owner.itemIndex] = img
+        self.selectedRow = nil
         self.imageCollectionView.reloadData()
     }
     
@@ -202,6 +205,8 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
                 item.setHighlight(selected: false)
             }
         }
+        
+        selectedRow = nil
     }
     
     // MARK: General delegate / datasource (num items and items themselves)
@@ -213,6 +218,13 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
         frameCollectionViewItem.setFrameNumber(indexPath.item+1)
         frameCollectionViewItem.itemIndex = indexPath.item
         frameCollectionViewItem.resetImage() // Remove current image
+        frameCollectionViewItem.setHighlight(selected: false)
+        
+        if selectedRow != nil && selectedRow!.item == indexPath.item {
+            frameCollectionViewItem.setHighlight(selected: true)
+        }
+        
+        
         
         // If we have an image, insert it here
         if let img = currentImages[indexPath.item] {
