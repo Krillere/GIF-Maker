@@ -9,3 +9,5 @@ Screenshots:
 ![Loaded gif](Screenshots/ss2.png)
 
 ![New frame added to gif](Screenshots/ss3.png)
+
+![Preview of gif being shown](Screenshots/ss4.png)
