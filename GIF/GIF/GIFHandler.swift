@@ -15,6 +15,7 @@ class GIFHandler {
     static func loadGIF(with image: NSImage) -> (images: [NSImage], loops:Int, secondsPrFrame: Float) {
         let errorReturn:(images: [NSImage], loops:Int, secondsPrFrame: Float) = (images: [], loops: 0, secondsPrFrame: 0.2)
         
+        // Fetch the number of frames, frame duration, and loop count from the .gif
         guard let bitmapRep = image.representations[0] as? NSBitmapImageRep,
               let frameCount = (bitmapRep.value(forProperty: NSImageFrameCount) as? NSNumber)?.intValue,
               let frameDuration = (bitmapRep.value(forProperty: NSImageCurrentFrameDuration) as? NSNumber)?.floatValue,

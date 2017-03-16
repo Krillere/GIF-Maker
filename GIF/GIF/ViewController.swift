@@ -25,7 +25,7 @@ class ViewController: NSViewController {
         
         configureCollectionView()
         
-        // Listeners
+        // Listeners for events regarding frames and images
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.removeFrameCalled(sender:)),
                                                name: NSNotification.Name(rawValue: "RemoveFrame"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.clickedImageView(sender:)),
@@ -48,12 +48,12 @@ class ViewController: NSViewController {
 
     
     // MARK: UI
-    // Adds a new frame (Insert a 'nil' value into 'currentImages')
+    // Adds a new frame
     @IBAction func addFrameButtonClicked(sender: AnyObject?) {
-        if let indexPath = selectedRow {
+        if let indexPath = selectedRow { // Add after selectedRow
             currentImages.insert(nil, at: indexPath.item+1)
         }
-        else {
+        else { // Add empty frame
             currentImages.append(nil)
         }
 
@@ -172,7 +172,7 @@ class ViewController: NSViewController {
 // MARK: NSCollectionView
 extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
     
-    // Sets up the collection view variables (Could probably be done in IB)
+    // Sets up the collection view variables (Could probably be done in IB), and allows drag'n'drop
     // https://www.raywenderlich.com/145978/nscollectionview-tutorial
     // https://www.raywenderlich.com/132268/advanced-collection-views-os-x-tutorial
     fileprivate func configureCollectionView() {
