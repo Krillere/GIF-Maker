@@ -18,18 +18,22 @@ class GIFHandler {
         // Attempt to fetch the number of frames, frame duration, and loop count from the .gif
         guard let bitmapRep = image.representations[0] as? NSBitmapImageRep else {
             print("Error loading bitmapRep")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GIFError"), object: self, userInfo: ["Error":"Could not load gif"])
             return errorReturn
         }
         guard let frameCount = (bitmapRep.value(forProperty: NSImageFrameCount) as? NSNumber)?.intValue else {
             print("Error loading frameCount")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GIFError"), object: self, userInfo: ["Error":"Could not load gif"])
             return errorReturn
         }
         guard let frameDuration = (bitmapRep.value(forProperty: NSImageCurrentFrameDuration) as? NSNumber)?.floatValue else {
             print("Error loading frameDuration")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GIFError"), object: self, userInfo: ["Error":"Could not load gif"])
             return errorReturn
         }
         guard let loopCount = (bitmapRep.value(forProperty: NSImageLoopCount) as? NSNumber)?.intValue else {
             print("Error loading loopCount")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GIFError"), object: self, userInfo: ["Error":"Could not load gif"])
             return errorReturn
         }
         
@@ -59,6 +63,7 @@ class GIFHandler {
             try data.write(to: savePath)
         }
         catch {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GIFError"), object: self, userInfo: ["Error":"Could not save file: "+error.localizedDescription])
             print("Error: \(error)")
         }
     }

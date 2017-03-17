@@ -17,7 +17,8 @@ class ViewController: NSViewController {
     
     var currentImages:[NSImage?] = [nil] // Default is 1 empty image, to show something in UI
     var selectedRow:IndexPath? = nil
-
+    var indexPathsOfItemsBeingDragged: Set<IndexPath>!
+    
     
     // MARK: View setup
     override func viewDidLoad() {
@@ -32,7 +33,10 @@ class ViewController: NSViewController {
                                                name: NSNotification.Name(rawValue: "ImageClicked"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.imageDraggedToImageView(sender:)),
                                                name: NSNotification.Name(rawValue: "ImageChanged"), object: nil)
-
+        
+        // GIFHandler events
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.gifError(sender:)),
+                                               name: NSNotification.Name(rawValue: "GIFError"), object: nil)
     }
 
     override func viewDidAppear() {
@@ -86,10 +90,13 @@ class ViewController: NSViewController {
     
     // Export a gif
     @IBAction func exportGIFButtonClicked(sender: AnyObject?) {
-        guard let loops = Int(loopsTextField.stringValue),
-              let spf = Float(secondsPerFrameTextField.stringValue) else {
-                print("Nope.")
-                return
+        guard let loops = Int(loopsTextField.stringValue) else {
+            showError("Invalid value for loop count.")
+            return
+        }
+        guard let spf = Float(secondsPerFrameTextField.stringValue) else {
+            showError("Invalid value for frame duration.")
+            return
         }
         
         // Remove empty images
@@ -164,7 +171,7 @@ class ViewController: NSViewController {
         self.performSegue(withIdentifier: "ShowPreview", sender: self)
     }
     
-    // MARK: NotificationCenter calls (Used by UI components)
+    // MARK: NotificationCenter calls (Mainly by UI components)
     // A frame wants to be removed (Get index of sender, and remove from 'currentImages')
     func removeFrameCalled(sender: NSNotification) {
         guard let object = sender.object as? FrameCollectionViewItem else { return }
@@ -218,7 +225,21 @@ class ViewController: NSViewController {
         }
     }
     
-    var indexPathsOfItemsBeingDragged: Set<IndexPath>!
+    // Notification when an error occurs in GIFHandler
+    func gifError(sender: NSNotification) {
+        print(sender)
+    }
+    
+    // Shows an error
+    func showError(_ error: String) {
+        let alert = NSAlert()
+        alert.messageText = "An error occurred"
+        alert.informativeText = error
+        alert.alertStyle = .critical
+        alert.addButton(withTitle: "OK")
+        alert.beginSheetModal(for: self.view.window!) { (resp) in
+        }
+    }
 }
 
 // MARK: NSCollectionView
