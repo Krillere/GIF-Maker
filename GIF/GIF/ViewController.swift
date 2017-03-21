@@ -227,7 +227,12 @@ class ViewController: NSViewController {
     
     // Notification when an error occurs in GIFHandler
     func gifError(sender: NSNotification) {
-        print(sender)
+        guard let userInfo = sender.userInfo,
+              let error = userInfo["Error"] as? String else {
+            return
+        }
+        
+        showError(error)
     }
     
     // Shows an error
@@ -237,8 +242,7 @@ class ViewController: NSViewController {
         alert.informativeText = error
         alert.alertStyle = .critical
         alert.addButton(withTitle: "OK")
-        alert.beginSheetModal(for: self.view.window!) { (resp) in
-        }
+        alert.beginSheetModal(for: self.view.window!, completionHandler: nil)
     }
 }
 
