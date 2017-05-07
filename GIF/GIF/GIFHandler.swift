@@ -12,10 +12,12 @@ import Cocoa
 class GIFHandler {
 
     static let ErrorNotificationName = NSNotification.Name(rawValue: "GIFError")
+    static let DefaultLoops:Int = 0
+    static let DefaultFrameDuration:Float = 0.2
     
     // MARK: Loading gifs (Returns tuple with images, loop count and seconds/frame
     static func loadGIF(with image: NSImage) -> (images: [NSImage?], loops:Int, secondsPrFrame: Float) {
-        let errorReturn:(images: [NSImage?], loops:Int, secondsPrFrame: Float) = (images: [nil], loops: 0, secondsPrFrame: 0.2)
+        let errorReturn:(images: [NSImage?], loops:Int, secondsPrFrame: Float) = (images: [nil], loops: GIFHandler.DefaultLoops, secondsPrFrame: GIFHandler.DefaultFrameDuration)
         
         // Attempt to fetch the number of frames, frame duration, and loop count from the .gif
         guard let bitmapRep = image.representations[0] as? NSBitmapImageRep,
@@ -48,7 +50,7 @@ class GIFHandler {
     
     // MARK: Making gifs from iamges
     // Creates and saves a gif
-    static func createAndSaveGIF(with images: [NSImage], savePath: URL, loops: Int = 0, secondsPrFrame: Float = 0.2) {
+    static func createAndSaveGIF(with images: [NSImage], savePath: URL, loops: Int = GIFHandler.DefaultLoops, secondsPrFrame: Float = GIFHandler.DefaultFrameDuration) {
         // Get and save data at 'savePath'
         let data = GIFHandler.createGIFData(with: images, loops: loops, secondsPrFrame: secondsPrFrame)
         
@@ -62,7 +64,7 @@ class GIFHandler {
     }
     
     // Creates and returns an NSImage from given images
-    static func createGIF(with images: [NSImage], loops: Int = 0, secondsPrFrame: Float = 0.2) -> NSImage? {
+    static func createGIF(with images: [NSImage], loops: Int = GIFHandler.DefaultLoops, secondsPrFrame: Float = GIFHandler.DefaultFrameDuration) -> NSImage? {
         // Get data and convert to image
         let data = GIFHandler.createGIFData(with: images, loops: loops, secondsPrFrame: secondsPrFrame)
         let img = NSImage(data: data)
@@ -70,7 +72,7 @@ class GIFHandler {
     }
     
     // Creates NSData from given images
-    static func createGIFData(with images: [NSImage], loops: Int = 0, secondsPrFrame: Float = 0.2) -> Data {
+    static func createGIFData(with images: [NSImage], loops: Int = GIFHandler.DefaultLoops, secondsPrFrame: Float = GIFHandler.DefaultFrameDuration) -> Data {
         // Loop count and frame duration
         let frameDurationDic = NSDictionary(dictionary: [kCGImagePropertyGIFDictionary:NSDictionary(dictionary: [kCGImagePropertyGIFDelayTime: secondsPrFrame])])
         let loopCountDic = NSDictionary(dictionary: [kCGImagePropertyGIFDictionary:NSDictionary(dictionary: [kCGImagePropertyGIFLoopCount: loops])])

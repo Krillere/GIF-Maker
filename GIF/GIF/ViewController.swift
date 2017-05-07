@@ -158,8 +158,8 @@ class ViewController: NSViewController {
         alert.beginSheetModal(for: self.view.window!) { (resp) in
             if resp == NSAlertFirstButtonReturn { // Yes clicked, reset
                 self.currentImages = [nil]
-                self.secondsPerFrameTextField.stringValue = "0.2"
-                self.loopsTextField.stringValue = "0"
+                self.secondsPerFrameTextField.stringValue = String(GIFHandler.DefaultFrameDuration)
+                self.loopsTextField.stringValue = String(GIFHandler.DefaultLoops)
                 self.imageCollectionView.reloadData()
                 self.deselectAll()
             }
