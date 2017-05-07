@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AA33867B1EBF3BEA0056354F /* GIFFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA33867A1EBF3BEA0056354F /* GIFFrame.swift */; };
+		AA33867E1EBF45970056354F /* SmartTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA33867D1EBF45970056354F /* SmartTextField.swift */; };
 		AA6D4BB81E7B3DEA00F1B642 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6D4BB71E7B3DEA00F1B642 /* PreviewViewController.swift */; };
 		AA8F63961E787DE2000965B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8F63951E787DE2000965B5 /* AppDelegate.swift */; };
 		AA8F63981E787DE2000965B5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8F63971E787DE2000965B5 /* ViewController.swift */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		AA33867A1EBF3BEA0056354F /* GIFFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFFrame.swift; sourceTree = "<group>"; };
+		AA33867D1EBF45970056354F /* SmartTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartTextField.swift; sourceTree = "<group>"; };
 		AA6D4BB71E7B3DEA00F1B642 /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		AA8F63921E787DE2000965B5 /* Smart GIF Maker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smart GIF Maker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA8F63951E787DE2000965B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 		AACB80061E795D7200A3F195 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				AA33867D1EBF45970056354F /* SmartTextField.swift */,
 				AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */,
 				AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */,
 				AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */,
@@ -182,6 +185,7 @@
 				AACB80041E795D5D00A3F195 /* FrameCollectionViewItem.swift in Sources */,
 				AA8F63A71E788BEE000965B5 /* GIFHandler.swift in Sources */,
 				AA6D4BB81E7B3DEA00F1B642 /* PreviewViewController.swift in Sources */,
+				AA33867E1EBF45970056354F /* SmartTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
