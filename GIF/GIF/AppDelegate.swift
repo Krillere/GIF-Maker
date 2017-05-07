@@ -12,7 +12,7 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
 
 
-
+    // MARK: Setup
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
     }
@@ -21,6 +21,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
+    
+    // MARK: Menu items
+    @IBAction func menuItemLoad(sender: AnyObject?) {
+        NotificationCenter.default.post(name: ViewController.MenuItemImportNotificationName, object: nil)
+    }
+    
+    @IBAction func menuItemExport(sender: AnyObject?) {
+        NotificationCenter.default.post(name: ViewController.MenuItemExportNotificationName, object: nil)
+    }
 
+    @IBAction func menuItemAddFrame(sender: AnyObject?) {
+        NotificationCenter.default.post(name: ViewController.MenuItemAddFrameNotificationName, object: nil)
+    }
+    
+    @IBAction func menuItemReset(sender: AnyObject?) {
+        NotificationCenter.default.post(name: ViewController.MenuItemResetNotificationName, object: nil)
+    }
+    
+    @IBAction func menuItemPreview(sender: AnyObject?) {
+        NotificationCenter.default.post(name: ViewController.MenuItemPreviewNotificationName, object: nil)
+    }
 }
 

@@ -49,6 +49,40 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Options" id="uiw-RI-eF8">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Options" id="acl-k3-w56">
+                                    <items>
+                                        <menuItem title="Load .GIF" keyEquivalent="o" id="X1W-sh-vDd">
+                                            <connections>
+                                                <action selector="menuItemLoadWithSender:" target="Voe-Tx-rLC" id="CO4-29-S2C"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Export .GIF" keyEquivalent="s" id="rWf-OM-bYw">
+                                            <connections>
+                                                <action selector="menuItemExportWithSender:" target="Voe-Tx-rLC" id="GeJ-gf-tlC"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="IJP-YY-FYH"/>
+                                        <menuItem title="Add frame" keyEquivalent="f" id="s5i-Ug-pES">
+                                            <connections>
+                                                <action selector="menuItemAddFrameWithSender:" target="Voe-Tx-rLC" id="nFH-t3-jq0"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="B5y-zc-2il"/>
+                                        <menuItem title="Preview" keyEquivalent="p" id="N2A-Oi-aAx">
+                                            <connections>
+                                                <action selector="menuItemPreviewWithSender:" target="Voe-Tx-rLC" id="tjY-gE-ukg"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Reset" keyEquivalent="r" id="7It-77-SEd">
+                                            <connections>
+                                                <action selector="menuItemResetWithSender:" target="Voe-Tx-rLC" id="bya-fz-gQE"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
@@ -83,7 +117,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Smart_GIF_Maker" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="-46" y="-13"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">

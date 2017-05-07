@@ -16,6 +16,12 @@ class ViewController: NSViewController {
     static let ImageClickedNotificationName = NSNotification.Name(rawValue: "ImageClicked")
     static let ImageChangedNotificationName = NSNotification.Name(rawValue: "ImageChanged")
     
+    static let MenuItemImportNotificationName = NSNotification.Name(rawValue: "MenuItemImport")
+    static let MenuItemExportNotificationName = NSNotification.Name(rawValue: "MenuItemExport")
+    static let MenuItemAddFrameNotificationName = NSNotification.Name(rawValue: "MenuItemAddFrame")
+    static let MenuItemPreviewNotificationName = NSNotification.Name(rawValue: "MenuItemPreview")
+    static let MenuItemResetNotificationName = NSNotification.Name(rawValue: "MenuItemReset")
+    
     // UI elements
     @IBOutlet var imageCollectionView:NSCollectionView!
     @IBOutlet var secondsPerFrameTextField:NSTextField!
@@ -41,6 +47,18 @@ class ViewController: NSViewController {
                                                name: ViewController.ImageClickedNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.imageDraggedToImageView(sender:)),
                                                name: ViewController.ImageChangedNotificationName, object: nil)
+        
+        // UI events
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.loadGIFButtonClicked(sender:)),
+                                               name: ViewController.MenuItemImportNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.exportGIFButtonClicked(sender:)),
+                                               name: ViewController.MenuItemExportNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.addFrameButtonClicked(sender:)),
+                                               name: ViewController.MenuItemAddFrameNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.previewButtonClicked(sender:)),
+                                               name: ViewController.MenuItemPreviewNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.resetButtonClicked(sender:)),
+                                               name: ViewController.MenuItemResetNotificationName, object: nil)
         
         // GIFHandler events
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.gifError(sender:)),
