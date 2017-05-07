@@ -12,4 +12,15 @@ import AppKit
 class GIFFrame {
     var image:NSImage?
     var duration:Float = GIFHandler.DefaultFrameDuration
+    
+    init(image: NSImage, duration: Float = GIFHandler.DefaultFrameDuration) {
+        self.image = image
+        self.duration = duration
+    }
+    
+    init() { }
+    
+    static func emptyFrame() -> GIFFrame {
+        return GIFFrame()
+    }
 }
