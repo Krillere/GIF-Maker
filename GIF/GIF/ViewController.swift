@@ -407,31 +407,6 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
     // Inserts frames that were dragged from outside the app
     func handleOutsideDrag(draggingInfo: NSDraggingInfo, indexPath: IndexPath) {
         
-        // If there is one image and it's a gif, import instead of inserting as frame
-        if draggingInfo.numberOfValidItemsForDrop == 1 {
-            // Possibly a smarter way of doing this? (Iterating 1 items seems dumb)
-            draggingInfo.enumerateDraggingItems(options: NSDraggingItemEnumerationOptions.concurrent, for: imageCollectionView, classes: [NSURL.self], searchOptions: [NSPasteboardURLReadingFileURLsOnlyKey : NSNumber(value: true)]) { (draggingItem, idx, stop) in
-                if let url = draggingItem.item as? URL,
-                    let image = NSImage(contentsOf: url){
-                    
-                    // Is this an animated gif? Otherwise continue and import image as frame
-                    if GIFHandler.isAnimatedGIF(image) {
-                        
-                        // Do we have frames? (We don't want to replace frames without asking the user)
-                        self.confirmReplaceAlert(callback: { (replace) in
-                            if replace {
-                                self.importGIF(from: url)
-                            }
-                            
-                        })
-                        
-                        return
-                    }
-                }
-            }
-        }
-        
-        
         // Enumerate URLs, load images, and insert into currentImages
         var dropped:[NSImage] = []
         draggingInfo.enumerateDraggingItems(options: NSDraggingItemEnumerationOptions.concurrent, for: imageCollectionView, classes: [NSURL.self], searchOptions: [NSPasteboardURLReadingFileURLsOnlyKey : NSNumber(value: true)]) { (draggingItem, idx, stop) in
@@ -472,23 +447,5 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
         let newItem = toIndexPath.item
         currentImages.remove(at: dragItem)
         currentImages.insert(curImage, at: newItem)
-    }
-    
-    // Is it okay to replace all images with the new gif?
-    func confirmReplaceAlert(callback: @escaping ((Bool) -> Void)) {
-        let alert = NSAlert()
-        alert.messageText = "Are you sure?"
-        alert.informativeText = "Importing this gif will replace all frames with the frames of the imported gif"
-        alert.alertStyle = .critical
-        alert.addButton(withTitle: "OK, replace!")
-        alert.addButton(withTitle: "No, don't replace.")
-        alert.beginSheetModal(for: self.view.window!) { (resp) in
-            if resp == 0 {
-                callback(true)
-            }
-            else {
-                callback(false)
-            }
-        }
     }
 }
