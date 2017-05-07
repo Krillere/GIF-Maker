@@ -10,6 +10,7 @@ import Cocoa
 
 class DragNotificationImageView: NSImageView {
     @IBOutlet var ownerCollectionViewItem:FrameCollectionViewItem!
+    var gifFrame: GIFFrame?
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)

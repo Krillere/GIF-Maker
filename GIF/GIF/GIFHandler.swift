@@ -16,8 +16,8 @@ class GIFHandler {
     static let DefaultFrameDuration:Float = 0.2
     
     // MARK: Loading gifs (Returns tuple with images, loop count and seconds/frame
-    static func loadGIF(with image: NSImage) -> (images: [NSImage?], loops:Int, secondsPrFrame: Float) {
-        let errorReturn:(images: [NSImage?], loops:Int, secondsPrFrame: Float) = (images: [nil], loops: GIFHandler.DefaultLoops, secondsPrFrame: GIFHandler.DefaultFrameDuration)
+    static func loadGIF(with image: NSImage) -> (frames: [GIFFrame], loops:Int, secondsPrFrame: Float) {
+        let errorReturn:(frames: [GIFFrame], loops:Int, secondsPrFrame: Float) = (frames: [GIFFrame.emptyFrame()], loops: GIFHandler.DefaultLoops, secondsPrFrame: GIFHandler.DefaultFrameDuration)
         
         // Attempt to fetch the number of frames, frame duration, and loop count from the .gif
         guard let bitmapRep = image.representations[0] as? NSBitmapImageRep,
@@ -32,7 +32,7 @@ class GIFHandler {
 
         
         
-        var retImages:[NSImage] = []
+        var retFrames:[GIFFrame] = []
         
         // Iterate the frames, set the current frame on the bitmapRep and add this to 'retImages'
         for n in 0 ..< frameCount {
@@ -40,11 +40,12 @@ class GIFHandler {
             
             if let data = bitmapRep.representation(using: .GIF, properties: [:]),
                let img = NSImage(data: data) {
-                retImages.append(img)
+                let frame = GIFFrame(image: img)
+                retFrames.append(frame)
             }
         }
         
-        return (images: retImages, loops: loopCount, secondsPrFrame: frameDuration)
+        return (frames: retFrames, loops: loopCount, secondsPrFrame: frameDuration)
     }
     
     

@@ -23,7 +23,7 @@ class ViewController: NSViewController {
     @IBOutlet var loopsTextField:NSTextField!
     
     // Fields used in UI handling
-    var currentImages:[NSImage?] = [nil] // Allows null as they are shown as empty frames. Default is 1 empty image, to show something in UI
+    var currentFrames:[GIFFrame] = [GIFFrame.emptyFrame()] // Allows null as they are shown as empty frames. Default is 1 empty image, to show something in UI
     var selectedRow:IndexPath? = nil // Needed for inserting and removing item
     var indexPathsOfItemsBeingDragged: Set<IndexPath>! // Paths of items being dragged (If dragging inside the app)
     
@@ -70,8 +70,8 @@ class ViewController: NSViewController {
                 
                 // Remove empty images
                 var tmpImages:[NSImage] = []
-                for img in currentImages {
-                    if let img = img {
+                for frame in currentFrames {
+                    if let img = frame.image {
                         tmpImages.append(img)
                     }
                 }
@@ -87,11 +87,11 @@ class ViewController: NSViewController {
     // Adds a new frame
     @IBAction func addFrameButtonClicked(sender: AnyObject?) {
         if let indexPath = selectedRow { // Add after selectedRow
-            currentImages.insert(nil, at: indexPath.item+1)
+            currentFrames.insert(GIFFrame.emptyFrame(), at: indexPath.item+1)
             selectedRow = IndexPath(item: indexPath.item+1, section: 0)
         }
         else { // Add empty frame
-            currentImages.append(nil)
+            currentFrames.append(GIFFrame.emptyFrame())
         }
 
         self.imageCollectionView.reloadData()
@@ -110,8 +110,8 @@ class ViewController: NSViewController {
         
         // Remove empty images
         var tmpImages:[NSImage] = []
-        for img in currentImages {
-            if let img = img {
+        for frame in currentFrames {
+            if let img = frame.image {
                 tmpImages.append(img)
             }
         }
@@ -157,7 +157,7 @@ class ViewController: NSViewController {
         
         alert.beginSheetModal(for: self.view.window!) { (resp) in
             if resp == NSAlertFirstButtonReturn { // Yes clicked, reset
-                self.currentImages = [nil]
+                self.currentFrames = [GIFFrame.emptyFrame()]
                 self.secondsPerFrameTextField.stringValue = String(GIFHandler.DefaultFrameDuration)
                 self.loopsTextField.stringValue = String(GIFHandler.DefaultLoops)
                 self.imageCollectionView.reloadData()
@@ -179,7 +179,7 @@ class ViewController: NSViewController {
             // Set values from the .GIF
             let newValues = GIFHandler.loadGIF(with: image)
             
-            self.currentImages = newValues.images
+            self.currentFrames = newValues.frames
             self.secondsPerFrameTextField.stringValue = String(newValues.secondsPrFrame)
             self.loopsTextField.stringValue = String(newValues.loops)
             
@@ -195,7 +195,7 @@ class ViewController: NSViewController {
         
         // Remove the index and reload everything
         let index = object.itemIndex
-        currentImages.remove(at: index)
+        currentFrames.remove(at: index)
         
         deselectAll()
         imageCollectionView.reloadData()
@@ -206,9 +206,9 @@ class ViewController: NSViewController {
     func imageDraggedToImageView(sender: NSNotification) {
         guard let imgView = sender.object as? DragNotificationImageView,
               let owner = imgView.ownerCollectionViewItem,
-              let img = imgView.image else { return }
+              let frame = imgView.gifFrame else { return }
         
-        currentImages[owner.itemIndex] = img
+        currentFrames[owner.itemIndex] = frame
         self.selectedRow = nil
         self.imageCollectionView.reloadData()
     }
@@ -231,8 +231,10 @@ class ViewController: NSViewController {
             if response == NSFileHandlingPanelOKButton {
                 let URL = panel.url
                 if URL != nil {
-                    let image = NSImage(contentsOf: URL!)
-                    self.currentImages[owner.itemIndex] = image
+                    if let image = NSImage(contentsOf: URL!) {
+                        let frame = GIFFrame(image: image)
+                        self.currentFrames[owner.itemIndex] = frame
+                    }
                     self.imageCollectionView.reloadData()
                 }
             }
@@ -320,7 +322,7 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
         
         
         // If we have an image, insert it here
-        if let img = currentImages[indexPath.item] {
+        if let img = currentFrames[indexPath.item].image {
             frameCollectionViewItem.setImage(img)
         }
         
@@ -329,7 +331,7 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
 
     // Number of items in section (Number of frames)
     public func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return currentImages.count
+        return currentFrames.count
     }
     
     
@@ -414,22 +416,23 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
     func handleOutsideDrag(draggingInfo: NSDraggingInfo, indexPath: IndexPath) {
         
         // Enumerate URLs, load images, and insert into currentImages
-        var dropped:[NSImage] = []
+        var dropped:[GIFFrame] = []
         draggingInfo.enumerateDraggingItems(options: NSDraggingItemEnumerationOptions.concurrent, for: imageCollectionView, classes: [NSURL.self], searchOptions: [NSPasteboardURLReadingFileURLsOnlyKey : NSNumber(value: true)]) { (draggingItem, idx, stop) in
             if let url = draggingItem.item as? URL,
                 let image = NSImage(contentsOf: url){
-                dropped.append(image)
+                let frame = GIFFrame(image: image)
+                dropped.append(frame)
             }
         }
         
         // One empty frame, remove this and insert new images
-        if currentImages.count == 1 && currentImages[0] == nil {
-            currentImages.removeAll()
-            currentImages = dropped
+        if currentFrames.count == 1 && currentFrames[0].image == nil {
+            currentFrames.removeAll()
+            currentFrames = dropped
         }
         else { // Append to frames already in view
             for n in 0 ..< dropped.count {
-                currentImages.insert(dropped[n], at: indexPath.item+n)
+                currentFrames.insert(dropped[n], at: indexPath.item+n)
             }
         }
 
@@ -449,9 +452,9 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
         
         // The index we're moving, the image, and the destination
         let dragItem = indexPathOfFirstItemBeingDragged.item
-        let curImage = currentImages[dragItem]
+        let curFrame = currentFrames[dragItem]
         let newItem = toIndexPath.item
-        currentImages.remove(at: dragItem)
-        currentImages.insert(curImage, at: newItem)
+        currentFrames.remove(at: dragItem)
+        currentFrames.insert(curFrame, at: newItem)
     }
 }
