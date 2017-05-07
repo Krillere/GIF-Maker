@@ -37,7 +37,7 @@ class FrameCollectionViewItem: NSCollectionViewItem {
     }
     
     @IBAction func removeMe(sender: AnyObject?) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "RemoveFrame"), object: self)
+        NotificationCenter.default.post(name: ViewController.RemoveFrameNotificationName, object: self)
     }
     
     func setImage(_ img: NSImage) {

@@ -11,6 +11,8 @@ import Cocoa
 
 class GIFHandler {
 
+    static let ErrorNotificationName = NSNotification.Name(rawValue: "GIFError")
+    
     // MARK: Loading gifs (Returns tuple with images, loop count and seconds/frame
     static func loadGIF(with image: NSImage) -> (images: [NSImage?], loops:Int, secondsPrFrame: Float) {
         let errorReturn:(images: [NSImage?], loops:Int, secondsPrFrame: Float) = (images: [nil], loops: 0, secondsPrFrame: 0.2)
@@ -22,7 +24,7 @@ class GIFHandler {
             let frameDuration = (bitmapRep.value(forProperty: NSImageCurrentFrameDuration) as? NSNumber)?.floatValue else {
                 
             print("Error loading gif")
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GIFError"), object: self, userInfo: ["Error":"Could not load gif. The file does not contain the metadata required for a gif."])
+            NotificationCenter.default.post(name: ErrorNotificationName, object: self, userInfo: ["Error":"Could not load gif. The file does not contain the metadata required for a gif."])
             return errorReturn
         }
 
@@ -54,7 +56,7 @@ class GIFHandler {
             try data.write(to: savePath)
         }
         catch {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GIFError"), object: self, userInfo: ["Error":"Could not save file: "+error.localizedDescription])
+            NotificationCenter.default.post(name: ErrorNotificationName, object: self, userInfo: ["Error":"Could not save file: "+error.localizedDescription])
             print("Error: \(error)")
         }
     }

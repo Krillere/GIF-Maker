@@ -10,6 +10,12 @@ import Cocoa
 
 class ViewController: NSViewController {
     // MARK: Fields
+    
+    // Constants
+    static let RemoveFrameNotificationName = NSNotification.Name(rawValue: "RemoveFrame")
+    static let ImageClickedNotificationName = NSNotification.Name(rawValue: "ImageClicked")
+    static let ImageChangedNotificationName = NSNotification.Name(rawValue: "ImageChanged")
+    
     // UI elements
     @IBOutlet var imageCollectionView:NSCollectionView!
     @IBOutlet var secondsPerFrameTextField:NSTextField!
@@ -30,15 +36,15 @@ class ViewController: NSViewController {
         
         // Listeners for events regarding frames and images
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.removeFrameCalled(sender:)),
-                                               name: NSNotification.Name(rawValue: "RemoveFrame"), object: nil)
+                                               name: ViewController.RemoveFrameNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.clickedImageView(sender:)),
-                                               name: NSNotification.Name(rawValue: "ImageClicked"), object: nil)
+                                               name: ViewController.ImageClickedNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.imageDraggedToImageView(sender:)),
-                                               name: NSNotification.Name(rawValue: "ImageChanged"), object: nil)
+                                               name: ViewController.ImageChangedNotificationName, object: nil)
         
         // GIFHandler events
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.gifError(sender:)),
-                                               name: NSNotification.Name(rawValue: "GIFError"), object: nil)
+                                               name: GIFHandler.ErrorNotificationName, object: nil)
     }
 
     override func viewDidAppear() {
