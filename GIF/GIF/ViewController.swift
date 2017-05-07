@@ -10,14 +10,16 @@ import Cocoa
 
 class ViewController: NSViewController {
     // MARK: Fields
+    // UI elements
     @IBOutlet var imageCollectionView:NSCollectionView!
     @IBOutlet var secondsPerFrameTextField:NSTextField!
     @IBOutlet var addFrameButton:NSButton!
     @IBOutlet var loopsTextField:NSTextField!
     
-    var currentImages:[NSImage?] = [nil] // Default is 1 empty image, to show something in UI
-    var selectedRow:IndexPath? = nil
-    var indexPathsOfItemsBeingDragged: Set<IndexPath>!
+    // Fields used in UI handling
+    var currentImages:[NSImage?] = [nil] // Allows null as they are shown as empty frames. Default is 1 empty image, to show something in UI
+    var selectedRow:IndexPath? = nil // Needed for inserting and removing item
+    var indexPathsOfItemsBeingDragged: Set<IndexPath>! // Paths of items being dragged (If dragging inside the app)
     
     
     // MARK: View setup
@@ -50,6 +52,7 @@ class ViewController: NSViewController {
         }
     }
     
+    // View changing
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowPreview" {
             if let viewController = segue.destinationController as? PreviewViewController {
@@ -130,17 +133,8 @@ class ViewController: NSViewController {
         panel.begin { (res) in
             if res == NSFileHandlingPanelOKButton {
                 // Load image from file
-                if let url = panel.url,
-                   let image = NSImage(contentsOf: url) {
-                    // Set values from the .GIF
-                    let newValues = GIFHandler.loadGIF(with: image)
-                    
-                    self.currentImages = newValues.images
-                    self.secondsPerFrameTextField.stringValue = String(newValues.secondsPrFrame)
-                    self.loopsTextField.stringValue = String(newValues.loops)
-                    
-                    self.selectedRow = nil
-                    self.imageCollectionView.reloadData()
+                if let url = panel.url {
+                    self.importGIF(from: url)
                 }
             }
         }
@@ -169,6 +163,23 @@ class ViewController: NSViewController {
     // Preview
     @IBAction func previewButtonClicked(sender: AnyObject?) {
         self.performSegue(withIdentifier: "ShowPreview", sender: self)
+    }
+    
+    
+    // MARK: Helpers
+    // Imports a gif from a given location
+    func importGIF(from: URL) {
+        if let image = NSImage(contentsOf: from) {
+            // Set values from the .GIF
+            let newValues = GIFHandler.loadGIF(with: image)
+            
+            self.currentImages = newValues.images
+            self.secondsPerFrameTextField.stringValue = String(newValues.secondsPrFrame)
+            self.loopsTextField.stringValue = String(newValues.loops)
+            
+            self.selectedRow = nil
+            self.imageCollectionView.reloadData()
+        }
     }
     
     // MARK: NotificationCenter calls (Mainly by UI components)
@@ -284,6 +295,8 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
     }
     
     // MARK: General delegate / datasource (num items and items themselves)
+    
+    // Creates item(frame) in collection view
     public func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: "FrameCollectionViewItem", for: indexPath)
         
@@ -308,13 +321,13 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
         return item
     }
 
-    
+    // Number of items in section (Number of frames)
     public func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
         return currentImages.count
     }
     
     
-    // Selection
+    // Selection of items
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         deselectAll()
         
@@ -374,37 +387,75 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
         }
     }
     
-    // On drag complete
+    // On drag complete (Frames inserted or moved here)
     func collectionView(_ collectionView: NSCollectionView, acceptDrop draggingInfo: NSDraggingInfo, indexPath: IndexPath, dropOperation: NSCollectionViewDropOperation) -> Bool {
         // From outside (Finder, or whatever)
         if indexPathsOfItemsBeingDragged == nil {
-            
-            // Enumerate URLs, load images, and insert into currentImages
-            var dropped:[NSImage] = []
-            draggingInfo.enumerateDraggingItems(options: NSDraggingItemEnumerationOptions.concurrent, for: collectionView, classes: [NSURL.self], searchOptions: [NSPasteboardURLReadingFileURLsOnlyKey : NSNumber(value: true)]) { (draggingItem, idx, stop) in
-                if let url = draggingItem.item as? URL,
-                   let image = NSImage(contentsOf: url){
-                    dropped.append(image)
-                }
-            }
-            
-            // One empty frame, remove this and insert new images
-            if currentImages.count == 1 && currentImages[0] == nil {
-                currentImages.removeAll()
-                currentImages = dropped
-            }
-            else { // Append to frames already in view
-                for n in 0 ..< dropped.count {
-                    currentImages.insert(dropped[n], at: indexPath.item+n)
-                }
-            }
-            
-            // Reload
-            imageCollectionView.reloadData()
-            
-            return true
+            handleOutsideDrag(draggingInfo: draggingInfo, indexPath: indexPath)
+        }
+        else { // Moving frames inside the app
+            handleInsideDrag(indexPath: indexPath)
         }
         
+        imageCollectionView.reloadData()
+        deselectAll()
+        
+        return true
+    }
+    
+    
+    // Inserts frames that were dragged from outside the app
+    func handleOutsideDrag(draggingInfo: NSDraggingInfo, indexPath: IndexPath) {
+        
+        // If there is one image and it's a gif, import instead of inserting as frame
+        if draggingInfo.numberOfValidItemsForDrop == 1 {
+            // Possibly a smarter way of doing this? (Iterating 1 items seems dumb)
+            draggingInfo.enumerateDraggingItems(options: NSDraggingItemEnumerationOptions.concurrent, for: imageCollectionView, classes: [NSURL.self], searchOptions: [NSPasteboardURLReadingFileURLsOnlyKey : NSNumber(value: true)]) { (draggingItem, idx, stop) in
+                if let url = draggingItem.item as? URL,
+                    let image = NSImage(contentsOf: url){
+                    
+                    // Is this an animated gif? Otherwise continue and import image as frame
+                    if GIFHandler.isAnimatedGIF(image) {
+                        
+                        // Do we have frames? (We don't want to replace frames without asking the user)
+                        self.confirmReplaceAlert(callback: { (replace) in
+                            if replace {
+                                self.importGIF(from: url)
+                            }
+                            
+                        })
+                        
+                        return
+                    }
+                }
+            }
+        }
+        
+        
+        // Enumerate URLs, load images, and insert into currentImages
+        var dropped:[NSImage] = []
+        draggingInfo.enumerateDraggingItems(options: NSDraggingItemEnumerationOptions.concurrent, for: imageCollectionView, classes: [NSURL.self], searchOptions: [NSPasteboardURLReadingFileURLsOnlyKey : NSNumber(value: true)]) { (draggingItem, idx, stop) in
+            if let url = draggingItem.item as? URL,
+                let image = NSImage(contentsOf: url){
+                dropped.append(image)
+            }
+        }
+        
+        // One empty frame, remove this and insert new images
+        if currentImages.count == 1 && currentImages[0] == nil {
+            currentImages.removeAll()
+            currentImages = dropped
+        }
+        else { // Append to frames already in view
+            for n in 0 ..< dropped.count {
+                currentImages.insert(dropped[n], at: indexPath.item+n)
+            }
+        }
+
+    }
+    
+    // Moves frames that were dragged inside the app
+    func handleInsideDrag(indexPath: IndexPath) {
         // From inside the collectionview
         let indexPathOfFirstItemBeingDragged = indexPathsOfItemsBeingDragged.first!
         var toIndexPath: IndexPath
@@ -421,10 +472,23 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
         let newItem = toIndexPath.item
         currentImages.remove(at: dragItem)
         currentImages.insert(curImage, at: newItem)
-        
-        imageCollectionView.reloadData()
-        imageCollectionView.deselectAll(nil)
-        
-        return true
+    }
+    
+    // Is it okay to replace all images with the new gif?
+    func confirmReplaceAlert(callback: @escaping ((Bool) -> Void)) {
+        let alert = NSAlert()
+        alert.messageText = "Are you sure?"
+        alert.informativeText = "Importing this gif will replace all frames with the frames of the imported gif"
+        alert.alertStyle = .critical
+        alert.addButton(withTitle: "OK, replace!")
+        alert.addButton(withTitle: "No, don't replace.")
+        alert.beginSheetModal(for: self.view.window!) { (resp) in
+            if resp == 0 {
+                callback(true)
+            }
+            else {
+                callback(false)
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="FrameCollectionViewItem" customModule="GIF" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="FrameCollectionViewItem" customModule="Smart_GIF_Maker" customModuleProvider="target">
             <connections>
                 <outlet property="imageView" destination="wwL-y8-YJX" id="Ksc-eY-vow"/>
                 <outlet property="textField" destination="njh-Y3-7K3" id="ZMU-Ey-TII"/>
@@ -40,13 +40,13 @@
                         <action selector="removeMeWithSender:" target="8hu-CX-LPd" id="dag-XR-FqS"/>
                     </connections>
                 </button>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wwL-y8-YJX" customClass="DragNotificationImageView" customModule="GIF" customModuleProvider="target">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wwL-y8-YJX" customClass="DragNotificationImageView" customModule="Smart_GIF_Maker" customModuleProvider="target">
                     <rect key="frame" x="5" y="25" width="190" height="190"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="184" id="eLN-Py-8ZP"/>
                         <constraint firstAttribute="height" constant="184" id="q19-Be-7CG"/>
                     </constraints>
-                    <imageCell key="cell" selectable="YES" editable="YES" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="LOv-di-G3W"/>
+                    <imageCell key="cell" selectable="YES" editable="YES" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="LOv-di-G3W"/>
                     <connections>
                         <outlet property="ownerCollectionViewItem" destination="8hu-CX-LPd" id="GDG-lq-Xit"/>
                     </connections>
@@ -66,7 +66,7 @@
             </constraints>
             <point key="canvasLocation" x="137" y="251"/>
         </customView>
-        <collectionViewItem id="8hu-CX-LPd" customClass="FrameCollectionViewItem" customModule="GIF" customModuleProvider="target">
+        <collectionViewItem id="8hu-CX-LPd" customClass="FrameCollectionViewItem" customModule="Smart_GIF_Maker" customModuleProvider="target">
             <connections>
                 <outlet property="imageView" destination="wwL-y8-YJX" id="M3e-2a-RIy"/>
                 <outlet property="textField" destination="njh-Y3-7K3" id="OnX-Ok-MT0"/>

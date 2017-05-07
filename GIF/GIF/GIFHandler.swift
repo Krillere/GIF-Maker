@@ -16,26 +16,17 @@ class GIFHandler {
         let errorReturn:(images: [NSImage?], loops:Int, secondsPrFrame: Float) = (images: [nil], loops: 0, secondsPrFrame: 0.2)
         
         // Attempt to fetch the number of frames, frame duration, and loop count from the .gif
-        guard let bitmapRep = image.representations[0] as? NSBitmapImageRep else {
-            print("Error loading bitmapRep")
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GIFError"), object: self, userInfo: ["Error":"Could not load gif"])
+        guard let bitmapRep = image.representations[0] as? NSBitmapImageRep,
+            let frameCount = (bitmapRep.value(forProperty: NSImageFrameCount) as? NSNumber)?.intValue,
+            let loopCount = (bitmapRep.value(forProperty: NSImageLoopCount) as? NSNumber)?.intValue,
+            let frameDuration = (bitmapRep.value(forProperty: NSImageCurrentFrameDuration) as? NSNumber)?.floatValue else {
+                
+            print("Error loading gif")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GIFError"), object: self, userInfo: ["Error":"Could not load gif. The file does not contain the metadata required for a gif."])
             return errorReturn
         }
-        guard let frameCount = (bitmapRep.value(forProperty: NSImageFrameCount) as? NSNumber)?.intValue else {
-            print("Error loading frameCount")
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GIFError"), object: self, userInfo: ["Error":"Could not load gif"])
-            return errorReturn
-        }
-        guard let frameDuration = (bitmapRep.value(forProperty: NSImageCurrentFrameDuration) as? NSNumber)?.floatValue else {
-            print("Error loading frameDuration")
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GIFError"), object: self, userInfo: ["Error":"Could not load gif"])
-            return errorReturn
-        }
-        guard let loopCount = (bitmapRep.value(forProperty: NSImageLoopCount) as? NSNumber)?.intValue else {
-            print("Error loading loopCount")
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GIFError"), object: self, userInfo: ["Error":"Could not load gif"])
-            return errorReturn
-        }
+
+        
         
         var retImages:[NSImage] = []
         
@@ -99,5 +90,23 @@ class GIFHandler {
         let _ = CGImageDestinationFinalize(dst)
         let retData = dataObj as Data
         return retData
+    }
+    
+    
+    // MARK: Helper functions for gifs
+    static func isAnimatedGIF(_ image: NSImage) -> Bool {
+        // Attempt to fetch the number of frames, frame duration, and loop count from the .gif
+        guard let bitmapRep = image.representations[0] as? NSBitmapImageRep,
+            let frameCount = (bitmapRep.value(forProperty: NSImageFrameCount) as? NSNumber)?.intValue,
+            let _ = (bitmapRep.value(forProperty: NSImageLoopCount) as? NSNumber)?.intValue,
+            let _ = (bitmapRep.value(forProperty: NSImageCurrentFrameDuration) as? NSNumber)?.floatValue else {
+            return false
+        }
+
+        if frameCount > 1 { // We have loops, duration and everything, and there's more than 1 frame
+            return true
+        }
+        
+        return false
     }
 }
