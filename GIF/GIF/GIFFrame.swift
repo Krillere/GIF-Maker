@@ -11,9 +11,9 @@ import AppKit
 
 class GIFFrame {
     var image:NSImage?
-    var duration:Float = GIFHandler.DefaultFrameDuration
+    var duration:Float = GIFHandler.defaultFrameDuration
     
-    init(image: NSImage, duration: Float = GIFHandler.DefaultFrameDuration) {
+    init(image: NSImage, duration: Float = GIFHandler.defaultFrameDuration) {
         self.image = image
         self.duration = duration
     }

@@ -14,6 +14,7 @@ class FrameCollectionViewItem: NSCollectionViewItem {
     // MARK: NSCollectionViewItem init
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.wantsLayer = true
         
         view.layer?.backgroundColor = NSColor.clear.cgColor
@@ -30,6 +31,9 @@ class FrameCollectionViewItem: NSCollectionViewItem {
         }
     }
     
+    override func keyDown(with event: NSEvent) {
+        print("KeyDown!")
+    }
     
     // MARK: Image handling
     func setFrameNumber(_ n: Int) {
@@ -37,7 +41,7 @@ class FrameCollectionViewItem: NSCollectionViewItem {
     }
     
     @IBAction func removeMe(sender: AnyObject?) {
-        NotificationCenter.default.post(name: ViewController.RemoveFrameNotificationName, object: self)
+        NotificationCenter.default.post(name: ViewController.removeFrameNotificationName, object: self)
     }
     
     func setImage(_ img: NSImage) {

@@ -24,23 +24,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: Menu items
     @IBAction func menuItemLoad(sender: AnyObject?) {
-        NotificationCenter.default.post(name: ViewController.MenuItemImportNotificationName, object: nil)
+        NotificationCenter.default.post(name: ViewController.menuItemImportNotificationName, object: nil)
     }
     
     @IBAction func menuItemExport(sender: AnyObject?) {
-        NotificationCenter.default.post(name: ViewController.MenuItemExportNotificationName, object: nil)
+        NotificationCenter.default.post(name: ViewController.menuItemExportNotificationName, object: nil)
     }
 
     @IBAction func menuItemAddFrame(sender: AnyObject?) {
-        NotificationCenter.default.post(name: ViewController.MenuItemAddFrameNotificationName, object: nil)
+        NotificationCenter.default.post(name: ViewController.menuItemAddFrameNotificationName, object: nil)
     }
     
     @IBAction func menuItemReset(sender: AnyObject?) {
-        NotificationCenter.default.post(name: ViewController.MenuItemResetNotificationName, object: nil)
+        NotificationCenter.default.post(name: ViewController.menuItemResetNotificationName, object: nil)
     }
     
     @IBAction func menuItemPreview(sender: AnyObject?) {
-        NotificationCenter.default.post(name: ViewController.MenuItemPreviewNotificationName, object: nil)
+        NotificationCenter.default.post(name: ViewController.menuItemPreviewNotificationName, object: nil)
     }
 }
 

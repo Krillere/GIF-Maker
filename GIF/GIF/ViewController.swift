@@ -12,19 +12,20 @@ class ViewController: NSViewController {
     // MARK: Fields
     
     // Constants
-    static let RemoveFrameNotificationName = NSNotification.Name(rawValue: "RemoveFrame")
-    static let ImageClickedNotificationName = NSNotification.Name(rawValue: "ImageClicked")
-    static let ImageChangedNotificationName = NSNotification.Name(rawValue: "ImageChanged")
+    static let removeFrameNotificationName = NSNotification.Name(rawValue: "RemoveFrame")
+    static let imageClickedNotificationName = NSNotification.Name(rawValue: "ImageClicked")
+    static let imageChangedNotificationName = NSNotification.Name(rawValue: "ImageChanged")
     
-    static let MenuItemImportNotificationName = NSNotification.Name(rawValue: "MenuItemImport")
-    static let MenuItemExportNotificationName = NSNotification.Name(rawValue: "MenuItemExport")
-    static let MenuItemAddFrameNotificationName = NSNotification.Name(rawValue: "MenuItemAddFrame")
-    static let MenuItemPreviewNotificationName = NSNotification.Name(rawValue: "MenuItemPreview")
-    static let MenuItemResetNotificationName = NSNotification.Name(rawValue: "MenuItemReset")
+    static let menuItemImportNotificationName = NSNotification.Name(rawValue: "MenuItemImport")
+    static let menuItemExportNotificationName = NSNotification.Name(rawValue: "MenuItemExport")
+    static let menuItemAddFrameNotificationName = NSNotification.Name(rawValue: "MenuItemAddFrame")
+    static let menuItemPreviewNotificationName = NSNotification.Name(rawValue: "MenuItemPreview")
+    static let menuItemResetNotificationName = NSNotification.Name(rawValue: "MenuItemReset")
     
     // UI elements
     @IBOutlet var imageCollectionView:NSCollectionView!
-    @IBOutlet var secondsPerFrameTextField:NSTextField!
+    @IBOutlet var frameDurationTextField:NSTextField!
+    @IBOutlet var FPSLabel:NSTextField!
     @IBOutlet var addFrameButton:NSButton!
     @IBOutlet var loopsTextField:NSTextField!
     
@@ -42,27 +43,27 @@ class ViewController: NSViewController {
         
         // Listeners for events regarding frames and images
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.removeFrameCalled(sender:)),
-                                               name: ViewController.RemoveFrameNotificationName, object: nil)
+                                               name: ViewController.removeFrameNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.clickedImageView(sender:)),
-                                               name: ViewController.ImageClickedNotificationName, object: nil)
+                                               name: ViewController.imageClickedNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.imageDraggedToImageView(sender:)),
-                                               name: ViewController.ImageChangedNotificationName, object: nil)
+                                               name: ViewController.imageChangedNotificationName, object: nil)
         
         // UI events
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.loadGIFButtonClicked(sender:)),
-                                               name: ViewController.MenuItemImportNotificationName, object: nil)
+                                               name: ViewController.menuItemImportNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.exportGIFButtonClicked(sender:)),
-                                               name: ViewController.MenuItemExportNotificationName, object: nil)
+                                               name: ViewController.menuItemExportNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.addFrameButtonClicked(sender:)),
-                                               name: ViewController.MenuItemAddFrameNotificationName, object: nil)
+                                               name: ViewController.menuItemAddFrameNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.previewButtonClicked(sender:)),
-                                               name: ViewController.MenuItemPreviewNotificationName, object: nil)
+                                               name: ViewController.menuItemPreviewNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.resetButtonClicked(sender:)),
-                                               name: ViewController.MenuItemResetNotificationName, object: nil)
+                                               name: ViewController.menuItemResetNotificationName, object: nil)
         
         // GIFHandler events
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.gifError(sender:)),
-                                               name: GIFHandler.ErrorNotificationName, object: nil)
+                                               name: GIFHandler.errorNotificationName, object: nil)
     }
 
     override func viewDidAppear() {
@@ -81,9 +82,13 @@ class ViewController: NSViewController {
         if segue.identifier == "ShowPreview" {
             if let viewController = segue.destinationController as? PreviewViewController {
                 guard let loops = Int(loopsTextField.stringValue),
-                    let spf = Float(secondsPerFrameTextField.stringValue) else {
-                        print("Nope.")
+                    let spf = Float(frameDurationTextField.stringValue) else {
                         return
+                }
+                
+                if spf < 0 {
+                    showError("Frame duration must be a positive number.")
+                    return
                 }
                 
                 // Remove empty images
@@ -100,6 +105,31 @@ class ViewController: NSViewController {
         }
     }
 
+    
+    // MARK: UI
+    override func controlTextDidChange(_ obj: Notification) {
+        if let field = obj.object as? NSTextField {
+            
+            if field == frameDurationTextField { // Frame duration changed
+                let val = frameDurationTextField.stringValue
+                if let fVal = Float(val) { // Validate field
+                    if fVal < 0 {
+                        showError("Frame duration must be a positive number.")
+                        return
+                    }
+                    
+                    // Find FPS
+                    let fps = round(1/fVal)
+                    FPSLabel.stringValue = String(format: "seconds (%.0lf FPS)", fps)
+                }
+                else {
+                    showError("Frame duration must be a positive number.")
+                }
+            }
+        }
+
+    }
+    
     
     // MARK: Buttons
     // Adds a new frame
@@ -121,7 +151,7 @@ class ViewController: NSViewController {
             showError("Invalid value for loop count.")
             return
         }
-        guard let spf = Float(secondsPerFrameTextField.stringValue) else {
+        guard let spf = Float(frameDurationTextField.stringValue) else {
             showError("Invalid value for frame duration.")
             return
         }
@@ -176,8 +206,8 @@ class ViewController: NSViewController {
         alert.beginSheetModal(for: self.view.window!) { (resp) in
             if resp == NSAlertFirstButtonReturn { // Yes clicked, reset
                 self.currentFrames = [GIFFrame.emptyFrame()]
-                self.secondsPerFrameTextField.stringValue = String(GIFHandler.DefaultFrameDuration)
-                self.loopsTextField.stringValue = String(GIFHandler.DefaultLoops)
+                self.frameDurationTextField.stringValue = String(GIFHandler.defaultFrameDuration)
+                self.loopsTextField.stringValue = String(GIFHandler.defaultLoops)
                 self.imageCollectionView.reloadData()
                 self.deselectAll()
             }
@@ -198,7 +228,7 @@ class ViewController: NSViewController {
             let newValues = GIFHandler.loadGIF(with: image)
             
             self.currentFrames = newValues.frames
-            self.secondsPerFrameTextField.stringValue = String(newValues.secondsPrFrame)
+            self.frameDurationTextField.stringValue = String(newValues.secondsPrFrame)
             self.loopsTextField.stringValue = String(newValues.loops)
             
             self.selectedRow = nil

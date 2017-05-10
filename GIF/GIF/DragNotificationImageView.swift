@@ -19,7 +19,7 @@ class DragNotificationImageView: NSImageView {
     }
     
     override func draggingEnded(_ sender: NSDraggingInfo?) {
-        NotificationCenter.default.post(name: ViewController.ImageChangedNotificationName, object: self)
+        NotificationCenter.default.post(name: ViewController.imageChangedNotificationName, object: self)
     }
     
     override func mouseDown(with event: NSEvent) {
@@ -28,7 +28,7 @@ class DragNotificationImageView: NSImageView {
 
     override func mouseUp(with event: NSEvent) {
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: ViewController.ImageClickedNotificationName, object: self)
+            NotificationCenter.default.post(name: ViewController.imageClickedNotificationName, object: self)
         }
     }
     
