@@ -125,11 +125,11 @@ class GIFHandler {
     
     // Adds a watermark to all images in the gif
     static func addWatermark(images: [NSImage]) -> [NSImage] {
-        guard let font = NSFont(name: "HelveticaNeue", size: 14) else { return images }
+        guard let font = NSFont(name: "Helvetica", size: 14) else { return images }
         var returnImages:[NSImage] = []
         
         let string:NSString = "Smart GIF Maker"
-        let attrs:[String:Any] = [NSForegroundColorAttributeName: NSColor.black, NSFontAttributeName: font]
+        let attrs:[String:Any] = [NSForegroundColorAttributeName: NSColor.white, NSFontAttributeName: font, NSStrokeWidthAttributeName: -3, NSStrokeColorAttributeName: NSColor.black]
         
         for image in images {
             // We need to create a 'copy' of the imagerep, as we need 'isPlanar' to be false in order to draw on it
@@ -155,7 +155,7 @@ class GIFHandler {
             image.draw(at: NSPoint.zero, from: NSZeroRect, operation: .copy, fraction: 1.0)
             
             // Draw string
-            string.draw(at: NSPoint(x: 0.5, y: 0.5), withAttributes: attrs)
+            string.draw(at: NSPoint(x: 5, y: 5), withAttributes: attrs)
             
             NSGraphicsContext.restoreGraphicsState()
             

@@ -170,6 +170,7 @@ class ViewController: NSViewController {
             if res == NSFileHandlingPanelOKButton {
                 if let url = panel.url {
                     GIFHandler.createAndSaveGIF(with: tmpImages, savePath: url, loops: loops, secondsPrFrame: spf)
+                    NSWorkspace.shared().open(url)
                 }
             }
         }
@@ -178,7 +179,7 @@ class ViewController: NSViewController {
     
     // Load a gif from a file
     @IBAction func loadGIFButtonClicked(sender: AnyObject?) {
-        // SHow file panel
+        // Show file panel
         let panel = NSOpenPanel()
         panel.allowedFileTypes = ["gif"]
         panel.allowsMultipleSelection = false
