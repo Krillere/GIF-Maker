@@ -12,7 +12,7 @@ class ViewController: NSViewController {
     // MARK: Fields
     
     // Constants
-    static let backgroundColor = NSColor(red: 40.0/255.0, green: 40.0/255.0, blue: 40.0/255.0, alpha: 1.0)
+    static let backgroundColor = NSColor(red: 50.0/255.0, green: 50.0/255.0, blue: 50.0/255.0, alpha: 1.0)
     
     static let removeFrameNotificationName = NSNotification.Name(rawValue: "RemoveFrame")
     static let imageClickedNotificationName = NSNotification.Name(rawValue: "ImageClicked")
@@ -201,7 +201,7 @@ class ViewController: NSViewController {
     
     // Reset everything
     @IBAction func resetButtonClicked(sender: AnyObject?) {
-        let alert = NSAlert()
+        let alert = FancyAlert()
         alert.alertStyle = .warning
         alert.informativeText = "This will remove everything, are you sure?"
         alert.messageText = "Are you sure?"
@@ -336,7 +336,7 @@ class ViewController: NSViewController {
     
     // Shows an error
     func showError(_ error: String) {
-        let alert = NSAlert()
+        let alert = FancyAlert()
         alert.messageText = "An error occurred"
         alert.informativeText = error
         alert.alertStyle = .critical

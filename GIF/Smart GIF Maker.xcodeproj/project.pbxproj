@@ -18,6 +18,7 @@
 		AA8F639A1E787DE2000965B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8F63991E787DE2000965B5 /* Assets.xcassets */; };
 		AA8F639D1E787DE2000965B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA8F639B1E787DE2000965B5 /* Main.storyboard */; };
 		AA8F63A71E788BEE000965B5 /* GIFHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8F63A61E788BEE000965B5 /* GIFHandler.swift */; };
+		AAA9C4CF1ECCA01A007EC0D4 /* FancyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA9C4CE1ECCA01A007EC0D4 /* FancyAlert.swift */; };
 		AACB80041E795D5D00A3F195 /* FrameCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */; };
 		AACB80051E795D5D00A3F195 /* FrameCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */; };
 		AACB80081E796A7400A3F195 /* DragNotificationImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */; };
@@ -37,6 +38,7 @@
 		AA8F639C1E787DE2000965B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AA8F639E1E787DE2000965B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA8F63A61E788BEE000965B5 /* GIFHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFHandler.swift; sourceTree = "<group>"; };
+		AAA9C4CE1ECCA01A007EC0D4 /* FancyAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyAlert.swift; sourceTree = "<group>"; };
 		AAC9B9B21E799DD70096A497 /* GIF.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GIF.entitlements; sourceTree = "<group>"; };
 		AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameCollectionViewItem.swift; sourceTree = "<group>"; };
 		AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FrameCollectionViewItem.xib; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 		AACB80061E795D7200A3F195 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				AAA9C4CE1ECCA01A007EC0D4 /* FancyAlert.swift */,
 				AA17D4A31ECB713400E260A7 /* FancyButtonCell.swift */,
 				AA17D4A41ECB713400E260A7 /* FancyButton.swift */,
 				AA17D4A11ECB710600E260A7 /* NSViewExtension.swift */,
@@ -187,6 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAA9C4CF1ECCA01A007EC0D4 /* FancyAlert.swift in Sources */,
 				AA8F63981E787DE2000965B5 /* ViewController.swift in Sources */,
 				AACB80081E796A7400A3F195 /* DragNotificationImageView.swift in Sources */,
 				AA17D4A21ECB710600E260A7 /* NSViewExtension.swift in Sources */,

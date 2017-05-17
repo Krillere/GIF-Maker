@@ -237,7 +237,7 @@
                                     <constraint firstAttribute="width" constant="85" id="fGl-eu-fRl"/>
                                     <constraint firstAttribute="height" constant="25" id="mn1-Tj-cnH"/>
                                 </constraints>
-                                <buttonCell key="cell" type="square" title="Load .GIF" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nwy-Ee-Zyk" customClass="FancyButtonCell" customModule="Smart_GIF_Maker" customModuleProvider="target">
+                                <buttonCell key="cell" type="square" title="Import .GIF" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nwy-Ee-Zyk" customClass="FancyButtonCell" customModule="Smart_GIF_Maker" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
