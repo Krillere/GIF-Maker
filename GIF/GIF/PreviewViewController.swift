@@ -20,6 +20,12 @@ class PreviewViewController: NSViewController {
         }
     }
     
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        
+        self.view.wantsLayer = true
+        self.view.backgroundColor = ViewController.backgroundColor
+    }
     
     @IBAction func closeButtonClicked(sender: AnyObject?) {
         self.dismiss(self)

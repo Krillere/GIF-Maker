@@ -12,6 +12,8 @@ class ViewController: NSViewController {
     // MARK: Fields
     
     // Constants
+    static let backgroundColor = NSColor(red: 40.0/255.0, green: 40.0/255.0, blue: 40.0/255.0, alpha: 1.0)
+    
     static let removeFrameNotificationName = NSNotification.Name(rawValue: "RemoveFrame")
     static let imageClickedNotificationName = NSNotification.Name(rawValue: "ImageClicked")
     static let imageChangedNotificationName = NSNotification.Name(rawValue: "ImageChanged")
@@ -33,6 +35,11 @@ class ViewController: NSViewController {
     var currentFrames:[GIFFrame] = [GIFFrame.emptyFrame()] // Allows null as they are shown as empty frames. Default is 1 empty image, to show something in UI
     var selectedRow:IndexPath? = nil // Needed for inserting and removing item
     var indexPathsOfItemsBeingDragged: Set<IndexPath>! // Paths of items being dragged (If dragging inside the app)
+    
+    // Preview variables
+    var previewImages:[NSImage] = []
+    var previewLoops:Int = GIFHandler.defaultLoops
+    var previewFrameDuration:Float = GIFHandler.defaultFrameDuration
     
     
     // MARK: View setup
@@ -68,6 +75,21 @@ class ViewController: NSViewController {
 
     override func viewDidAppear() {
         super.viewDidAppear()
+        
+        self.view.backgroundColor = ViewController.backgroundColor
+
+        // Sets up window border
+        self.view.window?.titlebarAppearsTransparent = true
+        self.view.window?.isMovableByWindowBackground = true
+        self.view.window?.titleVisibility = NSWindowTitleVisibility.hidden
+        self.view.window?.backgroundColor = ViewController.backgroundColor
+        
+        self.imageCollectionView.backgroundView?.backgroundColor = ViewController.backgroundColor
+        self.imageCollectionView.backgroundColor = ViewController.backgroundColor
+        
+        frameDurationTextField.wantsLayer = true
+        frameDurationTextField.layer?.cornerRadius = 3
+        
         addFrameButton.becomeFirstResponder()
     }
     
@@ -81,25 +103,7 @@ class ViewController: NSViewController {
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowPreview" {
             if let viewController = segue.destinationController as? PreviewViewController {
-                guard let loops = Int(loopsTextField.stringValue),
-                    let spf = Float(frameDurationTextField.stringValue) else {
-                        return
-                }
-                
-                if spf < 0 {
-                    showError("Frame duration must be a positive number.")
-                    return
-                }
-                
-                // Remove empty images
-                var tmpImages:[NSImage] = []
-                for frame in currentFrames {
-                    if let img = frame.image {
-                        tmpImages.append(img)
-                    }
-                }
-                
-                let previewImg = GIFHandler.createGIF(with: tmpImages, loops: loops, secondsPrFrame: spf)
+                let previewImg = GIFHandler.createGIF(with: previewImages, loops: previewLoops, secondsPrFrame: previewFrameDuration)
                 viewController.previewImage = previewImg
             }
         }
@@ -217,6 +221,33 @@ class ViewController: NSViewController {
     
     // Preview
     @IBAction func previewButtonClicked(sender: AnyObject?) {
+        guard let loops = Int(loopsTextField.stringValue),
+            let spf = Float(frameDurationTextField.stringValue) else {
+                return
+        }
+        
+        if spf < 0 {
+            showError("Frame duration must be a positive number.")
+            return
+        }
+        
+        // Remove empty images
+        var tmpImages:[NSImage] = []
+        for frame in currentFrames {
+            if let img = frame.image {
+                tmpImages.append(img)
+            }
+        }
+        
+        if tmpImages.count == 0 {
+            showError("No frames to preview!")
+            return
+        }
+        
+        self.previewLoops = loops
+        self.previewFrameDuration = spf
+        self.previewImages = tmpImages
+        
         self.performSegue(withIdentifier: "ShowPreview", sender: self)
     }
     
