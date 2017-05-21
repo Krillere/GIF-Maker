@@ -174,7 +174,7 @@ class ViewController: NSViewController {
             if res == NSFileHandlingPanelOKButton {
                 if let url = panel.url {
                     GIFHandler.createAndSaveGIF(with: tmpImages, savePath: url, loops: loops, secondsPrFrame: spf)
-                    NSWorkspace.shared().open(url)
+                    NSWorkspace.shared().activateFileViewerSelecting([url])
                 }
             }
         }
