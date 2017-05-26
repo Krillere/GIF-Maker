@@ -39,7 +39,7 @@ class EditViewController: NSViewController, ZoomViewDelegate {
         colorPicker.addObserver(self, forKeyPath: "color", options: .new, context: nil)
         backgroundColorPicker.addObserver(self, forKeyPath: "color", options: .new, context: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(DrawingOptionsViewController.colorChangedOutside), name: DrawingOptionsHandler.colorChangedNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EditViewController.colorChangedOutside), name: DrawingOptionsHandler.colorChangedNotificationName, object: nil)
         
         // UI setup
         backgroundColorPicker.color = DrawingOptionsHandler.shared.imageBackgroundColor

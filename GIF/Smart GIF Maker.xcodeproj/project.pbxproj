@@ -15,7 +15,6 @@
 		AA45A5491ED8603100D508BC /* ZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A5471ED8603100D508BC /* ZoomView.swift */; };
 		AA45A54A1ED8603100D508BC /* PixelImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A5481ED8603100D508BC /* PixelImageView.swift */; };
 		AA45A54E1ED8604100D508BC /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A54B1ED8604100D508BC /* EditViewController.swift */; };
-		AA45A54F1ED8604100D508BC /* DrawingOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A54C1ED8604100D508BC /* DrawingOptionsViewController.swift */; };
 		AA45A5501ED8604100D508BC /* DrawingOptionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A54D1ED8604100D508BC /* DrawingOptionsHandler.swift */; };
 		AA6D4BB81E7B3DEA00F1B642 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6D4BB71E7B3DEA00F1B642 /* PreviewViewController.swift */; };
 		AA8F63961E787DE2000965B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8F63951E787DE2000965B5 /* AppDelegate.swift */; };
@@ -38,7 +37,6 @@
 		AA45A5471ED8603100D508BC /* ZoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomView.swift; sourceTree = "<group>"; };
 		AA45A5481ED8603100D508BC /* PixelImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PixelImageView.swift; sourceTree = "<group>"; };
 		AA45A54B1ED8604100D508BC /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
-		AA45A54C1ED8604100D508BC /* DrawingOptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingOptionsViewController.swift; sourceTree = "<group>"; };
 		AA45A54D1ED8604100D508BC /* DrawingOptionsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingOptionsHandler.swift; sourceTree = "<group>"; };
 		AA6D4BB71E7B3DEA00F1B642 /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		AA8F63921E787DE2000965B5 /* Smart GIF Maker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smart GIF Maker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,7 +87,6 @@
 			isa = PBXGroup;
 			children = (
 				AA45A54B1ED8604100D508BC /* EditViewController.swift */,
-				AA45A54C1ED8604100D508BC /* DrawingOptionsViewController.swift */,
 				AA45A54D1ED8604100D508BC /* DrawingOptionsHandler.swift */,
 			);
 			name = Edit;
@@ -225,7 +222,6 @@
 				AA8F63981E787DE2000965B5 /* ViewController.swift in Sources */,
 				AA45A5491ED8603100D508BC /* ZoomView.swift in Sources */,
 				AACB80081E796A7400A3F195 /* DragNotificationImageView.swift in Sources */,
-				AA45A54F1ED8604100D508BC /* DrawingOptionsViewController.swift in Sources */,
 				AA17D4A21ECB710600E260A7 /* NSViewExtension.swift in Sources */,
 				AA45A54E1ED8604100D508BC /* EditViewController.swift in Sources */,
 				AA45A54A1ED8603100D508BC /* PixelImageView.swift in Sources */,
