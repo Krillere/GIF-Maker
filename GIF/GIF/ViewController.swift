@@ -23,6 +23,7 @@ class ViewController: NSViewController {
     static let menuItemAddFrameNotificationName = NSNotification.Name(rawValue: "MenuItemAddFrame")
     static let menuItemPreviewNotificationName = NSNotification.Name(rawValue: "MenuItemPreview")
     static let menuItemResetNotificationName = NSNotification.Name(rawValue: "MenuItemReset")
+    static let menuItemEditNotificationName = NSNotification.Name(rawValue: "MenuItemEdit")
     
     // UI elements
     @IBOutlet var imageCollectionView:NSCollectionView!
@@ -67,6 +68,8 @@ class ViewController: NSViewController {
                                                name: ViewController.menuItemPreviewNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.resetButtonClicked(sender:)),
                                                name: ViewController.menuItemResetNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.editButtonClicked(sender:)),
+                                               name: ViewController.menuItemEditNotificationName, object: nil)
         
         // GIFHandler events
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.gifError(sender:)),
@@ -147,6 +150,11 @@ class ViewController: NSViewController {
         }
 
         self.imageCollectionView.reloadData()
+    }
+    
+    // Edit button clicked
+    @IBAction func editButtonClicked(sender: AnyObject?) {
+        
     }
     
     // Export a gif
