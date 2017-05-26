@@ -12,15 +12,19 @@ class ViewController: NSViewController {
     // MARK: Fields
     
     // Constants
+    static let backgroundColor = NSColor(red: 50.0/255.0, green: 50.0/255.0, blue: 50.0/255.0, alpha: 1.0)
+    
     static let removeFrameNotificationName = NSNotification.Name(rawValue: "RemoveFrame")
     static let imageClickedNotificationName = NSNotification.Name(rawValue: "ImageClicked")
     static let imageChangedNotificationName = NSNotification.Name(rawValue: "ImageChanged")
+    static let editingEndedNotificationName = NSNotification.Name(rawValue: "EditingEnded")
     
     static let menuItemImportNotificationName = NSNotification.Name(rawValue: "MenuItemImport")
     static let menuItemExportNotificationName = NSNotification.Name(rawValue: "MenuItemExport")
     static let menuItemAddFrameNotificationName = NSNotification.Name(rawValue: "MenuItemAddFrame")
     static let menuItemPreviewNotificationName = NSNotification.Name(rawValue: "MenuItemPreview")
     static let menuItemResetNotificationName = NSNotification.Name(rawValue: "MenuItemReset")
+    static let menuItemEditNotificationName = NSNotification.Name(rawValue: "MenuItemEdit")
     
     // UI elements
     @IBOutlet var imageCollectionView:NSCollectionView!
@@ -33,6 +37,12 @@ class ViewController: NSViewController {
     var currentFrames:[GIFFrame] = [GIFFrame.emptyFrame()] // Allows null as they are shown as empty frames. Default is 1 empty image, to show something in UI
     var selectedRow:IndexPath? = nil // Needed for inserting and removing item
     var indexPathsOfItemsBeingDragged: Set<IndexPath>! // Paths of items being dragged (If dragging inside the app)
+    var editingWindowController:NSWindowController?
+    
+    // Preview variables
+    var previewImages:[NSImage] = []
+    var previewLoops:Int = GIFHandler.defaultLoops
+    var previewFrameDuration:Float = GIFHandler.defaultFrameDuration
     
     
     // MARK: View setup
@@ -48,6 +58,8 @@ class ViewController: NSViewController {
                                                name: ViewController.imageClickedNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.imageDraggedToImageView(sender:)),
                                                name: ViewController.imageChangedNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.reloadImages),
+                                               name: ViewController.editingEndedNotificationName, object: nil)
         
         // UI events
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.loadGIFButtonClicked(sender:)),
@@ -60,6 +72,8 @@ class ViewController: NSViewController {
                                                name: ViewController.menuItemPreviewNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.resetButtonClicked(sender:)),
                                                name: ViewController.menuItemResetNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.editButtonClicked(sender:)),
+                                               name: ViewController.menuItemEditNotificationName, object: nil)
         
         // GIFHandler events
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.gifError(sender:)),
@@ -68,12 +82,26 @@ class ViewController: NSViewController {
 
     override func viewDidAppear() {
         super.viewDidAppear()
+        
+        self.view.backgroundColor = ViewController.backgroundColor
+
+        // Sets up window border
+        self.view.window?.titlebarAppearsTransparent = true
+        self.view.window?.isMovableByWindowBackground = true
+        self.view.window?.titleVisibility = NSWindowTitleVisibility.hidden
+        self.view.window?.backgroundColor = ViewController.backgroundColor
+        
+        self.imageCollectionView.backgroundView?.backgroundColor = ViewController.backgroundColor
+        self.imageCollectionView.backgroundColor = ViewController.backgroundColor
+        
+        frameDurationTextField.wantsLayer = true
+        frameDurationTextField.layer?.cornerRadius = 3
+        
         addFrameButton.becomeFirstResponder()
     }
     
     override var representedObject: Any? {
         didSet {
-        // Update the view, if already loaded.
         }
     }
     
@@ -81,25 +109,7 @@ class ViewController: NSViewController {
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowPreview" {
             if let viewController = segue.destinationController as? PreviewViewController {
-                guard let loops = Int(loopsTextField.stringValue),
-                    let spf = Float(frameDurationTextField.stringValue) else {
-                        return
-                }
-                
-                if spf < 0 {
-                    showError("Frame duration must be a positive number.")
-                    return
-                }
-                
-                // Remove empty images
-                var tmpImages:[NSImage] = []
-                for frame in currentFrames {
-                    if let img = frame.image {
-                        tmpImages.append(img)
-                    }
-                }
-                
-                let previewImg = GIFHandler.createGIF(with: tmpImages, loops: loops, secondsPrFrame: spf)
+                let previewImg = GIFHandler.createGIF(with: previewImages, loops: previewLoops, secondsPrFrame: previewFrameDuration)
                 viewController.previewImage = previewImg
             }
         }
@@ -130,6 +140,10 @@ class ViewController: NSViewController {
 
     }
     
+    func reloadImages() {
+        imageCollectionView.reloadData()
+    }
+    
     
     // MARK: Buttons
     // Adds a new frame
@@ -143,6 +157,20 @@ class ViewController: NSViewController {
         }
 
         self.imageCollectionView.reloadData()
+    }
+    
+    // Edit button clicked
+    @IBAction func editButtonClicked(sender: AnyObject?) {
+        if editingWindowController == nil {
+            let storyboard = NSStoryboard(name: "Main", bundle: nil)
+            editingWindowController = storyboard.instantiateController(withIdentifier: "EditingWindow") as? NSWindowController
+        }
+        
+        if let contentViewController = editingWindowController?.contentViewController as? EditViewController {
+            contentViewController.setFrames(frames: self.currentFrames)
+        }
+        
+        editingWindowController?.showWindow(self)
     }
     
     // Export a gif
@@ -170,7 +198,7 @@ class ViewController: NSViewController {
             if res == NSFileHandlingPanelOKButton {
                 if let url = panel.url {
                     GIFHandler.createAndSaveGIF(with: tmpImages, savePath: url, loops: loops, secondsPrFrame: spf)
-                    NSWorkspace.shared().open(url)
+                    NSWorkspace.shared().activateFileViewerSelecting([url])
                 }
             }
         }
@@ -197,7 +225,7 @@ class ViewController: NSViewController {
     
     // Reset everything
     @IBAction func resetButtonClicked(sender: AnyObject?) {
-        let alert = NSAlert()
+        let alert = FancyAlert()
         alert.alertStyle = .warning
         alert.informativeText = "This will remove everything, are you sure?"
         alert.messageText = "Are you sure?"
@@ -217,6 +245,33 @@ class ViewController: NSViewController {
     
     // Preview
     @IBAction func previewButtonClicked(sender: AnyObject?) {
+        guard let loops = Int(loopsTextField.stringValue),
+            let spf = Float(frameDurationTextField.stringValue) else {
+                return
+        }
+        
+        if spf < 0 {
+            showError("Frame duration must be a positive number.")
+            return
+        }
+        
+        // Remove empty images
+        var tmpImages:[NSImage] = []
+        for frame in currentFrames {
+            if let img = frame.image {
+                tmpImages.append(img)
+            }
+        }
+        
+        if tmpImages.count == 0 {
+            showError("No frames to preview!")
+            return
+        }
+        
+        self.previewLoops = loops
+        self.previewFrameDuration = spf
+        self.previewImages = tmpImages
+        
         self.performSegue(withIdentifier: "ShowPreview", sender: self)
     }
     
@@ -305,7 +360,7 @@ class ViewController: NSViewController {
     
     // Shows an error
     func showError(_ error: String) {
-        let alert = NSAlert()
+        let alert = FancyAlert()
         alert.messageText = "An error occurred"
         alert.informativeText = error
         alert.alertStyle = .critical

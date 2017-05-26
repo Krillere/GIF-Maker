@@ -7,22 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA17D4A21ECB710600E260A7 /* NSViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA17D4A11ECB710600E260A7 /* NSViewExtension.swift */; };
+		AA17D4A51ECB713400E260A7 /* FancyButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA17D4A31ECB713400E260A7 /* FancyButtonCell.swift */; };
+		AA17D4A61ECB713400E260A7 /* FancyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA17D4A41ECB713400E260A7 /* FancyButton.swift */; };
 		AA33867B1EBF3BEA0056354F /* GIFFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA33867A1EBF3BEA0056354F /* GIFFrame.swift */; };
 		AA33867E1EBF45970056354F /* SmartTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA33867D1EBF45970056354F /* SmartTextField.swift */; };
+		AA45A5491ED8603100D508BC /* ZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A5471ED8603100D508BC /* ZoomView.swift */; };
+		AA45A54A1ED8603100D508BC /* PixelImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A5481ED8603100D508BC /* PixelImageView.swift */; };
+		AA45A54E1ED8604100D508BC /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A54B1ED8604100D508BC /* EditViewController.swift */; };
+		AA45A5501ED8604100D508BC /* DrawingOptionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A54D1ED8604100D508BC /* DrawingOptionsHandler.swift */; };
 		AA6D4BB81E7B3DEA00F1B642 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6D4BB71E7B3DEA00F1B642 /* PreviewViewController.swift */; };
 		AA8F63961E787DE2000965B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8F63951E787DE2000965B5 /* AppDelegate.swift */; };
 		AA8F63981E787DE2000965B5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8F63971E787DE2000965B5 /* ViewController.swift */; };
 		AA8F639A1E787DE2000965B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8F63991E787DE2000965B5 /* Assets.xcassets */; };
 		AA8F639D1E787DE2000965B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA8F639B1E787DE2000965B5 /* Main.storyboard */; };
 		AA8F63A71E788BEE000965B5 /* GIFHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8F63A61E788BEE000965B5 /* GIFHandler.swift */; };
+		AAA9C4CF1ECCA01A007EC0D4 /* FancyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA9C4CE1ECCA01A007EC0D4 /* FancyAlert.swift */; };
 		AACB80041E795D5D00A3F195 /* FrameCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */; };
 		AACB80051E795D5D00A3F195 /* FrameCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */; };
 		AACB80081E796A7400A3F195 /* DragNotificationImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA17D4A11ECB710600E260A7 /* NSViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSViewExtension.swift; sourceTree = "<group>"; };
+		AA17D4A31ECB713400E260A7 /* FancyButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyButtonCell.swift; sourceTree = "<group>"; };
+		AA17D4A41ECB713400E260A7 /* FancyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyButton.swift; sourceTree = "<group>"; };
 		AA33867A1EBF3BEA0056354F /* GIFFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFFrame.swift; sourceTree = "<group>"; };
 		AA33867D1EBF45970056354F /* SmartTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartTextField.swift; sourceTree = "<group>"; };
+		AA45A5471ED8603100D508BC /* ZoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomView.swift; sourceTree = "<group>"; };
+		AA45A5481ED8603100D508BC /* PixelImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PixelImageView.swift; sourceTree = "<group>"; };
+		AA45A54B1ED8604100D508BC /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
+		AA45A54D1ED8604100D508BC /* DrawingOptionsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingOptionsHandler.swift; sourceTree = "<group>"; };
 		AA6D4BB71E7B3DEA00F1B642 /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		AA8F63921E787DE2000965B5 /* Smart GIF Maker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smart GIF Maker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA8F63951E787DE2000965B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -31,6 +46,7 @@
 		AA8F639C1E787DE2000965B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AA8F639E1E787DE2000965B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA8F63A61E788BEE000965B5 /* GIFHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFHandler.swift; sourceTree = "<group>"; };
+		AAA9C4CE1ECCA01A007EC0D4 /* FancyAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyAlert.swift; sourceTree = "<group>"; };
 		AAC9B9B21E799DD70096A497 /* GIF.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GIF.entitlements; sourceTree = "<group>"; };
 		AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameCollectionViewItem.swift; sourceTree = "<group>"; };
 		AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FrameCollectionViewItem.xib; sourceTree = "<group>"; };
@@ -57,6 +73,25 @@
 			name = "GIF classes";
 			sourceTree = "<group>";
 		};
+		AA45A5511ED8604400D508BC /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				AA8F63971E787DE2000965B5 /* ViewController.swift */,
+				AA6D4BB71E7B3DEA00F1B642 /* PreviewViewController.swift */,
+				AA45A5521ED867A100D508BC /* Edit */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		AA45A5521ED867A100D508BC /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				AA45A54B1ED8604100D508BC /* EditViewController.swift */,
+				AA45A54D1ED8604100D508BC /* DrawingOptionsHandler.swift */,
+			);
+			name = Edit;
+			sourceTree = "<group>";
+		};
 		AA8F63891E787DE2000965B5 = {
 			isa = PBXGroup;
 			children = (
@@ -81,8 +116,7 @@
 				AA8F639B1E787DE2000965B5 /* Main.storyboard */,
 				AA8F639E1E787DE2000965B5 /* Info.plist */,
 				AA8F63951E787DE2000965B5 /* AppDelegate.swift */,
-				AA8F63971E787DE2000965B5 /* ViewController.swift */,
-				AA6D4BB71E7B3DEA00F1B642 /* PreviewViewController.swift */,
+				AA45A5511ED8604400D508BC /* ViewControllers */,
 				AA33867C1EBF3BF10056354F /* GIF classes */,
 				AACB80061E795D7200A3F195 /* UI */,
 			);
@@ -92,6 +126,12 @@
 		AACB80061E795D7200A3F195 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				AA45A5471ED8603100D508BC /* ZoomView.swift */,
+				AA45A5481ED8603100D508BC /* PixelImageView.swift */,
+				AAA9C4CE1ECCA01A007EC0D4 /* FancyAlert.swift */,
+				AA17D4A31ECB713400E260A7 /* FancyButtonCell.swift */,
+				AA17D4A41ECB713400E260A7 /* FancyButton.swift */,
+				AA17D4A11ECB710600E260A7 /* NSViewExtension.swift */,
 				AA33867D1EBF45970056354F /* SmartTextField.swift */,
 				AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */,
 				AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */,
@@ -178,14 +218,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAA9C4CF1ECCA01A007EC0D4 /* FancyAlert.swift in Sources */,
 				AA8F63981E787DE2000965B5 /* ViewController.swift in Sources */,
+				AA45A5491ED8603100D508BC /* ZoomView.swift in Sources */,
 				AACB80081E796A7400A3F195 /* DragNotificationImageView.swift in Sources */,
+				AA17D4A21ECB710600E260A7 /* NSViewExtension.swift in Sources */,
+				AA45A54E1ED8604100D508BC /* EditViewController.swift in Sources */,
+				AA45A54A1ED8603100D508BC /* PixelImageView.swift in Sources */,
 				AA8F63961E787DE2000965B5 /* AppDelegate.swift in Sources */,
+				AA17D4A61ECB713400E260A7 /* FancyButton.swift in Sources */,
 				AA33867B1EBF3BEA0056354F /* GIFFrame.swift in Sources */,
 				AACB80041E795D5D00A3F195 /* FrameCollectionViewItem.swift in Sources */,
 				AA8F63A71E788BEE000965B5 /* GIFHandler.swift in Sources */,
+				AA45A5501ED8604100D508BC /* DrawingOptionsHandler.swift in Sources */,
 				AA6D4BB81E7B3DEA00F1B642 /* PreviewViewController.swift in Sources */,
 				AA33867E1EBF45970056354F /* SmartTextField.swift in Sources */,
+				AA17D4A51ECB713400E260A7 /* FancyButtonCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -42,5 +42,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func menuItemPreview(sender: AnyObject?) {
         NotificationCenter.default.post(name: ViewController.menuItemPreviewNotificationName, object: nil)
     }
+    
+    @IBAction func menuItemEdit(sender: AnyObject?) {
+        NotificationCenter.default.post(name: ViewController.menuItemEditNotificationName, object: nil)
+    }
 }
 
