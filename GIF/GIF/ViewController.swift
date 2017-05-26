@@ -17,6 +17,7 @@ class ViewController: NSViewController {
     static let removeFrameNotificationName = NSNotification.Name(rawValue: "RemoveFrame")
     static let imageClickedNotificationName = NSNotification.Name(rawValue: "ImageClicked")
     static let imageChangedNotificationName = NSNotification.Name(rawValue: "ImageChanged")
+    static let editingEndedNotificationName = NSNotification.Name(rawValue: "EditingEnded")
     
     static let menuItemImportNotificationName = NSNotification.Name(rawValue: "MenuItemImport")
     static let menuItemExportNotificationName = NSNotification.Name(rawValue: "MenuItemExport")
@@ -57,6 +58,8 @@ class ViewController: NSViewController {
                                                name: ViewController.imageClickedNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.imageDraggedToImageView(sender:)),
                                                name: ViewController.imageChangedNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.reloadImages),
+                                               name: ViewController.editingEndedNotificationName, object: nil)
         
         // UI events
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.loadGIFButtonClicked(sender:)),
@@ -135,6 +138,10 @@ class ViewController: NSViewController {
             }
         }
 
+    }
+    
+    func reloadImages() {
+        imageCollectionView.reloadData()
     }
     
     

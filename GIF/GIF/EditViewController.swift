@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class EditViewController: NSViewController, ZoomViewDelegate {
+class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     
     // MARK: Fields
     @IBOutlet var imageScrollView:NSScrollView!
@@ -66,6 +66,7 @@ class EditViewController: NSViewController, ZoomViewDelegate {
         self.view.window?.titleVisibility = NSWindowTitleVisibility.hidden
         self.view.window?.backgroundColor = ViewController.backgroundColor
         self.view.window?.acceptsMouseMovedEvents = true
+        self.view.window?.delegate = self
     }
 
     override var representedObject: Any? {
@@ -73,6 +74,10 @@ class EditViewController: NSViewController, ZoomViewDelegate {
         }
     }
 
+    func windowWillClose(_ notification: Notification) {
+        NotificationCenter.default.post(name: ViewController.editingEndedNotificationName, object: nil)
+    }
+    
     
     // MARK: Zoom
     func zoomChanged(magnification: CGFloat) {
