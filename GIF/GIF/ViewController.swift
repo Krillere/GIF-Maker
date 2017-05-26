@@ -36,6 +36,7 @@ class ViewController: NSViewController {
     var currentFrames:[GIFFrame] = [GIFFrame.emptyFrame()] // Allows null as they are shown as empty frames. Default is 1 empty image, to show something in UI
     var selectedRow:IndexPath? = nil // Needed for inserting and removing item
     var indexPathsOfItemsBeingDragged: Set<IndexPath>! // Paths of items being dragged (If dragging inside the app)
+    var editingWindowController:NSWindowController?
     
     // Preview variables
     var previewImages:[NSImage] = []
@@ -98,7 +99,6 @@ class ViewController: NSViewController {
     
     override var representedObject: Any? {
         didSet {
-        // Update the view, if already loaded.
         }
     }
     
@@ -154,7 +154,16 @@ class ViewController: NSViewController {
     
     // Edit button clicked
     @IBAction func editButtonClicked(sender: AnyObject?) {
+        if editingWindowController == nil {
+            let storyboard = NSStoryboard(name: "Main", bundle: nil)
+            editingWindowController = storyboard.instantiateController(withIdentifier: "EditingWindow") as? NSWindowController
+        }
         
+        if let contentViewController = editingWindowController?.contentViewController as? EditViewController {
+            contentViewController.setFrames(frames: self.currentFrames)
+        }
+        
+        editingWindowController?.showWindow(self)
     }
     
     // Export a gif

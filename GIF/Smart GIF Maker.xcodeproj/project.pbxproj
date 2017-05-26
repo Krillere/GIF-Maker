@@ -80,11 +80,19 @@
 			children = (
 				AA8F63971E787DE2000965B5 /* ViewController.swift */,
 				AA6D4BB71E7B3DEA00F1B642 /* PreviewViewController.swift */,
+				AA45A5521ED867A100D508BC /* Edit */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		AA45A5521ED867A100D508BC /* Edit */ = {
+			isa = PBXGroup;
+			children = (
 				AA45A54B1ED8604100D508BC /* EditViewController.swift */,
 				AA45A54C1ED8604100D508BC /* DrawingOptionsViewController.swift */,
 				AA45A54D1ED8604100D508BC /* DrawingOptionsHandler.swift */,
 			);
-			name = ViewControllers;
+			name = Edit;
 			sourceTree = "<group>";
 		};
 		AA8F63891E787DE2000965B5 = {

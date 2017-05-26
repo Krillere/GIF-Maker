@@ -19,6 +19,9 @@ class EditViewController: NSViewController, ZoomViewDelegate {
     @IBOutlet var previousFrameButton:NSButton!
     @IBOutlet var nextFrameButton:NSButton!
     
+    @IBOutlet var colorPicker:NSColorWell!
+    @IBOutlet var backgroundColorPicker:NSColorWell!
+    
     var drawingOptionsWindowController:NSWindowController?
     
     var frames:[GIFFrame] = []
@@ -29,8 +32,17 @@ class EditViewController: NSViewController, ZoomViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Event listeners
         NotificationCenter.default.addObserver(self, selector: #selector(EditViewController.windowResized), name: NSNotification.Name.NSWindowDidResize, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(EditViewController.imageBackgroundColorUpdated), name: DrawingOptionsHandler.backgroundColorChangedNotificationName, object: nil)
+
+        colorPicker.addObserver(self, forKeyPath: "color", options: .new, context: nil)
+        backgroundColorPicker.addObserver(self, forKeyPath: "color", options: .new, context: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(DrawingOptionsViewController.colorChangedOutside), name: DrawingOptionsHandler.colorChangedNotificationName, object: nil)
+        
+        // UI setup
+        backgroundColorPicker.color = DrawingOptionsHandler.shared.imageBackgroundColor
         
         self.view.wantsLayer = true
     }
@@ -54,8 +66,6 @@ class EditViewController: NSViewController, ZoomViewDelegate {
         self.view.window?.titleVisibility = NSWindowTitleVisibility.hidden
         self.view.window?.backgroundColor = ViewController.backgroundColor
         self.view.window?.acceptsMouseMovedEvents = true
-        
-        showDrawingOptionsWindow()
     }
 
     override var representedObject: Any? {
@@ -82,6 +92,43 @@ class EditViewController: NSViewController, ZoomViewDelegate {
         updateScrollViewSize()
     }
     
+    // Observe changes
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "color" {
+            guard let object = object as? NSColorWell else { return }
+            
+            if object == colorPicker {
+                DrawingOptionsHandler.shared.drawingColor = colorPicker.color
+            }
+            else if object == backgroundColorPicker {
+                DrawingOptionsHandler.shared.imageBackgroundColor = backgroundColorPicker.color
+                NotificationCenter.default.post(name: DrawingOptionsHandler.backgroundColorChangedNotificationName, object: nil)
+            }
+        }
+    }
+    
+    // Called when something changes the color from outside this viewcontroller
+    func colorChangedOutside() {
+        colorPicker.color = DrawingOptionsHandler.shared.drawingColor
+    }
+    
+    // MARK: Buttons
+    @IBAction func eraserButtonClicked(sender: AnyObject?) {
+        colorPicker.color = NSColor(red: 0, green: 0, blue: 0, alpha: 0)
+    }
+    
+    @IBAction func undoButtonClicked(sender: AnyObject?) {
+        
+    }
+    
+    @IBAction func redoButtonClicked(sender: AnyObject?) {
+        
+    }
+    
+    @IBAction func eyedropperButtonClicked(sender: AnyObject?) {
+        DrawingOptionsHandler.shared.isPickingColor = !DrawingOptionsHandler.shared.isPickingColor
+    }
+
     
     // MARK: UI
     func updateFrameLabel() {
@@ -145,48 +192,20 @@ class EditViewController: NSViewController, ZoomViewDelegate {
     func windowResized() {
         handleCenterImage()
     }
-    
-    func showDrawingOptionsWindow() {
-        if drawingOptionsWindowController == nil {
-            let storyboard = NSStoryboard(name: "Main", bundle: nil)
-            drawingOptionsWindowController = storyboard.instantiateController(withIdentifier: "DrawingOptionsWindow") as? NSWindowController
-            drawingOptionsWindowController?.showWindow(self)
-        }
-        else {
-            drawingOptionsWindowController!.showWindow(self)
-        }
-        
-        if let drawingWindow = drawingOptionsWindowController?.window,
-            let myWindow = self.view.window {
-            drawingWindow.setFrameOrigin(NSMakePoint(myWindow.frame.origin.x+myWindow.frame.size.width+10, myWindow.frame.origin.y))
 
-            drawingWindow.makeKeyAndOrderFront(self)
-        }
-    }
     
     // Called when the user changes the background color of the image
     func imageBackgroundColorUpdated() {
         currentFrameImageView.backgroundColor = DrawingOptionsHandler.shared.imageBackgroundColor
     }
     
-    
-    // MARK: Buttons
-    @IBAction func loadGIFButtonClicked(sender: AnyObject?) {
-
-        // Show file panel
-        let panel = NSOpenPanel()
-        panel.allowedFileTypes = ["gif"]
-        panel.allowsMultipleSelection = false
-        panel.allowsOtherFileTypes = false
-        panel.canChooseDirectories = false
-        panel.begin { (res) in
-            if res == NSFileHandlingPanelOKButton {
-                // Load image from file
-                if let url = panel.url {
-                    self.importGIF(from: url)
-                }
-            }
-        }
+    func setFrames(frames: [GIFFrame]) {
+        self.frames = frames
+        self.currentFrameNumber = 0
+        
+        updateFrameLabel()
+        
+        showFrame(frame: self.frames[self.currentFrameNumber])
     }
     
     @IBAction func nextFrameButtonClicked(sender: AnyObject?) {
@@ -221,20 +240,7 @@ class EditViewController: NSViewController, ZoomViewDelegate {
     
     
     // MARK: Helpers
-    // Imports a gif from a given location
-    func importGIF(from: URL) {
-        if let image = NSImage(contentsOf: from) {
-            // Set values from the .GIF
-            let newValues = GIFHandler.loadGIF(with: image)
-            self.frames = newValues.frames
-            self.currentFrameNumber = 0
-            
-            updateFrameLabel()
-            
-            showFrame(frame: self.frames[self.currentFrameNumber])
-        }
-    }
-    
+
     // Based on http://stackoverflow.com/a/14731922
     func calculateAspectRatioFit(srcWidth: CGFloat, srcHeight: CGFloat, maxWidth: CGFloat, maxHeight: CGFloat) -> (width: CGFloat, height: CGFloat) {
         if srcWidth < maxWidth && srcHeight < maxHeight {
