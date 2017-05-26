@@ -12,6 +12,11 @@
 		AA17D4A61ECB713400E260A7 /* FancyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA17D4A41ECB713400E260A7 /* FancyButton.swift */; };
 		AA33867B1EBF3BEA0056354F /* GIFFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA33867A1EBF3BEA0056354F /* GIFFrame.swift */; };
 		AA33867E1EBF45970056354F /* SmartTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA33867D1EBF45970056354F /* SmartTextField.swift */; };
+		AA45A5491ED8603100D508BC /* ZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A5471ED8603100D508BC /* ZoomView.swift */; };
+		AA45A54A1ED8603100D508BC /* PixelImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A5481ED8603100D508BC /* PixelImageView.swift */; };
+		AA45A54E1ED8604100D508BC /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A54B1ED8604100D508BC /* EditViewController.swift */; };
+		AA45A54F1ED8604100D508BC /* DrawingOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A54C1ED8604100D508BC /* DrawingOptionsViewController.swift */; };
+		AA45A5501ED8604100D508BC /* DrawingOptionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A54D1ED8604100D508BC /* DrawingOptionsHandler.swift */; };
 		AA6D4BB81E7B3DEA00F1B642 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6D4BB71E7B3DEA00F1B642 /* PreviewViewController.swift */; };
 		AA8F63961E787DE2000965B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8F63951E787DE2000965B5 /* AppDelegate.swift */; };
 		AA8F63981E787DE2000965B5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8F63971E787DE2000965B5 /* ViewController.swift */; };
@@ -30,6 +35,11 @@
 		AA17D4A41ECB713400E260A7 /* FancyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyButton.swift; sourceTree = "<group>"; };
 		AA33867A1EBF3BEA0056354F /* GIFFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFFrame.swift; sourceTree = "<group>"; };
 		AA33867D1EBF45970056354F /* SmartTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartTextField.swift; sourceTree = "<group>"; };
+		AA45A5471ED8603100D508BC /* ZoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomView.swift; sourceTree = "<group>"; };
+		AA45A5481ED8603100D508BC /* PixelImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PixelImageView.swift; sourceTree = "<group>"; };
+		AA45A54B1ED8604100D508BC /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
+		AA45A54C1ED8604100D508BC /* DrawingOptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingOptionsViewController.swift; sourceTree = "<group>"; };
+		AA45A54D1ED8604100D508BC /* DrawingOptionsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingOptionsHandler.swift; sourceTree = "<group>"; };
 		AA6D4BB71E7B3DEA00F1B642 /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		AA8F63921E787DE2000965B5 /* Smart GIF Maker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smart GIF Maker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA8F63951E787DE2000965B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +75,18 @@
 			name = "GIF classes";
 			sourceTree = "<group>";
 		};
+		AA45A5511ED8604400D508BC /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				AA8F63971E787DE2000965B5 /* ViewController.swift */,
+				AA6D4BB71E7B3DEA00F1B642 /* PreviewViewController.swift */,
+				AA45A54B1ED8604100D508BC /* EditViewController.swift */,
+				AA45A54C1ED8604100D508BC /* DrawingOptionsViewController.swift */,
+				AA45A54D1ED8604100D508BC /* DrawingOptionsHandler.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		AA8F63891E787DE2000965B5 = {
 			isa = PBXGroup;
 			children = (
@@ -89,8 +111,7 @@
 				AA8F639B1E787DE2000965B5 /* Main.storyboard */,
 				AA8F639E1E787DE2000965B5 /* Info.plist */,
 				AA8F63951E787DE2000965B5 /* AppDelegate.swift */,
-				AA8F63971E787DE2000965B5 /* ViewController.swift */,
-				AA6D4BB71E7B3DEA00F1B642 /* PreviewViewController.swift */,
+				AA45A5511ED8604400D508BC /* ViewControllers */,
 				AA33867C1EBF3BF10056354F /* GIF classes */,
 				AACB80061E795D7200A3F195 /* UI */,
 			);
@@ -100,6 +121,8 @@
 		AACB80061E795D7200A3F195 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				AA45A5471ED8603100D508BC /* ZoomView.swift */,
+				AA45A5481ED8603100D508BC /* PixelImageView.swift */,
 				AAA9C4CE1ECCA01A007EC0D4 /* FancyAlert.swift */,
 				AA17D4A31ECB713400E260A7 /* FancyButtonCell.swift */,
 				AA17D4A41ECB713400E260A7 /* FancyButton.swift */,
@@ -192,13 +215,18 @@
 			files = (
 				AAA9C4CF1ECCA01A007EC0D4 /* FancyAlert.swift in Sources */,
 				AA8F63981E787DE2000965B5 /* ViewController.swift in Sources */,
+				AA45A5491ED8603100D508BC /* ZoomView.swift in Sources */,
 				AACB80081E796A7400A3F195 /* DragNotificationImageView.swift in Sources */,
+				AA45A54F1ED8604100D508BC /* DrawingOptionsViewController.swift in Sources */,
 				AA17D4A21ECB710600E260A7 /* NSViewExtension.swift in Sources */,
+				AA45A54E1ED8604100D508BC /* EditViewController.swift in Sources */,
+				AA45A54A1ED8603100D508BC /* PixelImageView.swift in Sources */,
 				AA8F63961E787DE2000965B5 /* AppDelegate.swift in Sources */,
 				AA17D4A61ECB713400E260A7 /* FancyButton.swift in Sources */,
 				AA33867B1EBF3BEA0056354F /* GIFFrame.swift in Sources */,
 				AACB80041E795D5D00A3F195 /* FrameCollectionViewItem.swift in Sources */,
 				AA8F63A71E788BEE000965B5 /* GIFHandler.swift in Sources */,
+				AA45A5501ED8604100D508BC /* DrawingOptionsHandler.swift in Sources */,
 				AA6D4BB81E7B3DEA00F1B642 /* PreviewViewController.swift in Sources */,
 				AA33867E1EBF45970056354F /* SmartTextField.swift in Sources */,
 				AA17D4A51ECB713400E260A7 /* FancyButtonCell.swift in Sources */,
