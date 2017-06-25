@@ -135,7 +135,13 @@ class ViewController: NSViewController {
     
     // Edit button clicked
     @IBAction func editButtonClicked(sender: AnyObject?) {
-        showEditing()
+        var startIndex:Int? = nil
+        
+        if let indexPath = imageCollectionView.selectionIndexPaths.first {
+            startIndex = indexPath.item
+        }
+        
+        showEditing(withIndex: startIndex)
     }
     
     // Export a gif
@@ -257,7 +263,7 @@ class ViewController: NSViewController {
         }
     }
     
-    // Adds listeners
+    // Adds NotificationCenter listeners
     func setupNotificationListeners() {
         // Listeners for events regarding frames and images
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.removeFrameCalled(sender:)),
