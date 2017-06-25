@@ -22,6 +22,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return true
+    }
+    
     // MARK: Menu items
     @IBAction func menuItemLoad(sender: AnyObject?) {
         NotificationCenter.default.post(name: ViewController.menuItemImportNotificationName, object: nil)

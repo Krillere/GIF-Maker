@@ -40,8 +40,14 @@ class FrameCollectionViewItem: NSCollectionViewItem {
         self.textField?.stringValue = "Frame "+String(n)
     }
     
+    // Removes me
     @IBAction func removeMe(sender: AnyObject?) {
         NotificationCenter.default.post(name: ViewController.removeFrameNotificationName, object: self)
+    }
+    
+    // Edits me
+    @IBAction func editMe(sender: AnyObject?) {
+        NotificationCenter.default.post(name: ViewController.editFrameNotificationName, object: self)
     }
     
     func setImage(_ img: NSImage) {

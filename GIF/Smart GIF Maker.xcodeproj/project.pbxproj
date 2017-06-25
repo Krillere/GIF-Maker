@@ -12,6 +12,7 @@
 		AA17D4A61ECB713400E260A7 /* FancyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA17D4A41ECB713400E260A7 /* FancyButton.swift */; };
 		AA33867B1EBF3BEA0056354F /* GIFFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA33867A1EBF3BEA0056354F /* GIFFrame.swift */; };
 		AA33867E1EBF45970056354F /* SmartTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA33867D1EBF45970056354F /* SmartTextField.swift */; };
+		AA3E1E5E1F0000830030E636 /* ViewController+NSCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3E1E5D1F0000830030E636 /* ViewController+NSCollectionView.swift */; };
 		AA45A5491ED8603100D508BC /* ZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A5471ED8603100D508BC /* ZoomView.swift */; };
 		AA45A54A1ED8603100D508BC /* PixelImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A5481ED8603100D508BC /* PixelImageView.swift */; };
 		AA45A54E1ED8604100D508BC /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A54B1ED8604100D508BC /* EditViewController.swift */; };
@@ -34,6 +35,7 @@
 		AA17D4A41ECB713400E260A7 /* FancyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyButton.swift; sourceTree = "<group>"; };
 		AA33867A1EBF3BEA0056354F /* GIFFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFFrame.swift; sourceTree = "<group>"; };
 		AA33867D1EBF45970056354F /* SmartTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartTextField.swift; sourceTree = "<group>"; };
+		AA3E1E5D1F0000830030E636 /* ViewController+NSCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+NSCollectionView.swift"; sourceTree = "<group>"; };
 		AA45A5471ED8603100D508BC /* ZoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomView.swift; sourceTree = "<group>"; };
 		AA45A5481ED8603100D508BC /* PixelImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PixelImageView.swift; sourceTree = "<group>"; };
 		AA45A54B1ED8604100D508BC /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
@@ -73,11 +75,28 @@
 			name = "GIF classes";
 			sourceTree = "<group>";
 		};
-		AA45A5511ED8604400D508BC /* ViewControllers */ = {
+		AA3E1E5C1F00004E0030E636 /* Main Window */ = {
 			isa = PBXGroup;
 			children = (
 				AA8F63971E787DE2000965B5 /* ViewController.swift */,
+				AA3E1E5D1F0000830030E636 /* ViewController+NSCollectionView.swift */,
+			);
+			name = "Main Window";
+			sourceTree = "<group>";
+		};
+		AA3E1E5F1F0000B40030E636 /* Preview */ = {
+			isa = PBXGroup;
+			children = (
 				AA6D4BB71E7B3DEA00F1B642 /* PreviewViewController.swift */,
+			);
+			name = Preview;
+			sourceTree = "<group>";
+		};
+		AA45A5511ED8604400D508BC /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				AA3E1E5C1F00004E0030E636 /* Main Window */,
+				AA3E1E5F1F0000B40030E636 /* Preview */,
 				AA45A5521ED867A100D508BC /* Edit */,
 			);
 			name = ViewControllers;
@@ -233,6 +252,7 @@
 				AA45A5501ED8604100D508BC /* DrawingOptionsHandler.swift in Sources */,
 				AA6D4BB81E7B3DEA00F1B642 /* PreviewViewController.swift in Sources */,
 				AA33867E1EBF45970056354F /* SmartTextField.swift in Sources */,
+				AA3E1E5E1F0000830030E636 /* ViewController+NSCollectionView.swift in Sources */,
 				AA17D4A51ECB713400E260A7 /* FancyButtonCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
