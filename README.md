@@ -4,10 +4,10 @@ Select a frame and 'Add frame' to add the frame next to the selected. Click the 
 
 
 Screenshots:
-![New window](Screenshots/ss1.png)
+![New window](Misc/Screenshots/ss1.png)
 
-![Loaded gif](Screenshots/ss2.png)
+![Loaded gif](Misc/Screenshots/ss2.png)
 
-![New frame added to gif](Screenshots/ss3.png)
+![New frame added to gif](Misc/Screenshots/ss3.png)
 
-![Preview of gif being shown](Screenshots/ss4.png)
+![Preview of gif being shown](Misc/Screenshots/ss4.png)
