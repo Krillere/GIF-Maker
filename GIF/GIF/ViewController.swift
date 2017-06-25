@@ -15,8 +15,6 @@ class ViewController: NSViewController {
     static let backgroundColor = NSColor(red: 50.0/255.0, green: 50.0/255.0, blue: 50.0/255.0, alpha: 1.0)
     
     // TODO: Create a delegate or something instead of this mess
-    static let removeFrameNotificationName = NSNotification.Name(rawValue: "RemoveFrame")
-    static let editFrameNotificationName = NSNotification.Name(rawValue: "EditFrame")
     static let imageClickedNotificationName = NSNotification.Name(rawValue: "ImageClicked")
     static let imageChangedNotificationName = NSNotification.Name(rawValue: "ImageChanged")
     static let editingEndedNotificationName = NSNotification.Name(rawValue: "EditingEnded")
@@ -267,10 +265,6 @@ class ViewController: NSViewController {
     // Adds NotificationCenter listeners
     func setupNotificationListeners() {
         // Listeners for events regarding frames and images
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.removeFrameCalled(sender:)),
-                                               name: ViewController.removeFrameNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.editFrameCalled(sender:)),
-                                               name: ViewController.editFrameNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.clickedImageView(sender:)),
                                                name: ViewController.imageClickedNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.imageDraggedToImageView(sender:)),
@@ -308,32 +302,6 @@ class ViewController: NSViewController {
         }
         
         editingWindowController?.showWindow(self)
-    }
-    
-    // MARK: NotificationCenter calls (Mainly by UI components)
-    // A frame wants to be removed (Get index of sender, and remove from 'currentImages')
-    func removeFrameCalled(sender: NSNotification) {
-        guard let object = sender.object as? FrameCollectionViewItem else { return }
-        
-        // Can we remove this?
-        if currentFrames.count == 1 {
-            return // Nope.
-        }
-        
-        // Remove the index and reload everything
-        let index = object.itemIndex
-        currentFrames.remove(at: index)
-        
-        deselectAll()
-        imageCollectionView.reloadData()
-    }
-    
-    // A frame wants to be edited
-    func editFrameCalled(sender: NSNotification) {
-        guard let object = sender.object as? FrameCollectionViewItem else { return }
-        
-        let index = object.itemIndex
-        showEditing(withIndex: index)
     }
 
     // An image was dragged to an imageView

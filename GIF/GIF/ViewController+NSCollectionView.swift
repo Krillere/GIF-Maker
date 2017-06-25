@@ -9,9 +9,30 @@
 import Foundation
 import Cocoa
 
-// MARK: NSCollectionView
-extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
+
+extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource, FrameCollectionViewItemDelegate {
     
+    // MARK: FrameCollectionViewitemDelegate
+    func removeFrame(item: FrameCollectionViewItem) {
+        // Can we remove this?
+        if currentFrames.count == 1 {
+            return // Nope.
+        }
+        
+        // Remove the index and reload everything
+        let index = item.itemIndex
+        currentFrames.remove(at: index)
+        
+        deselectAll()
+        imageCollectionView.reloadData()
+    }
+    
+    func editFrame(item: FrameCollectionViewItem) {
+        let index = item.itemIndex
+        showEditing(withIndex: index)
+    }
+    
+    // MARK: NSCollectionView
     // Sets up the collection view variables (Could probably be done in IB), and allows drag'n'drop
     // https://www.raywenderlich.com/145978/nscollectionview-tutorial
     // https://www.raywenderlich.com/132268/advanced-collection-views-os-x-tutorial
@@ -54,7 +75,8 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
         let item = collectionView.makeItem(withIdentifier: "FrameCollectionViewItem", for: indexPath)
         
         // Cast to FrameCollectionView, set index and reset image (To remove old index image)
-        guard let frameCollectionViewItem = item as? FrameCollectionViewItem else { print("NO"); return item}
+        guard let frameCollectionViewItem = item as? FrameCollectionViewItem else { return item }
+        frameCollectionViewItem.delegate = self
         frameCollectionViewItem.setFrameNumber(indexPath.item+1)
         frameCollectionViewItem.itemIndex = indexPath.item
         frameCollectionViewItem.resetImage() // Remove current image
@@ -116,7 +138,7 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource {
     }
     
     
-    // When dragging starts?
+    // When dragging starts
     func collectionView(_ collectionView: NSCollectionView, draggingSession session: NSDraggingSession, willBeginAt screenPoint: NSPoint, forItemsAt indexPaths: Set<IndexPath>) {
         indexPathsOfItemsBeingDragged = indexPaths
     }

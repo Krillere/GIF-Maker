@@ -9,8 +9,8 @@
 import Cocoa
 
 protocol FrameCollectionViewItemDelegate {
-    func removeFrame(index: Int)
-    func editFrame(index: Int)
+    func removeFrame(item: FrameCollectionViewItem)
+    func editFrame(item: FrameCollectionViewItem)
 }
 
 class FrameCollectionViewItem: NSCollectionViewItem {
@@ -46,12 +46,12 @@ class FrameCollectionViewItem: NSCollectionViewItem {
     
     // Removes me
     @IBAction func removeMe(sender: AnyObject?) {
-        NotificationCenter.default.post(name: ViewController.removeFrameNotificationName, object: self)
+        self.delegate?.removeFrame(item: self)
     }
     
     // Edits me
     @IBAction func editMe(sender: AnyObject?) {
-        NotificationCenter.default.post(name: ViewController.editFrameNotificationName, object: self)
+        self.delegate?.editFrame(item: self)
     }
     
     // MARK: Image handling
