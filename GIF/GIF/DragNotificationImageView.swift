@@ -8,18 +8,22 @@
 
 import Cocoa
 
+protocol DragNotificationImageViewDelegate {
+    func imageClicked(imageView: DragNotificationImageView)
+    func imageDragged(imageView: DragNotificationImageView)
+}
+
 class DragNotificationImageView: NSImageView {
-    @IBOutlet var ownerCollectionViewItem:FrameCollectionViewItem!
+    var delegate:DragNotificationImageViewDelegate?
     var gifFrame: GIFFrame?
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-
-        // Drawing code here.
     }
     
     override func draggingEnded(_ sender: NSDraggingInfo?) {
-        NotificationCenter.default.post(name: ViewController.imageChangedNotificationName, object: self)
+        self.delegate?.imageDragged(imageView: self)
+        //NotificationCenter.default.post(name: ViewController.imageChangedNotificationName, object: self)
     }
     
     override func mouseDown(with event: NSEvent) {
@@ -27,9 +31,10 @@ class DragNotificationImageView: NSImageView {
     }
 
     override func mouseUp(with event: NSEvent) {
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: ViewController.imageClickedNotificationName, object: self)
-        }
+        self.delegate?.imageClicked(imageView: self)
+//        DispatchQueue.main.async {
+//            NotificationCenter.default.post(name: ViewController.imageClickedNotificationName, object: self)
+//        }
     }
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {

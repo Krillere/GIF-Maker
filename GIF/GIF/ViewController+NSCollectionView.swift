@@ -14,14 +14,17 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource, 
     
     // MARK: FrameCollectionViewitemDelegate
     func removeFrame(item: FrameCollectionViewItem) {
-        // Can we remove this?
-        if currentFrames.count == 1 {
-            return // Nope.
-        }
         
-        // Remove the index and reload everything
-        let index = item.itemIndex
-        currentFrames.remove(at: index)
+        // If there's one frame, reset it
+        if currentFrames.count == 1 {
+            currentFrames[0] = GIFFrame.emptyFrame
+            
+        }
+        else {
+            // Remove the index and reload everything
+            let index = item.itemIndex
+            currentFrames.remove(at: index)
+        }
         
         deselectAll()
         imageCollectionView.reloadData()
@@ -30,6 +33,43 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource, 
     func editFrame(item: FrameCollectionViewItem) {
         let index = item.itemIndex
         showEditing(withIndex: index)
+    }
+    
+    func frameImageChanged(item: FrameCollectionViewItem) {
+        guard let imgView = item.imageView as? DragNotificationImageView,
+            let frame = imgView.gifFrame else { return }
+        
+        currentFrames[item.itemIndex] = frame
+        self.selectedRow = nil
+        self.imageCollectionView.reloadData()
+    }
+    
+    func frameImageClicked(item: FrameCollectionViewItem) {
+        guard let imgView = item.imageView as? DragNotificationImageView else { return }
+        
+        // Show panel
+        let panel = NSOpenPanel()
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = false
+        panel.canChooseFiles = true
+        panel.allowedFileTypes = ["png", "jpg", "jpeg", "gif", "tiff"]
+        panel.beginSheetModal(for: self.view.window!) { (response) -> Void in
+            
+            // Insert image into imageview and 'currentImages' and reload
+            if response == NSFileHandlingPanelOKButton {
+                let URL = panel.url
+                if URL != nil {
+                    if let image = NSImage(contentsOf: URL!) {
+                        let frame = GIFFrame(image: image)
+                        self.currentFrames[item.itemIndex] = frame
+                    }
+                    self.imageCollectionView.reloadData()
+                }
+            }
+            
+            imgView.resignFirstResponder()
+            self.addFrameButton.becomeFirstResponder()
+        }
     }
     
     // MARK: NSCollectionView

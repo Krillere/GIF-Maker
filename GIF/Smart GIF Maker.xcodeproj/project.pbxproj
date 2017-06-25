@@ -104,6 +104,7 @@
 		AA3E1E611F000FA60030E636 /* Frames in UI */ = {
 			isa = PBXGroup;
 			children = (
+				AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */,
 				AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */,
 				AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */,
 			);
@@ -169,7 +170,6 @@
 				AA3E1E601F000F8C0030E636 /* Button */,
 				AA17D4A11ECB710600E260A7 /* NSViewExtension.swift */,
 				AA33867D1EBF45970056354F /* SmartTextField.swift */,
-				AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */,
 				AA3E1E611F000FA60030E636 /* Frames in UI */,
 			);
 			name = UI;

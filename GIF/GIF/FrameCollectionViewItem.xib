@@ -51,9 +51,6 @@
                         <constraint firstAttribute="height" constant="184" id="xLq-19-I3H"/>
                     </constraints>
                     <imageCell key="cell" selectable="YES" editable="YES" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="LOv-di-G3W"/>
-                    <connections>
-                        <outlet property="ownerCollectionViewItem" destination="8hu-CX-LPd" id="GDG-lq-Xit"/>
-                    </connections>
                 </imageView>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mJu-9S-cSR">
                     <rect key="frame" x="177" y="7" width="15" height="15"/>

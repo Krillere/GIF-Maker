@@ -11,9 +11,12 @@ import Cocoa
 protocol FrameCollectionViewItemDelegate {
     func removeFrame(item: FrameCollectionViewItem)
     func editFrame(item: FrameCollectionViewItem)
+    
+    func frameImageChanged(item: FrameCollectionViewItem)
+    func frameImageClicked(item: FrameCollectionViewItem)
 }
 
-class FrameCollectionViewItem: NSCollectionViewItem {
+class FrameCollectionViewItem: NSCollectionViewItem, DragNotificationImageViewDelegate {
     var itemIndex = -1
     var delegate:FrameCollectionViewItemDelegate?
 
@@ -26,6 +29,10 @@ class FrameCollectionViewItem: NSCollectionViewItem {
         view.layer?.backgroundColor = NSColor.clear.cgColor
         view.layer?.cornerRadius = 6
         view.layer?.borderColor = NSColor.selectedControlColor.cgColor
+        
+        if let imgView = self.imageView as? DragNotificationImageView {
+            imgView.delegate = self
+        }
     }
     
     func setHighlight(selected: Bool) {
@@ -36,7 +43,6 @@ class FrameCollectionViewItem: NSCollectionViewItem {
             view.layer?.borderWidth = 0.0
         }
     }
-    
     
     // MARK: UI
     // Sets the frame number
@@ -67,5 +73,14 @@ class FrameCollectionViewItem: NSCollectionViewItem {
         if let imgView = self.imageView as? DragNotificationImageView {
             imgView.image = nil
         }
+    }
+    
+    // MARK: DragNotificationImageViewDelegate
+    func imageDragged(imageView: DragNotificationImageView) {
+        
+    }
+    
+    func imageClicked(imageView: DragNotificationImageView) {
+        
     }
 }

@@ -17,7 +17,7 @@ class GIFHandler {
     
     // MARK: Loading gifs (Returns tuple with images, loop count and seconds/frame
     static func loadGIF(with image: NSImage) -> (frames: [GIFFrame], loops:Int, secondsPrFrame: Float) {
-        let errorReturn:(frames: [GIFFrame], loops:Int, secondsPrFrame: Float) = (frames: [GIFFrame.emptyFrame()], loops: GIFHandler.defaultLoops, secondsPrFrame: GIFHandler.defaultFrameDuration)
+        let errorReturn:(frames: [GIFFrame], loops:Int, secondsPrFrame: Float) = (frames: [GIFFrame.emptyFrame], loops: GIFHandler.defaultLoops, secondsPrFrame: GIFHandler.defaultFrameDuration)
         
         // Attempt to fetch the number of frames, frame duration, and loop count from the .gif
         guard let bitmapRep = image.representations[0] as? NSBitmapImageRep,

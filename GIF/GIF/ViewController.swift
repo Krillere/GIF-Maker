@@ -15,8 +15,6 @@ class ViewController: NSViewController {
     static let backgroundColor = NSColor(red: 50.0/255.0, green: 50.0/255.0, blue: 50.0/255.0, alpha: 1.0)
     
     // TODO: Create a delegate or something instead of this mess
-    static let imageClickedNotificationName = NSNotification.Name(rawValue: "ImageClicked")
-    static let imageChangedNotificationName = NSNotification.Name(rawValue: "ImageChanged")
     static let editingEndedNotificationName = NSNotification.Name(rawValue: "EditingEnded")
     
     static let menuItemImportNotificationName = NSNotification.Name(rawValue: "MenuItemImport")
@@ -34,7 +32,7 @@ class ViewController: NSViewController {
     @IBOutlet var loopsTextField:NSTextField!
     
     // Fields used in UI handling
-    var currentFrames:[GIFFrame] = [GIFFrame.emptyFrame()] // Default is 1 empty image, to show something in UI
+    var currentFrames:[GIFFrame] = [GIFFrame.emptyFrame] // Default is 1 empty image, to show something in UI
     var selectedRow:IndexPath? = nil // Needed for inserting and removing item
     var indexPathsOfItemsBeingDragged: Set<IndexPath>! // Paths of items being dragged (If dragging inside the app)
     var editingWindowController:NSWindowController?
@@ -122,11 +120,11 @@ class ViewController: NSViewController {
     // Adds a new frame
     @IBAction func addFrameButtonClicked(sender: AnyObject?) {
         if let indexPath = selectedRow { // Add after selectedRow
-            currentFrames.insert(GIFFrame.emptyFrame(), at: indexPath.item+1)
+            currentFrames.insert(GIFFrame.emptyFrame, at: indexPath.item+1)
             selectedRow = IndexPath(item: indexPath.item+1, section: 0)
         }
         else { // Add empty frame
-            currentFrames.append(GIFFrame.emptyFrame())
+            currentFrames.append(GIFFrame.emptyFrame)
         }
 
         self.imageCollectionView.reloadData()
@@ -204,7 +202,7 @@ class ViewController: NSViewController {
         
         alert.beginSheetModal(for: self.view.window!) { (resp) in
             if resp == NSAlertFirstButtonReturn { // Yes clicked, reset
-                self.currentFrames = [GIFFrame.emptyFrame()]
+                self.currentFrames = [GIFFrame.emptyFrame]
                 self.frameDurationTextField.stringValue = String(GIFHandler.defaultFrameDuration)
                 self.loopsTextField.stringValue = String(GIFHandler.defaultLoops)
                 self.imageCollectionView.reloadData()
@@ -265,10 +263,6 @@ class ViewController: NSViewController {
     // Adds NotificationCenter listeners
     func setupNotificationListeners() {
         // Listeners for events regarding frames and images
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.clickedImageView(sender:)),
-                                               name: ViewController.imageClickedNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.imageDraggedToImageView(sender:)),
-                                               name: ViewController.imageChangedNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.reloadImages),
                                                name: ViewController.editingEndedNotificationName, object: nil)
         
@@ -304,49 +298,6 @@ class ViewController: NSViewController {
         editingWindowController?.showWindow(self)
     }
 
-    // An image was dragged to an imageView
-    // Replace the image at the views location to the new one
-    func imageDraggedToImageView(sender: NSNotification) {
-        guard let imgView = sender.object as? DragNotificationImageView,
-              let owner = imgView.ownerCollectionViewItem,
-              let frame = imgView.gifFrame else { return }
-        
-        currentFrames[owner.itemIndex] = frame
-        self.selectedRow = nil
-        self.imageCollectionView.reloadData()
-    }
-    
-    // An ImageView was clicked
-    // Show an open dialog and insert image in view and 'currentImages'
-    func clickedImageView(sender: NSNotification) {
-        guard let imgView = sender.object as? DragNotificationImageView,
-              let owner = imgView.ownerCollectionViewItem else { return }
-        
-        // Show panel
-        let panel = NSOpenPanel()
-        panel.allowsMultipleSelection = false
-        panel.canChooseDirectories = false
-        panel.canChooseFiles = true
-        panel.allowedFileTypes = ["png", "jpg", "jpeg", "gif", "tiff"]
-        panel.beginSheetModal(for: self.view.window!) { (response) -> Void in
-            
-            // Insert image into imageview and 'currentImages' and reload
-            if response == NSFileHandlingPanelOKButton {
-                let URL = panel.url
-                if URL != nil {
-                    if let image = NSImage(contentsOf: URL!) {
-                        let frame = GIFFrame(image: image)
-                        self.currentFrames[owner.itemIndex] = frame
-                    }
-                    self.imageCollectionView.reloadData()
-                }
-            }
-            
-            imgView.resignFirstResponder()
-            self.addFrameButton.becomeFirstResponder()
-        }
-    }
-    
     // Notification when an error occurs in GIFHandler
     func gifError(sender: NSNotification) {
         guard let userInfo = sender.userInfo,

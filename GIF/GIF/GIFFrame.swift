@@ -13,14 +13,12 @@ class GIFFrame {
     var image:NSImage?
     var duration:Float = GIFHandler.defaultFrameDuration
     
+    static let emptyFrame:GIFFrame = GIFFrame()
+    
     init(image: NSImage, duration: Float = GIFHandler.defaultFrameDuration) {
         self.image = image
         self.duration = duration
     }
     
     init() { }
-    
-    static func emptyFrame() -> GIFFrame {
-        return GIFFrame()
-    }
 }
