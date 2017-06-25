@@ -11,3 +11,5 @@ Screenshots:
 ![New frame added to gif](Misc/Screenshots/ss3.png)
 
 ![Preview of gif being shown](Misc/Screenshots/ss4.png)
+
+![Editing a frame](Misc/Screenshots/ss5.png)
