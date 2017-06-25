@@ -14,6 +14,7 @@ class ViewController: NSViewController {
     // Constants
     static let backgroundColor = NSColor(red: 50.0/255.0, green: 50.0/255.0, blue: 50.0/255.0, alpha: 1.0)
     
+    // TODO: Create a delegate or something instead of this mess
     static let removeFrameNotificationName = NSNotification.Name(rawValue: "RemoveFrame")
     static let editFrameNotificationName = NSNotification.Name(rawValue: "EditFrame")
     static let imageClickedNotificationName = NSNotification.Name(rawValue: "ImageClicked")

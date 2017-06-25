@@ -8,8 +8,14 @@
 
 import Cocoa
 
+protocol FrameCollectionViewItemDelegate {
+    func removeFrame(index: Int)
+    func editFrame(index: Int)
+}
+
 class FrameCollectionViewItem: NSCollectionViewItem {
     var itemIndex = -1
+    var delegate:FrameCollectionViewItemDelegate?
 
     // MARK: NSCollectionViewItem init
     override func viewDidLoad() {
@@ -18,24 +24,22 @@ class FrameCollectionViewItem: NSCollectionViewItem {
         view.wantsLayer = true
         
         view.layer?.backgroundColor = NSColor.clear.cgColor
-        view.layer?.cornerRadius = 5
+        view.layer?.cornerRadius = 6
         view.layer?.borderColor = NSColor.selectedControlColor.cgColor
     }
     
     func setHighlight(selected: Bool) {
         if selected {
-            view.layer?.borderWidth = 5.0
+            view.layer?.borderWidth = 4.0
         }
         else {
             view.layer?.borderWidth = 0.0
         }
     }
     
-    override func keyDown(with event: NSEvent) {
-        print("KeyDown!")
-    }
     
-    // MARK: Image handling
+    // MARK: UI
+    // Sets the frame number
     func setFrameNumber(_ n: Int) {
         self.textField?.stringValue = "Frame "+String(n)
     }
@@ -50,12 +54,15 @@ class FrameCollectionViewItem: NSCollectionViewItem {
         NotificationCenter.default.post(name: ViewController.editFrameNotificationName, object: self)
     }
     
+    // MARK: Image handling
+    // Sets an image
     func setImage(_ img: NSImage) {
         if let imgView = self.imageView as? DragNotificationImageView {
             imgView.image = img
         }
     }
     
+    // Resets(removes) an image
     func resetImage() {
         if let imgView = self.imageView as? DragNotificationImageView {
             imgView.image = nil
