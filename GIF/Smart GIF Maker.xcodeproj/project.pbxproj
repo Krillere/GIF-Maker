@@ -92,6 +92,24 @@
 			name = Preview;
 			sourceTree = "<group>";
 		};
+		AA3E1E601F000F8C0030E636 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				AA17D4A31ECB713400E260A7 /* FancyButtonCell.swift */,
+				AA17D4A41ECB713400E260A7 /* FancyButton.swift */,
+			);
+			name = Button;
+			sourceTree = "<group>";
+		};
+		AA3E1E611F000FA60030E636 /* Frames in UI */ = {
+			isa = PBXGroup;
+			children = (
+				AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */,
+				AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */,
+			);
+			name = "Frames in UI";
+			sourceTree = "<group>";
+		};
 		AA45A5511ED8604400D508BC /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,13 +166,11 @@
 				AA45A5471ED8603100D508BC /* ZoomView.swift */,
 				AA45A5481ED8603100D508BC /* PixelImageView.swift */,
 				AAA9C4CE1ECCA01A007EC0D4 /* FancyAlert.swift */,
-				AA17D4A31ECB713400E260A7 /* FancyButtonCell.swift */,
-				AA17D4A41ECB713400E260A7 /* FancyButton.swift */,
+				AA3E1E601F000F8C0030E636 /* Button */,
 				AA17D4A11ECB710600E260A7 /* NSViewExtension.swift */,
 				AA33867D1EBF45970056354F /* SmartTextField.swift */,
 				AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */,
-				AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */,
-				AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */,
+				AA3E1E611F000FA60030E636 /* Frames in UI */,
 			);
 			name = UI;
 			sourceTree = "<group>";
