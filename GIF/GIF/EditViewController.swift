@@ -11,6 +11,7 @@ import Cocoa
 class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     
     // MARK: Fields
+    // UI
     @IBOutlet var imageScrollView:NSScrollView!
     
     @IBOutlet var imageBackgroundView:ZoomView!
@@ -24,8 +25,10 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     
     var drawingOptionsWindowController:NSWindowController?
     
+    // Frames and frame count
     var frames:[GIFFrame] = []
     var currentFrameNumber:Int = 0
+    var initialFramenumber:Int?
     
 
     // MARK: ViewController stuff

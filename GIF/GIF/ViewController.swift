@@ -35,7 +35,7 @@ class ViewController: NSViewController {
     @IBOutlet var loopsTextField:NSTextField!
     
     // Fields used in UI handling
-    var currentFrames:[GIFFrame] = [GIFFrame.emptyFrame()] // Allows null as they are shown as empty frames. Default is 1 empty image, to show something in UI
+    var currentFrames:[GIFFrame] = [GIFFrame.emptyFrame()] // Default is 1 empty image, to show something in UI
     var selectedRow:IndexPath? = nil // Needed for inserting and removing item
     var indexPathsOfItemsBeingDragged: Set<IndexPath>! // Paths of items being dragged (If dragging inside the app)
     var editingWindowController:NSWindowController?
@@ -51,34 +51,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         
         configureCollectionView()
-        
-        // Listeners for events regarding frames and images
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.removeFrameCalled(sender:)),
-                                               name: ViewController.removeFrameNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.clickedImageView(sender:)),
-                                               name: ViewController.imageClickedNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.imageDraggedToImageView(sender:)),
-                                               name: ViewController.imageChangedNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.reloadImages),
-                                               name: ViewController.editingEndedNotificationName, object: nil)
-        
-        // UI events
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.loadGIFButtonClicked(sender:)),
-                                               name: ViewController.menuItemImportNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.exportGIFButtonClicked(sender:)),
-                                               name: ViewController.menuItemExportNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.addFrameButtonClicked(sender:)),
-                                               name: ViewController.menuItemAddFrameNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.previewButtonClicked(sender:)),
-                                               name: ViewController.menuItemPreviewNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.resetButtonClicked(sender:)),
-                                               name: ViewController.menuItemResetNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.editButtonClicked(sender:)),
-                                               name: ViewController.menuItemEditNotificationName, object: nil)
-        
-        // GIFHandler events
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.gifError(sender:)),
-                                               name: GIFHandler.errorNotificationName, object: nil)
+        setupNotificationListeners()
     }
 
     override func viewDidAppear() {
@@ -162,16 +135,7 @@ class ViewController: NSViewController {
     
     // Edit button clicked
     @IBAction func editButtonClicked(sender: AnyObject?) {
-        if editingWindowController == nil {
-            let storyboard = NSStoryboard(name: "Main", bundle: nil)
-            editingWindowController = storyboard.instantiateController(withIdentifier: "EditingWindow") as? NSWindowController
-        }
-        
-        if let contentViewController = editingWindowController?.contentViewController as? EditViewController {
-            contentViewController.setFrames(frames: self.currentFrames)
-        }
-        
-        editingWindowController?.showWindow(self)
+        showEditing()
     }
     
     // Export a gif
@@ -293,10 +257,61 @@ class ViewController: NSViewController {
         }
     }
     
+    // Adds listeners
+    func setupNotificationListeners() {
+        // Listeners for events regarding frames and images
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.removeFrameCalled(sender:)),
+                                               name: ViewController.removeFrameNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.editFrameCalled(sender:)),
+                                               name: ViewController.editFrameNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.clickedImageView(sender:)),
+                                               name: ViewController.imageClickedNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.imageDraggedToImageView(sender:)),
+                                               name: ViewController.imageChangedNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.reloadImages),
+                                               name: ViewController.editingEndedNotificationName, object: nil)
+        
+        // UI events (Sent from AppDelegate)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.loadGIFButtonClicked(sender:)),
+                                               name: ViewController.menuItemImportNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.exportGIFButtonClicked(sender:)),
+                                               name: ViewController.menuItemExportNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.addFrameButtonClicked(sender:)),
+                                               name: ViewController.menuItemAddFrameNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.previewButtonClicked(sender:)),
+                                               name: ViewController.menuItemPreviewNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.resetButtonClicked(sender:)),
+                                               name: ViewController.menuItemResetNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.editButtonClicked(sender:)),
+                                               name: ViewController.menuItemEditNotificationName, object: nil)
+        
+        // GIFHandler events
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.gifError(sender:)),
+                                               name: GIFHandler.errorNotificationName, object: nil)
+    }
+    
+    // Shows editing window with given start
+    func showEditing(withIndex: Int = 0) {
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        editingWindowController = storyboard.instantiateController(withIdentifier: "EditingWindow") as? NSWindowController
+        
+        if let contentViewController = editingWindowController?.contentViewController as? EditViewController {
+            contentViewController.setFrames(frames: self.currentFrames)
+            contentViewController.initialFramenumber = withIndex
+        }
+        
+        editingWindowController?.showWindow(self)
+    }
+    
     // MARK: NotificationCenter calls (Mainly by UI components)
     // A frame wants to be removed (Get index of sender, and remove from 'currentImages')
     func removeFrameCalled(sender: NSNotification) {
         guard let object = sender.object as? FrameCollectionViewItem else { return }
+        
+        // Can we remove this?
+        if currentFrames.count == 1 {
+            return // Nope.
+        }
         
         // Remove the index and reload everything
         let index = object.itemIndex
@@ -304,6 +319,14 @@ class ViewController: NSViewController {
         
         deselectAll()
         imageCollectionView.reloadData()
+    }
+    
+    // A frame wants to be edited
+    func editFrameCalled(sender: NSNotification) {
+        guard let object = sender.object as? FrameCollectionViewItem else { return }
+        
+        let index = object.itemIndex
+        showEditing(withIndex: index)
     }
 
     // An image was dragged to an imageView
