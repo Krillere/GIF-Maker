@@ -291,13 +291,13 @@ class ViewController: NSViewController {
     }
     
     // Shows editing window with given start
-    func showEditing(withIndex: Int = 0) {
+    func showEditing(withIndex: Int? = nil) {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         editingWindowController = storyboard.instantiateController(withIdentifier: "EditingWindow") as? NSWindowController
         
         if let contentViewController = editingWindowController?.contentViewController as? EditViewController {
             contentViewController.setFrames(frames: self.currentFrames)
-            contentViewController.initialFramenumber = withIndex
+            contentViewController.initialFrameNumber = withIndex
         }
         
         editingWindowController?.showWindow(self)

@@ -28,7 +28,7 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     // Frames and frame count
     var frames:[GIFFrame] = []
     var currentFrameNumber:Int = 0
-    var initialFramenumber:Int?
+    var initialFrameNumber:Int?
     
 
     // MARK: ViewController stuff
@@ -70,6 +70,13 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         self.view.window?.backgroundColor = ViewController.backgroundColor
         self.view.window?.acceptsMouseMovedEvents = true
         self.view.window?.delegate = self
+        
+        // Show specific frame
+        if let frameIndex = self.initialFrameNumber {
+            self.currentFrameNumber = frameIndex
+            self.showFrame(frame: self.frames[frameIndex])
+            self.updateFrameLabel()
+        }
     }
 
     override var representedObject: Any? {
