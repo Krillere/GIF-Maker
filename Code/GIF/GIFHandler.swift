@@ -9,6 +9,11 @@
 import Foundation
 import Cocoa
 
+// Replaces the old '(frames: [GIFFrame], loops:Int, secondsPrFrame: Float)' with a type
+class GIFRepresentation {
+    
+}
+
 class GIFHandler {
 
     static let errorNotificationName = NSNotification.Name(rawValue: "GIFError")

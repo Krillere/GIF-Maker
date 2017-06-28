@@ -30,14 +30,10 @@ class Document: NSDocument {
     
     override func read(from data: Data, ofType typeName: String) throws {
         
-        
-        // Insert code here to read your document from the given data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning false.
-        // You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead.
-        // If you override either of these, you should also override -isEntireFileLoaded to return false if the contents are lazily loaded.
-        //throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
+        // Load NSImage from data, fetch info, and send
         if let gif = NSImage(data: data) {
-            let frames = GIFHandler.loadGIF(with: gif)
-            let userInfo = ["info":frames]
+            let gifInfo = GIFHandler.loadGIF(with: gif)
+            let userInfo = ["info":gifInfo]
             NotificationCenter.default.post(name: ViewController.loadedDocumentFramesNotificationName, object: self, userInfo: userInfo)
         }
     }
