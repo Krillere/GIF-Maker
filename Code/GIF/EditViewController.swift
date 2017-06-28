@@ -247,10 +247,13 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         self.updateFrameLabel()
     }
     
-    @IBAction func addImageButtonClicked(sender: AnyObject?) {
+    // Buttons on top of color wells
+    @IBAction func drawingColorWellClicked(sender: AnyObject?) {
+        colorPicker.performClick(sender)
     }
     
-    @IBAction func addTextButtonClicked(sender: AnyObject?) {
+    @IBAction func backgroundColorWellClicked(sender: AnyObject?) {
+        backgroundColorPicker.performClick(sender)
     }
     
     
