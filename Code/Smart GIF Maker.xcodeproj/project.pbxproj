@@ -27,6 +27,7 @@
 		AACB80041E795D5D00A3F195 /* FrameCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */; };
 		AACB80051E795D5D00A3F195 /* FrameCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */; };
 		AACB80081E796A7400A3F195 /* DragNotificationImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */; };
+		AAEF89DA1F04432D00658D9F /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEF89D91F04432D00658D9F /* Document.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameCollectionViewItem.swift; sourceTree = "<group>"; };
 		AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FrameCollectionViewItem.xib; sourceTree = "<group>"; };
 		AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragNotificationImageView.swift; sourceTree = "<group>"; };
+		AAEF89D91F04432D00658D9F /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 				AA8F639B1E787DE2000965B5 /* Main.storyboard */,
 				AA8F639E1E787DE2000965B5 /* Info.plist */,
 				AA8F63951E787DE2000965B5 /* AppDelegate.swift */,
+				AAEF89D91F04432D00658D9F /* Document.swift */,
 				AA45A5511ED8604400D508BC /* ViewControllers */,
 				AA33867C1EBF3BF10056354F /* GIF classes */,
 				AACB80061E795D7200A3F195 /* UI */,
@@ -267,6 +270,7 @@
 				AA8F63A71E788BEE000965B5 /* GIFHandler.swift in Sources */,
 				AA45A5501ED8604100D508BC /* DrawingOptionsHandler.swift in Sources */,
 				AA6D4BB81E7B3DEA00F1B642 /* PreviewViewController.swift in Sources */,
+				AAEF89DA1F04432D00658D9F /* Document.swift in Sources */,
 				AA33867E1EBF45970056354F /* SmartTextField.swift in Sources */,
 				AA3E1E5E1F0000830030E636 /* ViewController+NSCollectionView.swift in Sources */,
 				AA17D4A51ECB713400E260A7 /* FancyButtonCell.swift in Sources */,

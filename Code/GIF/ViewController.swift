@@ -16,6 +16,7 @@ class ViewController: NSViewController {
     
     // TODO: Create a delegate or something instead of this mess
     static let editingEndedNotificationName = NSNotification.Name(rawValue: "EditingEnded")
+    static let loadedDocumentFramesNotificationName = NSNotification.Name(rawValue: "DocumentFrames")
     
     static let menuItemImportNotificationName = NSNotification.Name(rawValue: "MenuItemImport")
     static let menuItemExportNotificationName = NSNotification.Name(rawValue: "MenuItemExport")
@@ -265,6 +266,8 @@ class ViewController: NSViewController {
         // Listeners for events regarding frames and images
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.reloadImages),
                                                name: ViewController.editingEndedNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.documentFramesLoaded(notification:)),
+                                               name: ViewController.loadedDocumentFramesNotificationName, object: nil)
         
         // UI events (Sent from AppDelegate)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.loadGIFButtonClicked(sender:)),
@@ -283,6 +286,18 @@ class ViewController: NSViewController {
         // GIFHandler events
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.gifError(sender:)),
                                                name: GIFHandler.errorNotificationName, object: nil)
+    }
+    
+    // Frames loaded using 'Open with...' menu
+    func documentFramesLoaded(notification: NSNotification) {
+        if let values = notification.userInfo?["info"] as? (frames: [GIFFrame], loops:Int, secondsPrFrame: Float) {
+            self.currentFrames = values.frames
+            self.frameDurationTextField.stringValue = String(values.secondsPrFrame)
+            self.loopsTextField.stringValue = String(values.loops)
+            
+            self.selectedRow = nil
+            self.imageCollectionView.reloadData()
+        }
     }
     
     // Shows editing window with given start
