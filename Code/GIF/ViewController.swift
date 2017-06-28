@@ -18,13 +18,6 @@ class ViewController: NSViewController {
     static let editingEndedNotificationName = NSNotification.Name(rawValue: "EditingEnded")
     static let loadedDocumentFramesNotificationName = NSNotification.Name(rawValue: "DocumentFrames")
     
-    static let menuItemImportNotificationName = NSNotification.Name(rawValue: "MenuItemImport")
-    static let menuItemExportNotificationName = NSNotification.Name(rawValue: "MenuItemExport")
-    static let menuItemAddFrameNotificationName = NSNotification.Name(rawValue: "MenuItemAddFrame")
-    static let menuItemPreviewNotificationName = NSNotification.Name(rawValue: "MenuItemPreview")
-    static let menuItemResetNotificationName = NSNotification.Name(rawValue: "MenuItemReset")
-    static let menuItemEditNotificationName = NSNotification.Name(rawValue: "MenuItemEdit")
-    
     // UI elements
     @IBOutlet var imageCollectionView:NSCollectionView!
     @IBOutlet var frameDurationTextField:NSTextField!
@@ -93,23 +86,27 @@ class ViewController: NSViewController {
         if let field = obj.object as? NSTextField {
             
             if field == frameDurationTextField { // Frame duration changed
-                let val = frameDurationTextField.stringValue
-                if let fVal = Float(val) { // Validate field
-                    if fVal < 0 {
-                        showError("Frame duration must be a positive number.")
-                        return
-                    }
-                    
-                    // Find FPS
-                    let fps = round(1/fVal)
-                    FPSLabel.stringValue = String(format: "seconds (%.0lf FPS)", fps)
-                }
-                else {
-                    showError("Frame duration must be a positive number.")
-                }
+                reloadFPS()
             }
         }
 
+    }
+    
+    func reloadFPS() {
+        let val = frameDurationTextField.stringValue
+        if let fVal = Float(val) { // Validate field
+            if fVal < 0 {
+                showError("Frame duration must be a positive number.")
+                return
+            }
+            
+            // Find FPS
+            let fps = round(1/fVal)
+            FPSLabel.stringValue = String(format: "seconds (%.0lf FPS)", fps)
+        }
+        else {
+            showError("Frame duration must be a positive number.")
+        }
     }
     
     func reloadImages() {
@@ -253,11 +250,12 @@ class ViewController: NSViewController {
             let newValues = GIFHandler.loadGIF(with: image)
             
             self.currentFrames = newValues.frames
-            self.frameDurationTextField.stringValue = String(newValues.secondsPrFrame)
+            self.frameDurationTextField.stringValue = String(newValues.frameDuration)
             self.loopsTextField.stringValue = String(newValues.loops)
             
             self.selectedRow = nil
             self.imageCollectionView.reloadData()
+            reloadFPS()
         }
     }
     
@@ -271,17 +269,17 @@ class ViewController: NSViewController {
         
         // UI events (Sent from AppDelegate)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.loadGIFButtonClicked(sender:)),
-                                               name: ViewController.menuItemImportNotificationName, object: nil)
+                                               name: AppDelegate.menuItemImportNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.exportGIFButtonClicked(sender:)),
-                                               name: ViewController.menuItemExportNotificationName, object: nil)
+                                               name: AppDelegate.menuItemExportNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.addFrameButtonClicked(sender:)),
-                                               name: ViewController.menuItemAddFrameNotificationName, object: nil)
+                                               name: AppDelegate.menuItemAddFrameNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.previewButtonClicked(sender:)),
-                                               name: ViewController.menuItemPreviewNotificationName, object: nil)
+                                               name: AppDelegate.menuItemPreviewNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.resetButtonClicked(sender:)),
-                                               name: ViewController.menuItemResetNotificationName, object: nil)
+                                               name: AppDelegate.menuItemResetNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.editButtonClicked(sender:)),
-                                               name: ViewController.menuItemEditNotificationName, object: nil)
+                                               name: AppDelegate.menuItemEditNotificationName, object: nil)
         
         // GIFHandler events
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.gifError(sender:)),
@@ -290,13 +288,15 @@ class ViewController: NSViewController {
     
     // Frames loaded using 'Open with...' menu
     func documentFramesLoaded(notification: NSNotification) {
-        if let values = notification.userInfo?["info"] as? (frames: [GIFFrame], loops:Int, secondsPrFrame: Float) {
+        if let values = notification.userInfo?["info"] as? GIFRepresentation {
             self.currentFrames = values.frames
-            self.frameDurationTextField.stringValue = String(values.secondsPrFrame)
+            self.frameDurationTextField.stringValue = String(values.frameDuration)
             self.loopsTextField.stringValue = String(values.loops)
             
             self.selectedRow = nil
             self.imageCollectionView.reloadData()
+            
+            reloadFPS()
         }
     }
     

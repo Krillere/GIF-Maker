@@ -10,10 +10,22 @@ import Foundation
 import Cocoa
 
 // Replaces the old '(frames: [GIFFrame], loops:Int, secondsPrFrame: Float)' with a type
+// Describes the data necessary to show a gif. Frames, loops, and duration
 class GIFRepresentation {
+    var frames:[GIFFrame] = [GIFFrame.emptyFrame]
+    var loops:Int = GIFHandler.defaultLoops
+    var frameDuration:Float = GIFHandler.defaultFrameDuration
     
+    init(frames: [GIFFrame], loops:Int, frameDuration: Float) {
+        self.frames = frames
+        self.loops = loops
+        self.frameDuration = frameDuration
+    }
+    
+    init() {}
 }
 
+// Creates and loads gifs
 class GIFHandler {
 
     static let errorNotificationName = NSNotification.Name(rawValue: "GIFError")
@@ -21,8 +33,9 @@ class GIFHandler {
     static let defaultFrameDuration:Float = 0.2
     
     // MARK: Loading gifs (Returns tuple with images, loop count and seconds/frame
-    static func loadGIF(with image: NSImage) -> (frames: [GIFFrame], loops:Int, secondsPrFrame: Float) {
-        let errorReturn:(frames: [GIFFrame], loops:Int, secondsPrFrame: Float) = (frames: [GIFFrame.emptyFrame], loops: GIFHandler.defaultLoops, secondsPrFrame: GIFHandler.defaultFrameDuration)
+    static func loadGIF(with image: NSImage) -> GIFRepresentation {
+        let errorReturn = GIFRepresentation()
+        
         
         // Attempt to fetch the number of frames, frame duration, and loop count from the .gif
         guard let bitmapRep = image.representations[0] as? NSBitmapImageRep,
@@ -50,7 +63,7 @@ class GIFHandler {
             }
         }
         
-        return (frames: retFrames, loops: loopCount, secondsPrFrame: frameDuration)
+        return GIFRepresentation(frames: retFrames, loops: loopCount, frameDuration: frameDuration)
     }
     
     
