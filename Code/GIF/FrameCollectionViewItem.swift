@@ -77,10 +77,10 @@ class FrameCollectionViewItem: NSCollectionViewItem, DragNotificationImageViewDe
     
     // MARK: DragNotificationImageViewDelegate
     func imageDragged(imageView: DragNotificationImageView) {
-        
+        self.delegate?.frameImageChanged(item: self)
     }
     
     func imageClicked(imageView: DragNotificationImageView) {
-        
+        self.delegate?.frameImageClicked(item: self)
     }
 }
