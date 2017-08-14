@@ -8,16 +8,14 @@
 
 import Cocoa
 
-fileprivate class PixelImageViewUndoOperation {
+fileprivate struct PixelChange {
     var location: (x: Int, y: Int)!
     var oldColor: NSColor!
     var newColor: NSColor!
-    
-    init(location: (x: Int, y: Int), oldColor: NSColor, newColor: NSColor) {
-        self.location = location
-        self.oldColor = oldColor
-        self.newColor = newColor
-    }
+}
+
+fileprivate class UndoOperation {
+    var changes:[PixelChange] = []
 }
 
 class PixelImageView: NSImageView {
@@ -27,8 +25,8 @@ class PixelImageView: NSImageView {
     fileprivate var previousDrawingPosition:(x: Int, y: Int)?
     
     // Undo / redo variables
-    fileprivate var undoOperations:[PixelImageViewUndoOperation] = []
-    fileprivate var currentUndoOperation:PixelImageViewUndoOperation?
+    fileprivate var undoOperations:[UndoOperation] = []
+    fileprivate var currentUndoOperation:UndoOperation?
     
     
     // Disables antialiasing (No smoothing, clean pixels)
@@ -66,7 +64,10 @@ class PixelImageView: NSImageView {
         drawing = true
         previousDrawingPosition = pixelLoc
         
+        self.currentUndoOperation = UndoOperation() // New
+        
         drawAtCoordinate(x: pixelLoc.x, y: pixelLoc.y)
+        
     }
     
     // Mouse drag / mouse moved while mouse down
@@ -96,15 +97,21 @@ class PixelImageView: NSImageView {
     override func mouseUp(with event: NSEvent) {
         drawing = false
         
-        // Add to undo
+        // Add current undo to list
+        if let op = self.currentUndoOperation {
+            self.undoOperations.append(op)
+            self.currentUndoOperation = nil
+        }
     }
     
     
     // MARK: Undo and Redo
     func undo() {
-        if let undoOp = self.undoOperations.first {
-            self.setPixelColor(color: undoOp.oldColor, x: undoOp.location.x, y: undoOp.location.y)
-            self.undoOperations.removeFirst()
+        if let undoOp = self.undoOperations.last {
+            undoOp.changes.forEach({ (change) in
+                self.setPixelColor(color: change.oldColor, x: change.location.x, y: change.location.y)
+            })
+            self.undoOperations.removeLast()
         }
     }
     
@@ -141,16 +148,20 @@ class PixelImageView: NSImageView {
     // MARK: Drawing
     // Draw current color at coordinate
     func drawAtCoordinate(x: Int, y: Int) {
-        guard let cur = getPixelColor(x: x, y: y) else {
+        
+        // Create undo operation
+        guard let curColor = getPixelColor(x: x, y: y) else {
             return
         }
-        let undoOp = PixelImageViewUndoOperation(location: (x: x, y: y), oldColor: cur, newColor: DrawingOptionsHandler.shared.drawingColor)
-        self.undoOperations.append(undoOp)
+        
+        self.currentUndoOperation?.changes.append(PixelChange(location: (x: x, y: y), oldColor: curColor, newColor: DrawingOptionsHandler.shared.drawingColor))
         
         if self.undoOperations.count > 25 {
             self.undoOperations = Array(self.undoOperations.dropFirst())
         }
         
+        
+        // Draw
         setPixelColor(color: DrawingOptionsHandler.shared.drawingColor, x: x, y: y)
     }
     
