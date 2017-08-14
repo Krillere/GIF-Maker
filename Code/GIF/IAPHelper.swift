@@ -37,6 +37,7 @@ open class IAPHelper : NSObject  {
     fileprivate var productsRequest: SKProductsRequest?
     fileprivate var productsRequestCompletionHandler: ProductsRequestCompletionHandler?
 
+    static let IAPLoadedNotificationName = NSNotification.Name(rawValue: "PurchasesReloaded")
     static let IAPHelperPurchaseNotification = "IAPHelperPurchaseNotification"
     static let IAPPurchaseFailed = "IAPPurchaseFailed"
   
@@ -53,10 +54,10 @@ open class IAPHelper : NSObject  {
             }
         }
     
-    super.init()
+        super.init()
     
-    SKPaymentQueue.default().add(self)
-  }
+        SKPaymentQueue.default().add(self)
+    }
 }
 
 // MARK: - StoreKit API
@@ -104,6 +105,8 @@ extension IAPHelper: SKProductsRequestDelegate {
         for p in products {
             print("Found product: \(p.productIdentifier) \(p.localizedTitle) \(p.price.floatValue)")
         }
+        
+        NotificationCenter.default.post(name: IAPHelper.IAPLoadedNotificationName, object: nil)
     }
     
     public func request(_ request: SKRequest, didFailWithError error: Error) {

@@ -18,8 +18,12 @@ class PreviewViewController: NSViewController {
         self.view.wantsLayer = true
         self.view.backgroundColor = ViewController.backgroundColor
         
+        // Load image or dismiss preview
         if let previewImage = previewImage {
             previewImageView.image = previewImage
+        }
+        else {
+            self.dismiss(self)
         }
     }
     

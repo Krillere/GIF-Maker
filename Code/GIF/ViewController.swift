@@ -36,15 +36,13 @@ class ViewController: NSViewController {
     var previewImages:[NSImage] = []
     var previewLoops:Int = GIFHandler.defaultLoops
     var previewFrameDuration:Double = GIFHandler.defaultFrameDuration
-    
-    // iAP
-    var products = [SKProduct]()
+
     
     // MARK: View setup
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        // Close color panel if open.
         if NSColorPanel.sharedColorPanelExists() {
             let panel = NSColorPanel.shared()
             panel.close()
@@ -52,7 +50,6 @@ class ViewController: NSViewController {
         
         configureCollectionView()
         setupNotificationListeners()
-        reloadProducts()
     }
 
     override func viewDidAppear() {
@@ -90,16 +87,6 @@ class ViewController: NSViewController {
         }
     }
 
-    
-    // MARK: In app purchase
-    func reloadProducts() {
-        products = []
-        Products.store.requestProducts{success, products in
-            if success {
-                self.products = products!
-            }
-        }
-    }
     
     // MARK: UI
     override func controlTextDidChange(_ obj: Notification) {
