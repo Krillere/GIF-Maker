@@ -100,22 +100,21 @@ class GIFHandler {
         var saveImages:[NSImage] = images
         if UserDefaults.standard.value(forKey: "Watermark") == nil || UserDefaults.standard.value(forKey: "Watermark") as! Bool == true {
             // Comment this line to avoid watermarks
-            //saveImages = GIFHandler.addWatermark(images: images)
+            saveImages = GIFHandler.addWatermark(images: images, watermark: "Smart GIF Maker")
         }
         
-        // Destination (A data object)
+        // Destination (Data object)
         guard let dataObj = CFDataCreateMutable(nil, 0),
               let dst = CGImageDestinationCreateWithData(dataObj, kUTTypeGIF, saveImages.count, nil) else { fatalError("Can't create gif") }
         CGImageDestinationSetProperties(dst, loopCountDic as CFDictionary) // Set loop count on object
         
         // Iterate given images and add these to destination
-        for n in 0 ..< saveImages.count {
-            let anImage = saveImages[n]
+        saveImages.forEach { (anImage) in
             if let imageRef = anImage.cgImage(forProposedRect: nil, context: nil, hints: nil) {
                 CGImageDestinationAddImage(dst, imageRef, frameDurationDic as CFDictionary)
             }
         }
-        
+
         // Close, cast as data and return
         let _ = CGImageDestinationFinalize(dst)
         let retData = dataObj as Data
@@ -124,6 +123,7 @@ class GIFHandler {
     
     
     // MARK: Helper functions for gifs
+    // Naive method for determining whether something is an animated gif
     static func isAnimatedGIF(_ image: NSImage) -> Bool {
         // Attempt to fetch the number of frames, frame duration, and loop count from the .gif
         guard let bitmapRep = image.representations[0] as? NSBitmapImageRep,
@@ -133,21 +133,16 @@ class GIFHandler {
             return false
         }
 
-        if frameCount > 1 { // We have loops, duration and everything, and there's more than 1 frame, it's probably a gif
-            return true
-        }
-        
-        return false
+        return frameCount > 1 // We have loops, duration and everything, and there's more than 1 frame, it's probably a gif
     }
     
     
     // Adds a watermark to all images in the gif
     // (Sorry..)
-    static func addWatermark(images: [NSImage]) -> [NSImage] {
+    static func addWatermark(images: [NSImage], watermark: String) -> [NSImage] {
         guard let font = NSFont(name: "Helvetica", size: 14) else { return images }
         var returnImages:[NSImage] = []
         
-        let string:NSString = "Smart GIF Maker"
         let attrs:[String:Any] = [NSForegroundColorAttributeName: NSColor.white, NSFontAttributeName: font, NSStrokeWidthAttributeName: -3, NSStrokeColorAttributeName: NSColor.black]
         
         for image in images {
@@ -170,11 +165,9 @@ class GIFHandler {
             NSGraphicsContext.saveGraphicsState()
             NSGraphicsContext.setCurrent(NSGraphicsContext.init(bitmapImageRep: imgRep!))
             
-            // Draw image
+            // Draw image and string
             image.draw(at: NSPoint.zero, from: NSZeroRect, operation: .copy, fraction: 1.0)
-            
-            // Draw string
-            string.draw(at: NSPoint(x: 5, y: 5), withAttributes: attrs)
+            watermark.draw(at: NSPoint(x: 5, y: 5), withAttributes: attrs)
             
             NSGraphicsContext.restoreGraphicsState()
             

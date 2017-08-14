@@ -14,11 +14,11 @@ class FancyAlert: NSAlert {
             self.window.contentView?.backgroundColor = ViewController.backgroundColor
         
             // Modify or find subviews to be changed
-            for subview in contentView.subviews {
+            contentView.subviews.forEach({ (subview) in
                 if subview is NSTextField {
                     (subview as! NSTextField).textColor = NSColor.white
                 }
-            }
+            })
         }
     }
 }
