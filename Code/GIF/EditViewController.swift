@@ -209,19 +209,28 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     
     // Updates the scrollview contentView size, if necessary
     func updateScrollViewSize() {
-        let scrollWidth = imageBackgroundView.frame.width
-        let scrollHeight = imageBackgroundView.frame.height
+//        let scrollWidth = imageBackgroundView.frame.width
+//        let scrollHeight = imageBackgroundView.frame.height
         let imgWidth = currentFrameImageView.frame.width
         let imgHeight = currentFrameImageView.frame.height
         
-        var newSize = NSMakeSize(imageBackgroundView.frame.width, imageBackgroundView.frame.height)
+//        var newSize = NSMakeSize(imageBackgroundView.frame.width, imageBackgroundView.frame.height)
+        var newSize = NSMakeSize(imageScrollView.frame.width, imageScrollView.frame.height)
         
-        if imgHeight > scrollHeight {
+//        if imgHeight > scrollHeight {
+//            newSize.height = imgHeight+20
+//        }
+//        
+//        
+//        if imgWidth > scrollWidth {
+//            newSize.width = imgWidth+20
+//        }
+        if imgHeight > newSize.height {
             newSize.height = imgHeight+20
         }
         
         
-        if imgWidth > scrollWidth {
+        if imgWidth > newSize.width {
             newSize.width = imgWidth+20
         }
         
