@@ -98,9 +98,9 @@ class GIFHandler {
         
         // Watermark?
         var saveImages:[NSImage] = images
-        if UserDefaults.standard.value(forKey: "Watermark") == nil || UserDefaults.standard.value(forKey: "Watermark") as! Bool == true {
+        if !Products.store.isProductPurchased(Products.Pro) {
             // Comment this line to avoid watermarks
-//            saveImages = GIFHandler.addWatermark(images: images, watermark: "Smart GIF Maker")
+            saveImages = GIFHandler.addWatermark(images: images, watermark: "Smart GIF Maker")
         }
         
         // Destination (Data object)

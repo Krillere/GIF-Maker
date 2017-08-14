@@ -113,14 +113,6 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     }
     
     
-    // MARK: ZoomViewDelegate
-    func zoomChanged(magnification: CGFloat) {
-        updateScrollViewSize()
-        
-        currentFrameImageView.center(inView: imageBackgroundView)
-    }
-    
-    
     // MARK: Values changing
     // Observe changes
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -150,6 +142,19 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         self.eyedropperButtonCell.redraw()
     }
     
+    // When window resizes, make sure image is center
+    func windowResized() {
+        handleCenterImage()
+    }
+    
+    // MARK: ZoomViewDelegate
+    func zoomChanged(magnification: CGFloat) {
+        updateScrollViewSize()
+        
+        currentFrameImageView.center(inView: imageBackgroundView)
+    }
+
+    
     
     // MARK: Buttons
     @IBAction func eraserButtonClicked(sender: AnyObject?) {
@@ -172,9 +177,8 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     }
 
     
-    
     // MARK: UI
-    // Creates a menu
+    // Creates a menu with editor related items
     func addEditorMenu() {
         guard let menu = NSApplication.shared().mainMenu else { return }
         let newItem = NSMenuItem(title: "Editor", action: nil, keyEquivalent: "")
@@ -207,6 +211,7 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         menu.insertItem(newItem, at: 2)
     }
     
+    // Removes the editor menu item
     func removeEditorMenu() {
         guard let menu = NSApplication.shared().mainMenu else { return }
         if let item = menu.item(withTitle: "Editor") {
@@ -214,6 +219,7 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         }
     }
     
+    // Closes the window
     func closeWindow() {
         self.view.window?.close()
     }
@@ -273,16 +279,11 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         }
     }
 
-    // When window resizes, make sure image is center
-    func windowResized() {
-        handleCenterImage()
-    }
-
-    
     // Called when the user changes the background color of the image
     func imageBackgroundColorUpdated() {
         currentFrameImageView.backgroundColor = DrawingOptionsHandler.shared.imageBackgroundColor
     }
+    
     
     func setFrames(frames: [GIFFrame]) {
         self.frames = frames

@@ -29,6 +29,7 @@ class PixelImageView: NSImageView {
     fileprivate var redoOperations:[UndoOperation] = []
     fileprivate var currentUndoOperation:UndoOperation?
     
+    fileprivate static let maxUndoRedoCount = 50
     
     // Disables antialiasing (No smoothing, clean pixels)
     override func draw(_ dirtyRect: NSRect) {
@@ -113,11 +114,22 @@ class PixelImageView: NSImageView {
                 self.setPixelColor(color: change.oldColor, x: change.location.x, y: change.location.y)
             })
             self.undoOperations.removeLast()
+            self.redoOperations.append(undoOp)
+            
+            if self.redoOperations.count > PixelImageView.maxUndoRedoCount {
+                self.redoOperations.removeFirst()
+            }
         }
     }
     
     func redo() {
-        
+        if let redoOp = self.redoOperations.last {
+            redoOp.changes.forEach({ (change) in
+                self.setPixelColor(color: change.newColor, x: change.location.x, y: change.location.y)
+            })
+            self.redoOperations.removeLast()
+            self.undoOperations.append(redoOp)
+        }
     }
     
     
@@ -157,8 +169,8 @@ class PixelImageView: NSImageView {
         
         self.currentUndoOperation?.changes.append(PixelChange(location: (x: x, y: y), oldColor: curColor, newColor: DrawingOptionsHandler.shared.drawingColor))
         
-        if self.undoOperations.count > 25 {
-            self.undoOperations = Array(self.undoOperations.dropFirst())
+        if self.undoOperations.count > PixelImageView.maxUndoRedoCount {
+            self.undoOperations.removeFirst()
         }
         
         
