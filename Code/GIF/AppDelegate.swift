@@ -21,6 +21,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: Setup
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        
+        
+        //doProMenuItem()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -54,6 +57,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func menuItemEdit(sender: AnyObject?) {
         NotificationCenter.default.post(name: AppDelegate.menuItemEditNotificationName, object: nil)
+    }
+    
+    // MARK: Pro stuff
+    func doProMenuItem() {
+        
+    }
+    
+    func doLiteMenuItem() {
+        guard let menu = NSApplication.shared().mainMenu else { return }
+        let newItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
+        let newMenu = NSMenu(title: "Pro")
+        
+        
+        newItem.submenu = newMenu
+        menu.addItem(newItem)
     }
 }
 

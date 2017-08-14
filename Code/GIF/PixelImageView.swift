@@ -8,6 +8,7 @@
 
 import Cocoa
 
+// TODO: Reconsider?
 class PixelImageViewUndoOperation {
     var location: (x: Int, y: Int)?
     var oldColor: NSColor?
@@ -101,6 +102,7 @@ class PixelImageView: NSImageView {
     
     
     // MARK: Undo and Redo
+    // TODO: Implement
     
     
     // MARK: Helpers
@@ -118,8 +120,9 @@ class PixelImageView: NSImageView {
     
     // Sets a color at a given coordinate
     func setPixelColor(color: NSColor, x: Int, y: Int) {
-        guard let image = self.image else { Swift.print("Nope1"); return }
-        guard let imgRep = image.representations[0] as? NSBitmapImageRep else { Swift.print("Nope2"); return }
+        guard let image = self.image,
+            let imgRep = image.representations[0] as? NSBitmapImageRep else { return }
+        
         let red = Int(color.redComponent*255)
         let green = Int(color.greenComponent*255)
         let blue = Int(color.blueComponent*255)
@@ -133,6 +136,7 @@ class PixelImageView: NSImageView {
         self.image = newImg
     }
     
+    // Returns NSColor at given coordinates
     func getPixelColor(x: Int, y: Int) -> NSColor? {
         guard let image = self.image else { Swift.print("Nope1"); return nil }
         guard let imgRep = image.representations[0] as? NSBitmapImageRep else { Swift.print("Nope2"); return nil }

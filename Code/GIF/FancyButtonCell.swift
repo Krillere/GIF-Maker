@@ -9,8 +9,8 @@
 import Cocoa
 
 class FancyButtonCell: NSButtonCell {
-    var intLineColor:NSColor = NSColor(red: 0.0, green: 139.0/255.0, blue: 1.0, alpha: 1.0)
-    var intPushLineColor:NSColor = NSColor(red: 0.0, green: 194.0/255.0, blue: 1.0, alpha: 1.0)
+    fileprivate var intLineColor:NSColor = NSColor(red: 0.0, green: 139.0/255.0, blue: 1.0, alpha: 1.0)
+    fileprivate var intPushLineColor:NSColor = NSColor(red: 0.0, green: 194.0/255.0, blue: 1.0, alpha: 1.0)
     var mouseOver:Bool = false
     
     @IBInspectable var lineColor: NSColor {

@@ -20,6 +20,8 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     @IBOutlet var previousFrameButton:NSButton!
     @IBOutlet var nextFrameButton:NSButton!
     
+    @IBOutlet var eyedropperButtonCell:FancyButtonCell!
+    
     @IBOutlet var colorPicker:NSColorWell!
     @IBOutlet var backgroundColorPicker:NSColorWell!
     
@@ -35,7 +37,9 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Event listeners
+        allowColorPanelAlpha()
+        
+        // Event listeners (Color changes and window resizes)
         NotificationCenter.default.addObserver(self, selector: #selector(EditViewController.windowResized), name: NSNotification.Name.NSWindowDidResize, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(EditViewController.imageBackgroundColorUpdated), name: DrawingOptionsHandler.backgroundColorChangedNotificationName, object: nil)
 
@@ -71,7 +75,7 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         self.view.window?.acceptsMouseMovedEvents = true
         self.view.window?.delegate = self
         
-        // Show specific frame
+        // Show specific frame if chosen from main window
         if let frameIndex = self.initialFrameNumber {
             self.currentFrameNumber = frameIndex
             self.showFrame(frame: self.frames[frameIndex])
@@ -84,25 +88,30 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         }
     }
 
+    // Forces image update in main view
     func windowWillClose(_ notification: Notification) {
+        if NSColorPanel.sharedColorPanelExists() {
+            let panel = NSColorPanel.shared()
+            panel.close()
+        }
+        
         NotificationCenter.default.post(name: ViewController.editingEndedNotificationName, object: nil)
     }
     
     
     // MARK: Zoom
     func zoomChanged(magnification: CGFloat) {
-        
         let scrollWidth = imageScrollView.frame.width
         let scrollHeight = imageScrollView.frame.height
         let imgWidth = currentFrameImageView.frame.width
         let imgHeight = currentFrameImageView.frame.height
+        
         if imgHeight < scrollHeight || imgWidth < scrollWidth {
             currentFrameImageView.center(inView: imageBackgroundView)
         }
         else {
             currentFrameImageView.setFrameOrigin(NSMakePoint(0, 0))
         }
-        
         
         updateScrollViewSize()
     }
@@ -129,19 +138,21 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     
     // MARK: Buttons
     @IBAction func eraserButtonClicked(sender: AnyObject?) {
-        colorPicker.color = NSColor(red: 0, green: 0, blue: 0, alpha: 0)
+        colorPicker.color = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
     }
     
+    @IBAction func eyedropperButtonClicked(sender: AnyObject?) {
+        DrawingOptionsHandler.shared.isPickingColor = !DrawingOptionsHandler.shared.isPickingColor
+        
+    }
+    
+    // MARK: Not implemented yet
     @IBAction func undoButtonClicked(sender: AnyObject?) {
         
     }
     
     @IBAction func redoButtonClicked(sender: AnyObject?) {
         
-    }
-    
-    @IBAction func eyedropperButtonClicked(sender: AnyObject?) {
-        DrawingOptionsHandler.shared.isPickingColor = !DrawingOptionsHandler.shared.isPickingColor
     }
 
     
@@ -154,7 +165,7 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         frameNumberLabel.isHidden = false
     }
     
-
+    // Shows a given GIFFrame
     func showFrame(frame: GIFFrame) {
         guard let image = frame.image else { return }
         
@@ -250,14 +261,22 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     // Buttons on top of color wells
     @IBAction func drawingColorWellClicked(sender: AnyObject?) {
         colorPicker.performClick(sender)
+        allowColorPanelAlpha()
     }
     
     @IBAction func backgroundColorWellClicked(sender: AnyObject?) {
         backgroundColorPicker.performClick(sender)
+        allowColorPanelAlpha()
     }
     
     
     // MARK: Helpers
+    func allowColorPanelAlpha() {
+        if NSColorPanel.sharedColorPanelExists() {
+            let panel = NSColorPanel.shared()
+            panel.showsAlpha = true
+        }
+    }
 
     // Based on http://stackoverflow.com/a/14731922
     func calculateAspectRatioFit(srcWidth: CGFloat, srcHeight: CGFloat, maxWidth: CGFloat, maxHeight: CGFloat) -> (width: CGFloat, height: CGFloat) {

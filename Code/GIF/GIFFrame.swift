@@ -11,11 +11,11 @@ import AppKit
 
 class GIFFrame {
     var image:NSImage?
-    var duration:Float = GIFHandler.defaultFrameDuration
+    var duration:Double = GIFHandler.defaultFrameDuration
     
     static let emptyFrame:GIFFrame = GIFFrame()
     
-    init(image: NSImage, duration: Float = GIFHandler.defaultFrameDuration) {
+    init(image: NSImage, duration: Double = GIFHandler.defaultFrameDuration) {
         self.image = image
         self.duration = duration
     }

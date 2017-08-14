@@ -667,6 +667,7 @@
                         <outlet property="backgroundColorPicker" destination="1Nl-gQ-bOi" id="Jl1-K9-lpj"/>
                         <outlet property="colorPicker" destination="N24-an-IUb" id="tJx-1z-DgV"/>
                         <outlet property="currentFrameImageView" destination="2ZO-68-BOr" id="dOy-pB-o3K"/>
+                        <outlet property="eyedropperButtonCell" destination="1by-lp-dZx" id="vHy-Pu-PG1"/>
                         <outlet property="frameNumberLabel" destination="ZtK-0j-DDM" id="1wv-I6-Fiz"/>
                         <outlet property="imageBackgroundView" destination="Bwc-gm-Ogc" id="UPx-CZ-kHS"/>
                         <outlet property="imageScrollView" destination="npC-Ig-P3D" id="TIk-QR-tDh"/>

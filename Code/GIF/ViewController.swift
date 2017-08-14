@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import StoreKit
 
 class ViewController: NSViewController {
     // MARK: Fields
@@ -34,15 +35,24 @@ class ViewController: NSViewController {
     // Preview variables
     var previewImages:[NSImage] = []
     var previewLoops:Int = GIFHandler.defaultLoops
-    var previewFrameDuration:Float = GIFHandler.defaultFrameDuration
+    var previewFrameDuration:Double = GIFHandler.defaultFrameDuration
     
+    // iAP
+    var products = [SKProduct]()
     
     // MARK: View setup
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        if NSColorPanel.sharedColorPanelExists() {
+            let panel = NSColorPanel.shared()
+            panel.close()
+        }
+        
         configureCollectionView()
         setupNotificationListeners()
+        reloadProducts()
     }
 
     override func viewDidAppear() {
@@ -80,6 +90,16 @@ class ViewController: NSViewController {
         }
     }
 
+    
+    // MARK: In app purchase
+    func reloadProducts() {
+        products = []
+        Products.store.requestProducts{success, products in
+            if success {
+                self.products = products!
+            }
+        }
+    }
     
     // MARK: UI
     override func controlTextDidChange(_ obj: Notification) {
@@ -141,21 +161,10 @@ class ViewController: NSViewController {
     
     // Export a gif
     @IBAction func exportGIFButtonClicked(sender: AnyObject?) {
-        guard let loops = Int(loopsTextField.stringValue) else {
-            showError("Invalid value for loop count.")
-            return
-        }
-        guard let spf = Float(frameDurationTextField.stringValue) else {
-            showError("Invalid value for frame duration.")
-            return
-        }
+        let validate = self.validateAndFindGIFValues()
         
-        // Remove empty images
-        var tmpImages:[NSImage] = []
-        for frame in currentFrames {
-            if let img = frame.image {
-                tmpImages.append(img)
-            }
+        if validate.error {
+            return
         }
         
         let panel = NSSavePanel()
@@ -163,7 +172,7 @@ class ViewController: NSViewController {
         panel.begin { (res) in
             if res == NSFileHandlingPanelOKButton {
                 if let url = panel.url {
-                    GIFHandler.createAndSaveGIF(with: tmpImages, savePath: url, loops: loops, secondsPrFrame: spf)
+                    GIFHandler.createAndSaveGIF(with: validate.images, savePath: url, loops: validate.loops, secondsPrFrame: validate.frameDuration)
                     NSWorkspace.shared().activateFileViewerSelecting([url])
                 }
             }
@@ -211,14 +220,37 @@ class ViewController: NSViewController {
     
     // Preview
     @IBAction func previewButtonClicked(sender: AnyObject?) {
-        guard let loops = Int(loopsTextField.stringValue),
-            let spf = Float(frameDurationTextField.stringValue) else {
-                return
+        let validate = self.validateAndFindGIFValues()
+        
+        if validate.error {
+            return
         }
         
-        if spf < 0 {
+        self.previewLoops = validate.loops
+        self.previewFrameDuration = validate.frameDuration
+        self.previewImages = validate.images
+        
+        self.performSegue(withIdentifier: "ShowPreview", sender: self)
+    }
+    
+    
+    // MARK: Helpers
+    // Validates values from UI and returns them
+    func validateAndFindGIFValues() -> (error: Bool, loops: Int, frameDuration: Double, images: [NSImage]) {
+        let emp:[NSImage] = []
+        let errorReturn = (error: true, loops: GIFHandler.defaultLoops, frameDuration: GIFHandler.defaultFrameDuration, images: emp)
+        
+        guard let loops = Int(loopsTextField.stringValue) else {
+            showError("Invalid value for loop count.")
+            return errorReturn
+        }
+        guard let frameDuration = Double(frameDurationTextField.stringValue) else {
+            showError("Invalid value for frame duration.")
+            return errorReturn
+        }
+        if frameDuration < 0.0 {
             showError("Frame duration must be a positive number.")
-            return
+            return errorReturn
         }
         
         // Remove empty images
@@ -230,19 +262,14 @@ class ViewController: NSViewController {
         }
         
         if tmpImages.count == 0 {
-            showError("No frames to preview!")
-            return
+            showError("No frames in gif")
+            return errorReturn
         }
         
-        self.previewLoops = loops
-        self.previewFrameDuration = spf
-        self.previewImages = tmpImages
-        
-        self.performSegue(withIdentifier: "ShowPreview", sender: self)
+        // Success!
+        return (error: false, loops: loops, frameDuration: frameDuration, images: tmpImages)
     }
     
-    
-    // MARK: Helpers
     // Imports a gif from a given location
     func importGIF(from: URL) {
         if let image = NSImage(contentsOf: from) {

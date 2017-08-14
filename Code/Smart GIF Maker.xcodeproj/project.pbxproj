@@ -27,6 +27,9 @@
 		AACB80041E795D5D00A3F195 /* FrameCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */; };
 		AACB80051E795D5D00A3F195 /* FrameCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */; };
 		AACB80081E796A7400A3F195 /* DragNotificationImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */; };
+		AAEC81CF1F41C58B00B71D5D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEC81CE1F41C58B00B71D5D /* StoreKit.framework */; };
+		AAEC81D11F41C5CE00B71D5D /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC81D01F41C5CE00B71D5D /* IAPHelper.swift */; };
+		AAEC81D41F41C93C00B71D5D /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC81D31F41C93C00B71D5D /* Products.swift */; };
 		AAEF89DA1F04432D00658D9F /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEF89D91F04432D00658D9F /* Document.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +57,9 @@
 		AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameCollectionViewItem.swift; sourceTree = "<group>"; };
 		AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FrameCollectionViewItem.xib; sourceTree = "<group>"; };
 		AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragNotificationImageView.swift; sourceTree = "<group>"; };
+		AAEC81CE1F41C58B00B71D5D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		AAEC81D01F41C5CE00B71D5D /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
+		AAEC81D31F41C93C00B71D5D /* Products.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
 		AAEF89D91F04432D00658D9F /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAEC81CF1F41C58B00B71D5D /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,23 +101,23 @@
 			name = Preview;
 			sourceTree = "<group>";
 		};
-		AA3E1E601F000F8C0030E636 /* Button */ = {
+		AA3E1E601F000F8C0030E636 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
 				AA17D4A31ECB713400E260A7 /* FancyButtonCell.swift */,
 				AA17D4A41ECB713400E260A7 /* FancyButton.swift */,
 			);
-			name = Button;
+			name = Buttons;
 			sourceTree = "<group>";
 		};
-		AA3E1E611F000FA60030E636 /* Frames in UI */ = {
+		AA3E1E611F000FA60030E636 /* GIFFrames in UI */ = {
 			isa = PBXGroup;
 			children = (
 				AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */,
 				AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */,
 				AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */,
 			);
-			name = "Frames in UI";
+			name = "GIFFrames in UI";
 			sourceTree = "<group>";
 		};
 		AA45A5511ED8604400D508BC /* ViewControllers */ = {
@@ -137,6 +144,7 @@
 			children = (
 				AA8F63941E787DE2000965B5 /* GIF */,
 				AA8F63931E787DE2000965B5 /* Products */,
+				AAEC81CD1F41C58B00B71D5D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,8 +163,7 @@
 				AA8F63991E787DE2000965B5 /* Assets.xcassets */,
 				AA8F639B1E787DE2000965B5 /* Main.storyboard */,
 				AA8F639E1E787DE2000965B5 /* Info.plist */,
-				AA8F63951E787DE2000965B5 /* AppDelegate.swift */,
-				AAEF89D91F04432D00658D9F /* Document.swift */,
+				AAEC81D21F41C67A00B71D5D /* Misc classes */,
 				AA45A5511ED8604400D508BC /* ViewControllers */,
 				AA33867C1EBF3BF10056354F /* GIF classes */,
 				AACB80061E795D7200A3F195 /* UI */,
@@ -170,12 +177,31 @@
 				AA45A5471ED8603100D508BC /* ZoomView.swift */,
 				AA45A5481ED8603100D508BC /* PixelImageView.swift */,
 				AAA9C4CE1ECCA01A007EC0D4 /* FancyAlert.swift */,
-				AA3E1E601F000F8C0030E636 /* Button */,
+				AA3E1E601F000F8C0030E636 /* Buttons */,
 				AA17D4A11ECB710600E260A7 /* NSViewExtension.swift */,
 				AA33867D1EBF45970056354F /* SmartTextField.swift */,
-				AA3E1E611F000FA60030E636 /* Frames in UI */,
+				AA3E1E611F000FA60030E636 /* GIFFrames in UI */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		AAEC81CD1F41C58B00B71D5D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AAEC81CE1F41C58B00B71D5D /* StoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AAEC81D21F41C67A00B71D5D /* Misc classes */ = {
+			isa = PBXGroup;
+			children = (
+				AA8F63951E787DE2000965B5 /* AppDelegate.swift */,
+				AAEF89D91F04432D00658D9F /* Document.swift */,
+				AAEC81D01F41C5CE00B71D5D /* IAPHelper.swift */,
+				AAEC81D31F41C93C00B71D5D /* Products.swift */,
+			);
+			name = "Misc classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,6 +239,9 @@
 						DevelopmentTeam = ZRKANV2HV4;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
@@ -267,11 +296,13 @@
 				AA17D4A61ECB713400E260A7 /* FancyButton.swift in Sources */,
 				AA33867B1EBF3BEA0056354F /* GIFFrame.swift in Sources */,
 				AACB80041E795D5D00A3F195 /* FrameCollectionViewItem.swift in Sources */,
+				AAEC81D11F41C5CE00B71D5D /* IAPHelper.swift in Sources */,
 				AA8F63A71E788BEE000965B5 /* GIFHandler.swift in Sources */,
 				AA45A5501ED8604100D508BC /* DrawingOptionsHandler.swift in Sources */,
 				AA6D4BB81E7B3DEA00F1B642 /* PreviewViewController.swift in Sources */,
 				AAEF89DA1F04432D00658D9F /* Document.swift in Sources */,
 				AA33867E1EBF45970056354F /* SmartTextField.swift in Sources */,
+				AAEC81D41F41C93C00B71D5D /* Products.swift in Sources */,
 				AA3E1E5E1F0000830030E636 /* ViewController+NSCollectionView.swift in Sources */,
 				AA17D4A51ECB713400E260A7 /* FancyButtonCell.swift in Sources */,
 			);
@@ -386,12 +417,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GIF/GIF.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = ZRKANV2HV4;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = GIF/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iMakezAppz.GIF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -401,12 +434,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GIF/GIF.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = ZRKANV2HV4;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = GIF/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iMakezAppz.GIF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
