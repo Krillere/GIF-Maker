@@ -25,6 +25,9 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     @IBOutlet var colorPicker:NSColorWell!
     @IBOutlet var backgroundColorPicker:NSColorWell!
     
+    @IBOutlet var undoButton:NSButton!
+    @IBOutlet var redoButton:NSButton!
+    
     var drawingOptionsWindowController:NSWindowController?
     
     // Frames and frame count
@@ -109,20 +112,6 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     
     // MARK: ZoomViewDelegate
     func zoomChanged(magnification: CGFloat) {
-//        let scrollWidth = imageScrollView.frame.width
-//        let scrollHeight = imageScrollView.frame.height
-//        let imgWidth = currentFrameImageView.frame.width
-//        let imgHeight = currentFrameImageView.frame.height
-        
-//        if imgHeight < scrollHeight || imgWidth < scrollWidth {
-//            print("Mindre, centrerer \(CACurrentMediaTime())")
-//            currentFrameImageView.center(inView: imageBackgroundView)
-//        }
-//        else {
-//            print("Større, sætter i bund \(CACurrentMediaTime())")
-//            currentFrameImageView.setFrameOrigin(NSMakePoint(0, 0))
-//        }
-        
         updateScrollViewSize()
         
         currentFrameImageView.center(inView: imageBackgroundView)
@@ -158,6 +147,7 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         self.eyedropperButtonCell.redraw()
     }
     
+    
     // MARK: Buttons
     @IBAction func eraserButtonClicked(sender: AnyObject?) {
         colorPicker.color = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
@@ -170,15 +160,15 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         self.eyedropperButtonCell.redraw()
     }
     
-    // MARK: Not implemented yet
     @IBAction func undoButtonClicked(sender: AnyObject?) {
-        
+        self.currentFrameImageView.undo()
     }
     
     @IBAction func redoButtonClicked(sender: AnyObject?) {
-        
+        self.currentFrameImageView.redo()
     }
 
+    
     
     // MARK: UI
     func updateFrameLabel() {

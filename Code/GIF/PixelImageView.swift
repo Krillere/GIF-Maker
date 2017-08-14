@@ -8,16 +8,22 @@
 
 import Cocoa
 
-// TODO: Reconsider?
 class PixelImageViewUndoOperation {
-    var location: (x: Int, y: Int)?
-    var oldColor: NSColor?
-    var newColor: NSColor?
+    var location: (x: Int, y: Int)!
+    var oldColor: NSColor!
+    var newColor: NSColor!
+    
+    init(location: (x: Int, y: Int), oldColor: NSColor, newColor: NSColor) {
+        self.location = location
+        self.oldColor = oldColor
+        self.newColor = newColor
+    }
 }
 
 class PixelImageView: NSImageView {
     var drawing = false
     var previousDrawingPosition:(x: Int, y: Int)?
+    
     
     var undoOperations:[PixelImageViewUndoOperation] = []
     
@@ -32,26 +38,10 @@ class PixelImageView: NSImageView {
 
     
     // MARK: Mouse
-    // Converts window event position go pixel coordinates
-    func convertWindowToPixels(windowLoc: NSPoint) -> (x: Int, y: Int) {
-        guard let image = self.image else { return (x: 0, y: 0) }
-        guard let imgRep = image.representations[0] as? NSBitmapImageRep else { return (x: 0, y: 0) }
-        
-        let localLoc = self.pointInFlippedRect(inPoint: self.convert(windowLoc, from: nil), aRect: self.frame)
-        
-        let height = self.frame.height
-        let width = self.frame.width
-        let pixelHeight = CGFloat(imgRep.pixelsHigh)
-        let pixelWidth = CGFloat(imgRep.pixelsWide)
-        
-        let clickX = Int(ceil((pixelWidth/width)*localLoc.x))-1
-        let clickY = Int(ceil((pixelHeight/height)*localLoc.y))-1
-        
-        return (x: clickX, y: clickY)
-    }
     
-    // Draw pixel and begin drag
+    // Mouse down
     override func mouseDown(with event: NSEvent) {
+        // Pick a color
         if DrawingOptionsHandler.shared.isPickingColor {
             let windowLoc = event.locationInWindow
             let pixelLoc = self.convertWindowToPixels(windowLoc: windowLoc)
@@ -66,7 +56,7 @@ class PixelImageView: NSImageView {
             return
         }
         
-        
+        // Draw
         drawing = true
         let windowLoc = event.locationInWindow
         let pixelLoc = self.convertWindowToPixels(windowLoc: windowLoc)
@@ -75,6 +65,7 @@ class PixelImageView: NSImageView {
         drawAtCoordinate(x: pixelLoc.x, y: pixelLoc.y)
     }
     
+    // Mouse drag / mouse moved while mouse down
     // If we're drawing, draw new pixels
     override func mouseDragged(with event: NSEvent) {
         if !drawing {
@@ -96,14 +87,23 @@ class PixelImageView: NSImageView {
         }
     }
 
-    // Stop drawing
+    // Mouse up
     override func mouseUp(with event: NSEvent) {
         drawing = false
     }
     
     
     // MARK: Undo and Redo
-    // TODO: Implement
+    func undo() {
+        if let undoOp = self.undoOperations.first {
+            self.setPixelColor(color: undoOp.oldColor, x: undoOp.location.x, y: undoOp.location.y)
+            self.undoOperations.removeFirst()
+        }
+    }
+    
+    func redo() {
+        
+    }
     
     
     // MARK: Helpers
@@ -112,10 +112,38 @@ class PixelImageView: NSImageView {
         return NSMakePoint(inPoint.x, NSHeight(aRect) - inPoint.y)
     }
     
+    // Converts window event position go pixel coordinates
+    func convertWindowToPixels(windowLoc: NSPoint) -> (x: Int, y: Int) {
+        guard let image = self.image else { return (x: 0, y: 0) }
+        guard let imgRep = image.representations[0] as? NSBitmapImageRep else { return (x: 0, y: 0) }
+        
+        let localLoc = self.pointInFlippedRect(inPoint: self.convert(windowLoc, from: nil), aRect: self.frame)
+        
+        let height = self.frame.height
+        let width = self.frame.width
+        let pixelHeight = CGFloat(imgRep.pixelsHigh)
+        let pixelWidth = CGFloat(imgRep.pixelsWide)
+        
+        let clickX = Int(ceil((pixelWidth/width)*localLoc.x))-1
+        let clickY = Int(ceil((pixelHeight/height)*localLoc.y))-1
+        
+        return (x: clickX, y: clickY)
+    }
+    
     
     // MARK: Drawing
     // Draw current color at coordinate
     func drawAtCoordinate(x: Int, y: Int) {
+        guard let cur = getPixelColor(x: x, y: y) else {
+            return
+        }
+        let undoOp = PixelImageViewUndoOperation(location: (x: x, y: y), oldColor: cur, newColor: DrawingOptionsHandler.shared.drawingColor)
+        self.undoOperations.append(undoOp)
+        
+        if self.undoOperations.count > 25 {
+            self.undoOperations = Array(self.undoOperations.dropFirst())
+        }
+        
         setPixelColor(color: DrawingOptionsHandler.shared.drawingColor, x: x, y: y)
     }
     

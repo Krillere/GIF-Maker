@@ -464,14 +464,14 @@
             <objects>
                 <viewController id="MFk-Ct-PSX" customClass="EditViewController" customModule="Smart_GIF_Maker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="gxT-PU-9tt">
-                        <rect key="frame" x="0.0" y="0.0" width="780" height="560"/>
+                        <rect key="frame" x="0.0" y="0.0" width="823" height="560"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EoR-U0-zOP">
-                                <rect key="frame" x="602" y="533" width="32" height="21"/>
+                                <rect key="frame" x="645" y="529" width="32" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="ZWe-Yg-IfZ"/>
-                                    <constraint firstAttribute="width" constant="32" id="bRf-9c-KgB"/>
+                                    <constraint firstAttribute="height" constant="21" id="8J9-0L-avv"/>
+                                    <constraint firstAttribute="width" constant="32" id="fJY-Qr-V4A"/>
                                 </constraints>
                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="Left" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="XwF-eN-ei2">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -482,7 +482,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Wuw-AR-cuf">
-                                <rect key="frame" x="742" y="533" width="32" height="21"/>
+                                <rect key="frame" x="785" y="529" width="32" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="Ple-6b-whz"/>
                                     <constraint firstAttribute="height" constant="21" id="ViK-X6-Mtc"/>
@@ -496,7 +496,7 @@
                                 </connections>
                             </button>
                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtK-0j-DDM">
-                                <rect key="frame" x="641" y="536" width="94" height="17"/>
+                                <rect key="frame" x="684" y="532" width="94" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="BFg-7f-eyb"/>
                                     <constraint firstAttribute="height" constant="17" id="VgF-T6-U86"/>
@@ -508,9 +508,9 @@
                                 </textFieldCell>
                             </textField>
                             <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="npC-Ig-P3D">
-                                <rect key="frame" x="0.0" y="0.0" width="780" height="520"/>
+                                <rect key="frame" x="0.0" y="0.0" width="823" height="520"/>
                                 <clipView key="contentView" id="b75-oU-khL">
-                                    <rect key="frame" x="0.0" y="0.0" width="780" height="520"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="823" height="520"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bwc-gm-Ogc" customClass="ZoomView" customModule="Smart_GIF_Maker" customModuleProvider="target">
@@ -528,11 +528,11 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="e43-hm-UyI">
-                                    <rect key="frame" x="0.0" y="504" width="780" height="16"/>
+                                    <rect key="frame" x="0.0" y="504" width="823" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="5l2-7Q-Qex">
-                                    <rect key="frame" x="764" y="0.0" width="16" height="520"/>
+                                    <rect key="frame" x="807" y="0.0" width="16" height="520"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -577,7 +577,7 @@
                                 <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </colorWell>
                             <button toolTip="Used for erasing pixels" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dWm-TY-uf5" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="316" y="525" width="60" height="25"/>
+                                <rect key="frame" x="304" y="525" width="60" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="JXC-pA-V4L"/>
                                     <constraint firstAttribute="height" constant="25" id="URR-Ie-Mpx"/>
@@ -591,7 +591,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Pick a color from the image" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gor-4c-Y7p" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="386" y="525" width="88" height="25"/>
+                                <rect key="frame" x="374" y="525" width="88" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="88" id="E9y-hF-HLl"/>
                                     <constraint firstAttribute="height" constant="25" id="YiY-No-c2V"/>
@@ -632,34 +632,66 @@
                                     <action selector="backgroundColorWellClickedWithSender:" target="MFk-Ct-PSX" id="ZGw-Jj-6dj"/>
                                 </connections>
                             </button>
+                            <button toolTip="Used for erasing pixels" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="F41-Q5-jKu" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
+                                <rect key="frame" x="497" y="525" width="43" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="43" id="CG2-bw-2DX"/>
+                                    <constraint firstAttribute="height" constant="25" id="KTI-4G-usj"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" title="Undo" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DNm-Cc-Idp" customClass="FancyButtonCell" customModule="Smart_GIF_Maker" customModuleProvider="target">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="undoButtonClickedWithSender:" target="MFk-Ct-PSX" id="q7m-sS-9Ey"/>
+                                </connections>
+                            </button>
+                            <button toolTip="Used for erasing pixels" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l7u-l3-Q2g" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
+                                <rect key="frame" x="550" y="525" width="43" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="43" id="RU5-ff-gIK"/>
+                                    <constraint firstAttribute="height" constant="25" id="rom-yz-8eP"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" title="Redo" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ir8-aW-cCf" customClass="FancyButtonCell" customModule="Smart_GIF_Maker" customModuleProvider="target">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="redoButtonClickedWithSender:" target="MFk-Ct-PSX" id="0RW-l9-Rql"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="npC-Ig-P3D" secondAttribute="trailing" id="0Yl-Sg-dU9"/>
                             <constraint firstItem="Wuw-AR-cuf" firstAttribute="leading" secondItem="ZtK-0j-DDM" secondAttribute="trailing" constant="9" id="0rD-hv-1SA"/>
+                            <constraint firstItem="EoR-U0-zOP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="l7u-l3-Q2g" secondAttribute="trailing" constant="52" id="2qQ-lQ-pLB"/>
                             <constraint firstItem="gor-4c-Y7p" firstAttribute="leading" secondItem="dWm-TY-uf5" secondAttribute="trailing" constant="10" id="4Cf-Vx-W5u"/>
-                            <constraint firstItem="Wuw-AR-cuf" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="6" id="4cq-L8-GqK"/>
+                            <constraint firstItem="Wuw-AR-cuf" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="4cq-L8-GqK"/>
                             <constraint firstItem="npC-Ig-P3D" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="40" id="4in-pA-oor"/>
-                            <constraint firstItem="EoR-U0-zOP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gor-4c-Y7p" secondAttribute="trailing" constant="10" id="68c-li-dZn"/>
                             <constraint firstItem="N24-an-IUb" firstAttribute="leading" secondItem="PYB-Rb-riu" secondAttribute="trailing" constant="4" id="Awt-X7-fZG"/>
                             <constraint firstItem="KtZ-KJ-AOA" firstAttribute="leading" secondItem="Upo-YT-bg9" secondAttribute="trailing" constant="4" id="EyJ-aE-2e4"/>
+                            <constraint firstItem="ZtK-0j-DDM" firstAttribute="leading" secondItem="EoR-U0-zOP" secondAttribute="trailing" constant="9" id="GgC-kJ-ZCx"/>
                             <constraint firstItem="1Nl-gQ-bOi" firstAttribute="leading" secondItem="Upo-YT-bg9" secondAttribute="trailing" constant="4" id="Jhj-PO-etO"/>
                             <constraint firstItem="N24-an-IUb" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="MDl-XA-mnn"/>
                             <constraint firstItem="KtZ-KJ-AOA" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="QRz-VP-vIP"/>
-                            <constraint firstItem="ZtK-0j-DDM" firstAttribute="leading" secondItem="EoR-U0-zOP" secondAttribute="trailing" constant="9" id="S8s-bb-KOh"/>
                             <constraint firstItem="7RV-SU-fUj" firstAttribute="leading" secondItem="PYB-Rb-riu" secondAttribute="trailing" constant="4" id="S9h-go-vnt"/>
                             <constraint firstAttribute="trailing" secondItem="Wuw-AR-cuf" secondAttribute="trailing" constant="6" id="Tmg-9E-47R"/>
-                            <constraint firstItem="ZtK-0j-DDM" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="7" id="VBC-Cr-eR2"/>
+                            <constraint firstItem="ZtK-0j-DDM" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="11" id="VBC-Cr-eR2"/>
                             <constraint firstItem="7RV-SU-fUj" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="XaO-Wd-YtL"/>
                             <constraint firstItem="gor-4c-Y7p" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="Xey-NT-8Wp"/>
                             <constraint firstItem="npC-Ig-P3D" firstAttribute="leading" secondItem="gxT-PU-9tt" secondAttribute="leading" id="ctK-Gx-QxU"/>
                             <constraint firstItem="Upo-YT-bg9" firstAttribute="leading" secondItem="N24-an-IUb" secondAttribute="trailing" constant="21" id="dcY-CL-NZO"/>
                             <constraint firstItem="dWm-TY-uf5" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="elt-Zk-roD"/>
+                            <constraint firstItem="EoR-U0-zOP" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="fZa-Kj-B8I"/>
+                            <constraint firstItem="l7u-l3-Q2g" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="gaF-dF-DGz"/>
                             <constraint firstItem="Upo-YT-bg9" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="13" id="gse-Xq-lXH"/>
                             <constraint firstAttribute="bottom" secondItem="npC-Ig-P3D" secondAttribute="bottom" id="idi-Tv-xgj"/>
+                            <constraint firstItem="F41-Q5-jKu" firstAttribute="leading" secondItem="gor-4c-Y7p" secondAttribute="trailing" constant="35" id="mO3-VA-m1o"/>
                             <constraint firstItem="PYB-Rb-riu" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="13" id="pbk-eQ-kWf"/>
                             <constraint firstItem="PYB-Rb-riu" firstAttribute="leading" secondItem="gxT-PU-9tt" secondAttribute="leading" constant="10" id="qLA-LE-hdj"/>
-                            <constraint firstItem="dWm-TY-uf5" firstAttribute="leading" secondItem="1Nl-gQ-bOi" secondAttribute="trailing" constant="47" id="tNN-Fh-vtg"/>
-                            <constraint firstItem="EoR-U0-zOP" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="6" id="uLB-pt-i6k"/>
+                            <constraint firstItem="F41-Q5-jKu" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="t7G-8z-tbG"/>
+                            <constraint firstItem="dWm-TY-uf5" firstAttribute="leading" secondItem="1Nl-gQ-bOi" secondAttribute="trailing" constant="35" id="tNN-Fh-vtg"/>
+                            <constraint firstItem="l7u-l3-Q2g" firstAttribute="leading" secondItem="F41-Q5-jKu" secondAttribute="trailing" constant="10" id="vWG-Ig-XLO"/>
                             <constraint firstItem="1Nl-gQ-bOi" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="zhP-8m-EmD"/>
                         </constraints>
                     </view>
@@ -673,11 +705,13 @@
                         <outlet property="imageScrollView" destination="npC-Ig-P3D" id="TIk-QR-tDh"/>
                         <outlet property="nextFrameButton" destination="Wuw-AR-cuf" id="zcx-Ye-FvM"/>
                         <outlet property="previousFrameButton" destination="EoR-U0-zOP" id="VQ1-vw-94E"/>
+                        <outlet property="redoButton" destination="l7u-l3-Q2g" id="BBO-g9-e6a"/>
+                        <outlet property="undoButton" destination="F41-Q5-jKu" id="J6B-Fe-E90"/>
                     </connections>
                 </viewController>
                 <customObject id="jip-CG-JdL" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1704" y="1085"/>
+            <point key="canvasLocation" x="1705" y="1103"/>
         </scene>
     </scenes>
     <resources>
