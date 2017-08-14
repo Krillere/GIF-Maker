@@ -40,7 +40,8 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        allowColorPanelAlpha()
+        self.addEditorMenu()
+        self.allowColorPanelAlpha()
         
         // Event listeners (Color changes and window resizes)
         NotificationCenter.default.addObserver(self,
@@ -54,13 +55,13 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
                                                name: DrawingOptionsHandler.usedEyeDropperNotificationName,
                                                object: nil)
 
-        colorPicker.addObserver(self, forKeyPath: "color", options: .new, context: nil)
-        backgroundColorPicker.addObserver(self, forKeyPath: "color", options: .new, context: nil)
+        self.colorPicker.addObserver(self, forKeyPath: "color", options: .new, context: nil)
+        self.backgroundColorPicker.addObserver(self, forKeyPath: "color", options: .new, context: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(EditViewController.colorChangedOutside), name: DrawingOptionsHandler.colorChangedNotificationName, object: nil)
         
         // UI setup
-        backgroundColorPicker.color = DrawingOptionsHandler.shared.imageBackgroundColor
+        self.backgroundColorPicker.color = DrawingOptionsHandler.shared.imageBackgroundColor
         
         self.view.wantsLayer = true
     }
@@ -107,6 +108,8 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         }
         
         NotificationCenter.default.post(name: ViewController.editingEndedNotificationName, object: nil)
+        
+        self.removeEditorMenu()
     }
     
     
@@ -171,6 +174,51 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     
     
     // MARK: UI
+    // Creates a menu
+    func addEditorMenu() {
+        guard let menu = NSApplication.shared().mainMenu else { return }
+        let newItem = NSMenuItem(title: "Editor", action: nil, keyEquivalent: "")
+        let newMenu = NSMenu(title: "Editor")
+        
+        let undoItem = NSMenuItem(title: "Undo", action: #selector(EditViewController.undoButtonClicked(sender:)), keyEquivalent: "")
+        undoItem.keyEquivalent = "z"
+        undoItem.keyEquivalentModifierMask = .command
+        
+        let redoItem = NSMenuItem(title: "Redo", action: #selector(EditViewController.redoButtonClicked(sender:)), keyEquivalent: "")
+        redoItem.keyEquivalent = "z"
+        redoItem.keyEquivalentModifierMask = [.command, .shift]
+        
+        let eraserItem = NSMenuItem(title: "Eraser", action: #selector(EditViewController.eraserButtonClicked(sender:)), keyEquivalent: "")
+        let eyedropperItem = NSMenuItem(title: "Eyedropper", action: #selector(EditViewController.eyedropperButtonClicked(sender:)), keyEquivalent: "")
+        
+        let closeItem = NSMenuItem(title: "Close", action: #selector(EditViewController.closeWindow), keyEquivalent: "")
+        closeItem.keyEquivalent = "w"
+        closeItem.keyEquivalentModifierMask = .command
+        
+        newMenu.addItem(undoItem)
+        newMenu.addItem(redoItem)
+        newMenu.addItem(NSMenuItem.separator())
+        newMenu.addItem(eraserItem)
+        newMenu.addItem(eyedropperItem)
+        newMenu.addItem(NSMenuItem.separator())
+        newMenu.addItem(closeItem)
+        
+        newItem.submenu = newMenu
+        menu.insertItem(newItem, at: 2)
+    }
+    
+    func removeEditorMenu() {
+        guard let menu = NSApplication.shared().mainMenu else { return }
+        if let item = menu.item(withTitle: "Editor") {
+            menu.removeItem(item)
+        }
+    }
+    
+    func closeWindow() {
+        self.view.window?.close()
+    }
+    
+    // Updates the frame counter label
     func updateFrameLabel() {
         self.frameNumberLabel.stringValue = "\(currentFrameNumber+1)/\(frames.count)"
         

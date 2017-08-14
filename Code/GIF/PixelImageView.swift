@@ -26,6 +26,7 @@ class PixelImageView: NSImageView {
     
     // Undo / redo variables
     fileprivate var undoOperations:[UndoOperation] = []
+    fileprivate var redoOperations:[UndoOperation] = []
     fileprivate var currentUndoOperation:UndoOperation?
     
     

@@ -20,9 +20,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     static let menuItemResetNotificationName = NSNotification.Name(rawValue: "MenuItemReset")
     static let menuItemEditNotificationName = NSNotification.Name(rawValue: "MenuItemEdit")
     
+    // Undo / Redo menu items
+    @IBOutlet var undoMenuItem:NSMenuItem!
+    @IBOutlet var redoMenuItem:NSMenuItem!
+    
+    @IBOutlet var eraserMenuItem:NSMenuItem!
+    @IBOutlet var eyedropperMenuItem:NSMenuItem!
     
     // iAP
     var products = [SKProduct]()
+    
 
     // MARK: Setup
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -67,6 +74,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func menuItemEdit(sender: AnyObject?) {
         NotificationCenter.default.post(name: AppDelegate.menuItemEditNotificationName, object: nil)
     }
+    
     
     // MARK: Pro stuff
     func doProMenuItem() {
