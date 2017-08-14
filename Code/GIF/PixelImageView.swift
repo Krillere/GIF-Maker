@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class PixelImageViewUndoOperation {
+fileprivate class PixelImageViewUndoOperation {
     var location: (x: Int, y: Int)!
     var oldColor: NSColor!
     var newColor: NSColor!
@@ -21,11 +21,14 @@ class PixelImageViewUndoOperation {
 }
 
 class PixelImageView: NSImageView {
-    var drawing = false
-    var previousDrawingPosition:(x: Int, y: Int)?
     
+    // Drawing variables
+    fileprivate var drawing = false
+    fileprivate var previousDrawingPosition:(x: Int, y: Int)?
     
-    var undoOperations:[PixelImageViewUndoOperation] = []
+    // Undo / redo variables
+    fileprivate var undoOperations:[PixelImageViewUndoOperation] = []
+    fileprivate var currentUndoOperation:PixelImageViewUndoOperation?
     
     
     // Disables antialiasing (No smoothing, clean pixels)
@@ -35,20 +38,23 @@ class PixelImageView: NSImageView {
         super.draw(dirtyRect)
         NSGraphicsContext.restoreGraphicsState()
     }
-
     
-    // MARK: Mouse
     
+    // MARK: Mouse actions
     // Mouse down
     override func mouseDown(with event: NSEvent) {
+        let windowLoc = event.locationInWindow
+        let pixelLoc = self.convertWindowToPixels(windowLoc: windowLoc)
+        
         // Pick a color
         if DrawingOptionsHandler.shared.isPickingColor {
-            let windowLoc = event.locationInWindow
-            let pixelLoc = self.convertWindowToPixels(windowLoc: windowLoc)
+            
+            // Set color
             if let color = self.getPixelColor(x: pixelLoc.x, y: pixelLoc.y) {
                 DrawingOptionsHandler.shared.drawingColor = color
             }
             
+            // Disable eyedropper and send notifications
             DrawingOptionsHandler.shared.isPickingColor = false
             NotificationCenter.default.post(name: DrawingOptionsHandler.colorChangedNotificationName, object: nil)
             NotificationCenter.default.post(name: DrawingOptionsHandler.usedEyeDropperNotificationName, object: nil)
@@ -58,8 +64,6 @@ class PixelImageView: NSImageView {
         
         // Draw
         drawing = true
-        let windowLoc = event.locationInWindow
-        let pixelLoc = self.convertWindowToPixels(windowLoc: windowLoc)
         previousDrawingPosition = pixelLoc
         
         drawAtCoordinate(x: pixelLoc.x, y: pixelLoc.y)
@@ -81,6 +85,7 @@ class PixelImageView: NSImageView {
             return
         }
         
+        // Only draw on changed pixel, no reason to draw more than necessary
         if pixelLoc.x != previousDrawingPosition!.x || pixelLoc.y != previousDrawingPosition!.y {
             drawAtCoordinate(x: pixelLoc.x, y: pixelLoc.y)
             previousDrawingPosition = pixelLoc
@@ -90,6 +95,8 @@ class PixelImageView: NSImageView {
     // Mouse up
     override func mouseUp(with event: NSEvent) {
         drawing = false
+        
+        // Add to undo
     }
     
     
