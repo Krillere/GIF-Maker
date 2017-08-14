@@ -49,45 +49,6 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Options" id="uiw-RI-eF8">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Options" id="acl-k3-w56">
-                                    <items>
-                                        <menuItem title="Import .GIF" keyEquivalent="o" id="X1W-sh-vDd">
-                                            <connections>
-                                                <action selector="menuItemLoadWithSender:" target="Voe-Tx-rLC" id="CO4-29-S2C"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Export .GIF" keyEquivalent="s" id="rWf-OM-bYw">
-                                            <connections>
-                                                <action selector="menuItemExportWithSender:" target="Voe-Tx-rLC" id="GeJ-gf-tlC"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="IJP-YY-FYH"/>
-                                        <menuItem title="Add frame" keyEquivalent="f" id="s5i-Ug-pES">
-                                            <connections>
-                                                <action selector="menuItemAddFrameWithSender:" target="Voe-Tx-rLC" id="nFH-t3-jq0"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="B5y-zc-2il"/>
-                                        <menuItem title="Preview" keyEquivalent="p" id="N2A-Oi-aAx">
-                                            <connections>
-                                                <action selector="menuItemPreviewWithSender:" target="Voe-Tx-rLC" id="tjY-gE-ukg"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Edit" keyEquivalent="e" id="mC1-pA-WCD">
-                                            <connections>
-                                                <action selector="menuItemEditWithSender:" target="Voe-Tx-rLC" id="Zcj-uq-fXS"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Reset" keyEquivalent="r" id="7It-77-SEd">
-                                            <connections>
-                                                <action selector="menuItemResetWithSender:" target="Voe-Tx-rLC" id="bya-fz-gQE"/>
-                                            </connections>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
@@ -147,17 +108,17 @@
             <objects>
                 <viewController storyboardIdentifier="MainWindow" id="XfG-lQ-9wD" customClass="ViewController" customModule="Smart_GIF_Maker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="1093" height="498"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1093" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="5As-yW-scq">
-                                <rect key="frame" x="0.0" y="0.0" width="1093" height="458"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1093" height="560"/>
                                 <clipView key="contentView" drawsBackground="NO" id="CQC-oX-VML">
-                                    <rect key="frame" x="0.0" y="0.0" width="1093" height="458"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1093" height="560"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView selectable="YES" id="QWv-z0-wuy">
-                                            <rect key="frame" x="0.0" y="0.0" width="1093" height="458"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1093" height="560"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="ptw-g3-O4M">
                                                 <size key="itemSize" width="10" height="10"/>
@@ -182,7 +143,7 @@
                                 </scroller>
                             </scrollView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdb-IB-kUc">
-                                <rect key="frame" x="802" y="469" width="100" height="17"/>
+                                <rect key="frame" x="802" y="571" width="100" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="96" id="Wqz-p3-1bG"/>
                                     <constraint firstAttribute="height" constant="17" id="eJc-lg-nNN"/>
@@ -194,7 +155,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField toolTip="The duration of each frame" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dzh-bE-5mK" customClass="SmartTextField" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="902" y="467" width="57" height="21"/>
+                                <rect key="frame" x="902" y="569" width="57" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Wjv-bf-gkv"/>
                                     <constraint firstAttribute="width" constant="57" id="oJH-Pl-MTF"/>
@@ -209,7 +170,7 @@
                                 </connections>
                             </textField>
                             <button toolTip="Adds a frame at the beginning, or after the selected frame" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="grP-pd-YOJ" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="222" y="464" width="84" height="25"/>
+                                <rect key="frame" x="222" y="566" width="84" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="b7F-kg-83y"/>
                                     <constraint firstAttribute="width" constant="84" id="oWS-GD-PhD"/>
@@ -223,7 +184,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Export a .gif file" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6an-BA-AHa" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="117" y="464" width="85" height="25"/>
+                                <rect key="frame" x="117" y="566" width="85" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="85" id="YCI-fS-afY"/>
                                     <constraint firstAttribute="height" constant="25" id="ed8-8g-hmU"/>
@@ -237,7 +198,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Import frames and options from a .gif file" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jpq-ce-ENr" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="25" y="464" width="85" height="25"/>
+                                <rect key="frame" x="25" y="566" width="85" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="85" id="fGl-eu-fRl"/>
                                     <constraint firstAttribute="height" constant="25" id="mn1-Tj-cnH"/>
@@ -251,7 +212,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Preview the GIF" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wvK-VW-l1S" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="326" y="464" width="63" height="25"/>
+                                <rect key="frame" x="326" y="566" width="63" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="L1z-7P-Ncu"/>
                                     <constraint firstAttribute="width" constant="63" id="luv-23-jjB"/>
@@ -265,7 +226,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Edit the frames of the GIF" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bf1-g8-pRA" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="396" y="464" width="63" height="25"/>
+                                <rect key="frame" x="396" y="566" width="63" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="63" id="1F1-Yf-LZm"/>
                                     <constraint firstAttribute="height" constant="25" id="2NK-dP-ioM"/>
@@ -279,7 +240,7 @@
                                 </connections>
                             </button>
                             <textField toolTip="The amount of loops in the GIF" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tuJ-Kc-Dut" customClass="SmartTextField" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="667" y="467" width="39" height="21"/>
+                                <rect key="frame" x="667" y="569" width="39" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="TGt-W7-hbJ"/>
                                     <constraint firstAttribute="width" constant="39" id="v0T-0n-GYG"/>
@@ -291,7 +252,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CkX-nG-WFq">
-                                <rect key="frame" x="707" y="469" width="80" height="17"/>
+                                <rect key="frame" x="707" y="571" width="80" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="76" id="MHQ-hl-cO0"/>
                                     <constraint firstAttribute="height" constant="17" id="p88-LH-Fkr"/>
@@ -303,7 +264,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0w9-KP-5Kv">
-                                <rect key="frame" x="960" y="469" width="115" height="17"/>
+                                <rect key="frame" x="960" y="571" width="115" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="3yW-db-938"/>
                                     <constraint firstAttribute="width" constant="111" id="WsA-T9-ufL"/>
@@ -315,7 +276,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vvf-C1-zZH">
-                                <rect key="frame" x="622" y="469" width="45" height="17"/>
+                                <rect key="frame" x="622" y="571" width="45" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="41" id="drv-su-sfI"/>
                                     <constraint firstAttribute="height" constant="17" id="nu3-vO-K2w"/>
@@ -327,7 +288,7 @@
                                 </textFieldCell>
                             </textField>
                             <button toolTip="Remove all frames" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="all-MS-gSA" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="466" y="464" width="63" height="25"/>
+                                <rect key="frame" x="466" y="566" width="63" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="PBi-vd-w8j"/>
                                     <constraint firstAttribute="width" constant="63" id="dfd-XC-zp5"/>
@@ -392,7 +353,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="234.5" y="1264"/>
+            <point key="canvasLocation" x="235" y="1306"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="Fb2-sv-vcH">

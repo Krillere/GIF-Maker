@@ -12,14 +12,6 @@ import StoreKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    // MARK: Constants (Menu items)
-    static let menuItemImportNotificationName = NSNotification.Name(rawValue: "MenuItemImport")
-    static let menuItemExportNotificationName = NSNotification.Name(rawValue: "MenuItemExport")
-    static let menuItemAddFrameNotificationName = NSNotification.Name(rawValue: "MenuItemAddFrame")
-    static let menuItemPreviewNotificationName = NSNotification.Name(rawValue: "MenuItemPreview")
-    static let menuItemResetNotificationName = NSNotification.Name(rawValue: "MenuItemReset")
-    static let menuItemEditNotificationName = NSNotification.Name(rawValue: "MenuItemEdit")
-    
     // Undo / Redo menu items
     @IBOutlet var undoMenuItem:NSMenuItem!
     @IBOutlet var redoMenuItem:NSMenuItem!
@@ -49,50 +41,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return true
     }
-    
-    // MARK: Menu items
-    @IBAction func menuItemLoad(sender: AnyObject?) {
-        NotificationCenter.default.post(name: AppDelegate.menuItemImportNotificationName, object: nil)
-    }
-    
-    @IBAction func menuItemExport(sender: AnyObject?) {
-        NotificationCenter.default.post(name: AppDelegate.menuItemExportNotificationName, object: nil)
-    }
 
-    @IBAction func menuItemAddFrame(sender: AnyObject?) {
-        NotificationCenter.default.post(name: AppDelegate.menuItemAddFrameNotificationName, object: nil)
-    }
     
-    @IBAction func menuItemReset(sender: AnyObject?) {
-        NotificationCenter.default.post(name: AppDelegate.menuItemResetNotificationName, object: nil)
-    }
-    
-    @IBAction func menuItemPreview(sender: AnyObject?) {
-        NotificationCenter.default.post(name: AppDelegate.menuItemPreviewNotificationName, object: nil)
-    }
-    
-    @IBAction func menuItemEdit(sender: AnyObject?) {
-        NotificationCenter.default.post(name: AppDelegate.menuItemEditNotificationName, object: nil)
-    }
-    
-    
-    // MARK: Pro stuff
-    func doProMenuItem() {
-//        guard let menu = NSApplication.shared().mainMenu else { return }
-//        let newItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
-//        let newMenu = NSMenu(title: "Pro")
-//        
-//        newItem.submenu = newMenu
-//        menu.insertItem(newItem, at: menu.items.count-1)
-    }
-    
-    func doLiteMenuItem() {
+    // MARK: Pro
+    func createPurchaseMenuItem() {
         guard let menu = NSApplication.shared().mainMenu else { return }
-        let newItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
+        let newItem = NSMenuItem(title: "UnlockPro", action: nil, keyEquivalent: "")
         let newMenu = NSMenu(title: "Unlock Pro")
         
         let unlockItem = NSMenuItem(title: "Unlock Pro", action: #selector(AppDelegate.unlockProButtonClicked), keyEquivalent: "")
-        let unlockedItem = NSMenuItem(title: "I previously unlocked Pro", action: #selector(AppDelegate.unlockedButtonClicked), keyEquivalent: "")
+        let unlockedItem = NSMenuItem(title: "Previously unlocked Pro", action: #selector(AppDelegate.unlockedButtonClicked), keyEquivalent: "")
         
         newMenu.addItem(unlockItem)
         newMenu.addItem(unlockedItem)
@@ -134,10 +92,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func productsLoaded() {
         if !Products.store.isProductPurchased(Products.Pro) {
-            self.doLiteMenuItem()
-        }
-        else {
-            
+            createPurchaseMenuItem()
         }
     }
 }

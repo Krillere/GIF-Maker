@@ -70,6 +70,13 @@ class ViewController: NSViewController {
         frameDurationTextField.layer?.cornerRadius = 3
         
         addFrameButton.becomeFirstResponder()
+        
+        // Do we already have menu items?
+        if let menu = NSApplication.shared().menu {
+            if menu.item(withTitle: "Actions") == nil {
+                self.setupMenuItems()
+            }
+        }
     }
     
     override var representedObject: Any? {
@@ -120,6 +127,58 @@ class ViewController: NSViewController {
         imageCollectionView.reloadData()
     }
     
+    func setupMenuItems() {
+        guard let menu = NSApplication.shared().mainMenu else { return }
+        let newItem = NSMenuItem(title: "Actions", action: nil, keyEquivalent: "")
+        let newMenu = NSMenu(title: "Actions")
+        
+        /*
+         Import .GIF
+         Export .GIF
+         -
+         Add frame
+         -
+         Preview
+         Edit
+         Reset
+        */
+        
+        let importItem = NSMenuItem(title: "Import .GIF", action: #selector(ViewController.loadGIFButtonClicked(sender:)), keyEquivalent: "")
+        importItem.keyEquivalentModifierMask = .command
+        importItem.keyEquivalent = "o"
+        
+        let exportItem = NSMenuItem(title: "Export .GIF", action: #selector(ViewController.exportGIFButtonClicked(sender:)), keyEquivalent: "")
+        exportItem.keyEquivalentModifierMask = .command
+        exportItem.keyEquivalent = "s"
+        
+        let addFrameItem = NSMenuItem(title: "Add frame", action: #selector(ViewController.addFrameButtonClicked(sender:)), keyEquivalent: "")
+        addFrameItem.keyEquivalent = "f"
+        addFrameItem.keyEquivalentModifierMask = .command
+        
+        let previewItem = NSMenuItem(title: "Preview", action: #selector(ViewController.previewButtonClicked(sender:)), keyEquivalent: "")
+        previewItem.keyEquivalentModifierMask = .command
+        previewItem.keyEquivalent = "p"
+        
+        let editItem = NSMenuItem(title: "Edit", action: #selector(ViewController.editButtonClicked(sender:)), keyEquivalent: "")
+        editItem.keyEquivalentModifierMask = .command
+        editItem.keyEquivalent = "e"
+        
+        let resetItem = NSMenuItem(title: "Reset", action: #selector(ViewController.resetButtonClicked(sender:)), keyEquivalent: "")
+        resetItem.keyEquivalent = "r"
+        resetItem.keyEquivalentModifierMask = .command
+        
+        newMenu.addItem(importItem)
+        newMenu.addItem(exportItem)
+        newMenu.addItem(NSMenuItem.separator())
+        newMenu.addItem(addFrameItem)
+        newMenu.addItem(NSMenuItem.separator())
+        newMenu.addItem(previewItem)
+        newMenu.addItem(editItem)
+        newMenu.addItem(resetItem)
+        
+        newItem.submenu = newMenu
+        menu.insertItem(newItem, at: 1)
+    }
     
     // MARK: Buttons
     // Adds a new frame
@@ -280,20 +339,6 @@ class ViewController: NSViewController {
                                                name: ViewController.editingEndedNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.documentFramesLoaded(notification:)),
                                                name: ViewController.loadedDocumentFramesNotificationName, object: nil)
-        
-        // UI events (Sent from AppDelegate)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.loadGIFButtonClicked(sender:)),
-                                               name: AppDelegate.menuItemImportNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.exportGIFButtonClicked(sender:)),
-                                               name: AppDelegate.menuItemExportNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.addFrameButtonClicked(sender:)),
-                                               name: AppDelegate.menuItemAddFrameNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.previewButtonClicked(sender:)),
-                                               name: AppDelegate.menuItemPreviewNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.resetButtonClicked(sender:)),
-                                               name: AppDelegate.menuItemResetNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.editButtonClicked(sender:)),
-                                               name: AppDelegate.menuItemEditNotificationName, object: nil)
         
         // GIFHandler events
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.gifError(sender:)),

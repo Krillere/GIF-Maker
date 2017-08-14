@@ -177,6 +177,43 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     }
 
     
+    
+    @IBAction func nextFrameButtonClicked(sender: AnyObject?) {
+        if self.currentFrameNumber+1 > self.frames.count-1 {
+            self.currentFrameNumber = 0
+        }
+        else {
+            self.currentFrameNumber += 1
+        }
+        
+        self.showFrame(frame: self.frames[self.currentFrameNumber])
+        self.updateFrameLabel()
+    }
+    
+    @IBAction func previousFrameButtonClicked(sender: AnyObject?) {
+        if self.currentFrameNumber-1 < 0 {
+            self.currentFrameNumber = self.frames.count-1
+        }
+        else {
+            self.currentFrameNumber -= 1
+        }
+        
+        self.showFrame(frame: self.frames[self.currentFrameNumber])
+        self.updateFrameLabel()
+    }
+    
+    // Buttons on top of color wells
+    @IBAction func drawingColorWellClicked(sender: AnyObject?) {
+        colorPicker.performClick(sender)
+        allowColorPanelAlpha()
+    }
+    
+    @IBAction func backgroundColorWellClicked(sender: AnyObject?) {
+        backgroundColorPicker.performClick(sender)
+        allowColorPanelAlpha()
+    }
+    
+    
     // MARK: UI
     // Creates a menu with editor related items
     func addEditorMenu() {
@@ -285,51 +322,6 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     }
     
     
-    func setFrames(frames: [GIFFrame]) {
-        self.frames = frames
-        self.currentFrameNumber = 0
-        
-        updateFrameLabel()
-        
-        showFrame(frame: self.frames[self.currentFrameNumber])
-    }
-    
-    @IBAction func nextFrameButtonClicked(sender: AnyObject?) {
-        if self.currentFrameNumber+1 > self.frames.count-1 {
-            self.currentFrameNumber = 0
-        }
-        else {
-            self.currentFrameNumber += 1
-        }
-        
-        self.showFrame(frame: self.frames[self.currentFrameNumber])
-        self.updateFrameLabel()
-    }
-    
-    @IBAction func previousFrameButtonClicked(sender: AnyObject?) {
-        if self.currentFrameNumber-1 < 0 {
-            self.currentFrameNumber = self.frames.count-1
-        }
-        else {
-            self.currentFrameNumber -= 1
-        }
-        
-        self.showFrame(frame: self.frames[self.currentFrameNumber])
-        self.updateFrameLabel()
-    }
-    
-    // Buttons on top of color wells
-    @IBAction func drawingColorWellClicked(sender: AnyObject?) {
-        colorPicker.performClick(sender)
-        allowColorPanelAlpha()
-    }
-    
-    @IBAction func backgroundColorWellClicked(sender: AnyObject?) {
-        backgroundColorPicker.performClick(sender)
-        allowColorPanelAlpha()
-    }
-    
-    
     // MARK: Helpers
     func allowColorPanelAlpha() {
         if NSColorPanel.sharedColorPanelExists() {
@@ -348,5 +340,13 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         return (width: srcWidth*ratio, height: srcHeight*ratio)
     }
 
+    func setFrames(frames: [GIFFrame]) {
+        self.frames = frames
+        self.currentFrameNumber = 0
+        
+        updateFrameLabel()
+        
+        showFrame(frame: self.frames[self.currentFrameNumber])
+    }
 }
 
