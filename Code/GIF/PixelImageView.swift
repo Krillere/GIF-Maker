@@ -61,6 +61,7 @@ class PixelImageView: NSImageView {
             
             DrawingOptionsHandler.shared.isPickingColor = false
             NotificationCenter.default.post(name: DrawingOptionsHandler.colorChangedNotificationName, object: nil)
+            NotificationCenter.default.post(name: DrawingOptionsHandler.usedEyeDropperNotificationName, object: nil)
             
             return
         }

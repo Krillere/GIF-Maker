@@ -27,7 +27,7 @@ class FrameCollectionViewItem: NSCollectionViewItem, DragNotificationImageViewDe
         view.wantsLayer = true
         
         view.layer?.backgroundColor = NSColor.clear.cgColor
-        view.layer?.cornerRadius = 6
+        view.layer?.cornerRadius = 10
         view.layer?.borderColor = NSColor.selectedControlColor.cgColor
         
         if let imgView = self.imageView as? DragNotificationImageView {

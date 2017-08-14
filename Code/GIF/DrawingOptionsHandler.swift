@@ -12,6 +12,7 @@ import Cocoa
 class DrawingOptionsHandler {
     static let colorChangedNotificationName = Notification.Name(rawValue: "ColorChangedOutside")
     static let backgroundColorChangedNotificationName = Notification.Name(rawValue: "BackgroundColorChanged")
+    static let usedEyeDropperNotificationName = Notification.Name(rawValue: "UsedEyeDropper")
     
     static let shared = DrawingOptionsHandler()
     

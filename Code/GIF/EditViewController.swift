@@ -40,8 +40,16 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         allowColorPanelAlpha()
         
         // Event listeners (Color changes and window resizes)
-        NotificationCenter.default.addObserver(self, selector: #selector(EditViewController.windowResized), name: NSNotification.Name.NSWindowDidResize, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(EditViewController.imageBackgroundColorUpdated), name: DrawingOptionsHandler.backgroundColorChangedNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(EditViewController.windowResized),
+                                               name: NSNotification.Name.NSWindowDidResize,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EditViewController.imageBackgroundColorUpdated),
+                                               name: DrawingOptionsHandler.backgroundColorChangedNotificationName,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EditViewController.usedEyeDropper),
+                                               name: DrawingOptionsHandler.usedEyeDropperNotificationName,
+                                               object: nil)
 
         colorPicker.addObserver(self, forKeyPath: "color", options: .new, context: nil)
         backgroundColorPicker.addObserver(self, forKeyPath: "color", options: .new, context: nil)
@@ -136,6 +144,14 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         colorPicker.color = DrawingOptionsHandler.shared.drawingColor
     }
     
+    // Called when eyedropper tool selects color
+    func usedEyeDropper() {
+        DrawingOptionsHandler.shared.isPickingColor = false
+        
+        self.eyedropperButtonCell.showBackground = DrawingOptionsHandler.shared.isPickingColor
+        self.eyedropperButtonCell.redraw()
+    }
+    
     // MARK: Buttons
     @IBAction func eraserButtonClicked(sender: AnyObject?) {
         colorPicker.color = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
@@ -144,6 +160,8 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     @IBAction func eyedropperButtonClicked(sender: AnyObject?) {
         DrawingOptionsHandler.shared.isPickingColor = !DrawingOptionsHandler.shared.isPickingColor
         
+        self.eyedropperButtonCell.showBackground = DrawingOptionsHandler.shared.isPickingColor
+        self.eyedropperButtonCell.redraw()
     }
     
     // MARK: Not implemented yet

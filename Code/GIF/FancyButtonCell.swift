@@ -12,6 +12,7 @@ class FancyButtonCell: NSButtonCell {
     fileprivate var intLineColor:NSColor = NSColor(red: 0.0, green: 139.0/255.0, blue: 1.0, alpha: 1.0)
     fileprivate var intPushLineColor:NSColor = NSColor(red: 0.0, green: 194.0/255.0, blue: 1.0, alpha: 1.0)
     var mouseOver:Bool = false
+    var showBackground:Bool = false
     
     @IBInspectable var lineColor: NSColor {
         get {
@@ -44,7 +45,7 @@ class FancyButtonCell: NSButtonCell {
         let path = NSBezierPath(roundedRect: frame.insetBy(dx: 0.5, dy: 0.5), xRadius: 3, yRadius: 3)
         path.lineWidth = 2
         
-        if !self.mouseOver { // Normal or selected
+        if !self.mouseOver && !self.showBackground { // Normal or selected
             if self.isHighlighted {
                 intPushLineColor.setStroke()
             }
