@@ -109,21 +109,23 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     
     // MARK: ZoomViewDelegate
     func zoomChanged(magnification: CGFloat) {
-        let scrollWidth = imageScrollView.frame.width
-        let scrollHeight = imageScrollView.frame.height
-        let imgWidth = currentFrameImageView.frame.width
-        let imgHeight = currentFrameImageView.frame.height
+//        let scrollWidth = imageScrollView.frame.width
+//        let scrollHeight = imageScrollView.frame.height
+//        let imgWidth = currentFrameImageView.frame.width
+//        let imgHeight = currentFrameImageView.frame.height
         
-        if imgHeight < scrollHeight || imgWidth < scrollWidth {
-            print("Mindre, centrerer \(CACurrentMediaTime())")
-            currentFrameImageView.center(inView: imageBackgroundView)
-        }
-        else {
-            print("Større, sætter i bund \(CACurrentMediaTime())")
-            currentFrameImageView.setFrameOrigin(NSMakePoint(0, 0))
-        }
+//        if imgHeight < scrollHeight || imgWidth < scrollWidth {
+//            print("Mindre, centrerer \(CACurrentMediaTime())")
+//            currentFrameImageView.center(inView: imageBackgroundView)
+//        }
+//        else {
+//            print("Større, sætter i bund \(CACurrentMediaTime())")
+//            currentFrameImageView.setFrameOrigin(NSMakePoint(0, 0))
+//        }
         
         updateScrollViewSize()
+        
+        currentFrameImageView.center(inView: imageBackgroundView)
     }
     
     
@@ -222,7 +224,6 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         if imgWidth > scrollWidth {
             newSize.width = imgWidth+20
         }
-
         
         imageBackgroundView.setFrameSize(newSize)
     }
