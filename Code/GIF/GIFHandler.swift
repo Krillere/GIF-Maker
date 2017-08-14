@@ -142,6 +142,7 @@ class GIFHandler {
     
     
     // Adds a watermark to all images in the gif
+    // (Sorry..)
     static func addWatermark(images: [NSImage]) -> [NSImage] {
         guard let font = NSFont(name: "Helvetica", size: 14) else { return images }
         var returnImages:[NSImage] = []
