@@ -107,7 +107,7 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     }
     
     
-    // MARK: Zoom
+    // MARK: ZoomViewDelegate
     func zoomChanged(magnification: CGFloat) {
         let scrollWidth = imageScrollView.frame.width
         let scrollHeight = imageScrollView.frame.height
@@ -115,15 +115,19 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         let imgHeight = currentFrameImageView.frame.height
         
         if imgHeight < scrollHeight || imgWidth < scrollWidth {
+            print("Mindre, centrerer \(CACurrentMediaTime())")
             currentFrameImageView.center(inView: imageBackgroundView)
         }
         else {
+            print("Større, sætter i bund \(CACurrentMediaTime())")
             currentFrameImageView.setFrameOrigin(NSMakePoint(0, 0))
         }
         
         updateScrollViewSize()
     }
     
+    
+    // MARK: Values changing
     // Observe changes
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "color" {
@@ -213,6 +217,7 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         if imgHeight > scrollHeight {
             newSize.height = imgHeight+20
         }
+        
         
         if imgWidth > scrollWidth {
             newSize.width = imgWidth+20
