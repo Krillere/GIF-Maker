@@ -110,7 +110,7 @@ class PixelImageView: NSImageView {
     // MARK: Undo and Redo
     func undo() {
         if let undoOp = self.undoOperations.last {
-            undoOp.changes.forEach({ (change) in
+            undoOp.changes.reversed().forEach({ (change) in
                 self.setPixelColor(color: change.oldColor, x: change.location.x, y: change.location.y)
             })
             self.undoOperations.removeLast()
@@ -124,7 +124,7 @@ class PixelImageView: NSImageView {
     
     func redo() {
         if let redoOp = self.redoOperations.last {
-            redoOp.changes.forEach({ (change) in
+            redoOp.changes.reversed().forEach({ (change) in
                 self.setPixelColor(color: change.newColor, x: change.location.x, y: change.location.y)
             })
             self.redoOperations.removeLast()
