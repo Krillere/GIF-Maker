@@ -135,6 +135,8 @@ class ViewController: NSViewController {
         addFrameItem.keyEquivalent = "f"
         addFrameItem.keyEquivalentModifierMask = .command
         
+        let reverseItem = NSMenuItem(title: "Reverse frames", action: #selector(ViewController.reverseFrames), keyEquivalent: "")
+        
         let previewItem = NSMenuItem(title: "Preview", action: #selector(ViewController.previewButtonClicked(sender:)), keyEquivalent: "")
         previewItem.keyEquivalentModifierMask = .command
         previewItem.keyEquivalent = "p"
@@ -152,6 +154,8 @@ class ViewController: NSViewController {
         newMenu.addItem(NSMenuItem.separator())
         newMenu.addItem(addFrameItem)
         newMenu.addItem(NSMenuItem.separator())
+        newMenu.addItem(reverseItem)
+        newMenu.addItem(NSMenuItem.separator())
         newMenu.addItem(previewItem)
         newMenu.addItem(editItem)
         newMenu.addItem(resetItem)
@@ -159,6 +163,17 @@ class ViewController: NSViewController {
         newItem.submenu = newMenu
         menu.insertItem(newItem, at: 1)
     }
+    
+    // Shows an error
+    func showError(_ error: String) {
+        let alert = FancyAlert()
+        alert.messageText = "An error occurred"
+        alert.informativeText = error
+        alert.alertStyle = .critical
+        alert.addButton(withTitle: "OK")
+        alert.beginSheetModal(for: self.view.window!, completionHandler: nil)
+    }
+    
     
     // MARK: Buttons
     // Adds a new frame
@@ -329,7 +344,7 @@ class ViewController: NSViewController {
         }
     }
     
-    // Shows editing window with given start
+    // Shows editing window with given image index
     func showEditing(withIndex: Int? = nil) {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         editingWindowController = storyboard.instantiateController(withIdentifier: "EditingWindow") as? NSWindowController
@@ -352,13 +367,9 @@ class ViewController: NSViewController {
         showError(error)
     }
     
-    // Shows an error
-    func showError(_ error: String) {
-        let alert = FancyAlert()
-        alert.messageText = "An error occurred"
-        alert.informativeText = error
-        alert.alertStyle = .critical
-        alert.addButton(withTitle: "OK")
-        alert.beginSheetModal(for: self.view.window!, completionHandler: nil)
+    // Reverses alle frames
+    func reverseFrames() {
+        self.currentFrames.reverse()
+        self.reloadImages()
     }
 }
