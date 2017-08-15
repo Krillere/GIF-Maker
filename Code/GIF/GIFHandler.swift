@@ -107,10 +107,11 @@ class GIFHandler {
         
         // Add images to destination
         frames.forEach { (frame) in
-            guard let image = frame.image else { return }
-//            if !Products.store.isProductPurchased(Products.Pro) {
+            guard var image = frame.image else { return }
+            if !Products.store.isProductPurchased(Products.Pro) {
                 // Watermark
-//            }
+                image = GIFHandler.addWatermark(image: image, watermark: "Smart GIF Maker")
+            }
             
             if let imageRef = image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
                 // Frame duration
@@ -144,43 +145,40 @@ class GIFHandler {
     }
     
     
-    // Adds a watermark to all images in the gif
-    // (Sorry..)
-    static func addWatermark(images: [NSImage], watermark: String) -> [NSImage] {
-        guard let font = NSFont(name: "Helvetica", size: 14) else { return images }
-        var returnImages:[NSImage] = []
+    // Adds a watermark to an image
+    static func addWatermark(image: NSImage, watermark: String) -> NSImage {
+        guard let font = NSFont(name: "Helvetica", size: 14) else { return image }
         
         let attrs:[String:Any] = [NSForegroundColorAttributeName: NSColor.white, NSFontAttributeName: font, NSStrokeWidthAttributeName: -3, NSStrokeColorAttributeName: NSColor.black]
         
-        for image in images {
-            // We need to create a 'copy' of the imagerep, as we need 'isPlanar' to be false in order to draw on it
-            // Thanks http://stackoverflow.com/a/13617013 and https://gist.github.com/randomsequence/b9f4462b005d0ced9a6c
-            let tmpRep = NSBitmapImageRep(data: image.tiffRepresentation!)!
-            guard let imgRep = NSBitmapImageRep(bitmapDataPlanes: nil,
-                             pixelsWide: tmpRep.pixelsWide,
-                             pixelsHigh: tmpRep.pixelsHigh,
-                             bitsPerSample: 8,
-                             samplesPerPixel: 4,
-                             hasAlpha: true,
-                             isPlanar: false,
-                             colorSpaceName: NSCalibratedRGBColorSpace,
-                             bytesPerRow: 0,
-                             bitsPerPixel: 0) else { print("Error image"); continue }
-            
-            NSGraphicsContext.saveGraphicsState()
-            NSGraphicsContext.setCurrent(NSGraphicsContext.init(bitmapImageRep: imgRep))
-            
-            // Draw image and string
-            image.draw(at: NSPoint.zero, from: NSZeroRect, operation: .copy, fraction: 1.0)
-            watermark.draw(at: NSPoint(x: 5, y: 5), withAttributes: attrs)
-            
-            NSGraphicsContext.restoreGraphicsState()
-            
-            let data = imgRep.representation(using: .GIF, properties: [:])
-            let newImg = NSImage(data: data!)
-            returnImages.append(newImg!)
+        // We need to create a 'copy' of the imagerep, as we need 'isPlanar' to be false in order to draw on it
+        // Thanks http://stackoverflow.com/a/13617013 and https://gist.github.com/randomsequence/b9f4462b005d0ced9a6c
+        let tmpRep = NSBitmapImageRep(data: image.tiffRepresentation!)!
+        guard let imgRep = NSBitmapImageRep(bitmapDataPlanes: nil,
+                                            pixelsWide: tmpRep.pixelsWide,
+                                            pixelsHigh: tmpRep.pixelsHigh,
+                                            bitsPerSample: 8,
+                                            samplesPerPixel: 4,
+                                            hasAlpha: true,
+                                            isPlanar: false,
+                                            colorSpaceName: NSCalibratedRGBColorSpace,
+                                            bytesPerRow: 0,
+                                            bitsPerPixel: 0) else { print("Error image"); return image }
+        
+        NSGraphicsContext.saveGraphicsState()
+        NSGraphicsContext.setCurrent(NSGraphicsContext.init(bitmapImageRep: imgRep))
+        
+        // Draw image and string
+        image.draw(at: NSPoint.zero, from: NSZeroRect, operation: .copy, fraction: 1.0)
+        watermark.draw(at: NSPoint(x: 5, y: 5), withAttributes: attrs)
+        
+        NSGraphicsContext.restoreGraphicsState()
+        
+        let data = imgRep.representation(using: .GIF, properties: [:])
+        if let newImg = NSImage(data: data!) {
+            return newImg
         }
         
-        return returnImages
+        return image
     }
 }
