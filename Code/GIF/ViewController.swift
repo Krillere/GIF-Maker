@@ -21,8 +21,6 @@ class ViewController: NSViewController {
     
     // UI elements
     @IBOutlet var imageCollectionView:NSCollectionView!
-    @IBOutlet var frameDurationTextField:NSTextField!
-    @IBOutlet var FPSLabel:NSTextField!
     @IBOutlet var addFrameButton:NSButton!
     @IBOutlet var loopsTextField:NSTextField!
     
@@ -33,9 +31,7 @@ class ViewController: NSViewController {
     var editingWindowController:NSWindowController?
     
     // Preview variables
-    var previewImages:[NSImage] = []
-    var previewLoops:Int = GIFHandler.defaultLoops
-    var previewFrameDuration:Double = GIFHandler.defaultFrameDuration
+    var previewRepresentation:GIFRepresentation?
 
     
     // MARK: View setup
@@ -84,8 +80,9 @@ class ViewController: NSViewController {
     // View changing
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowPreview" {
-            if let viewController = segue.destinationController as? PreviewViewController {
-                let previewImg = GIFHandler.createGIF(with: previewImages, loops: previewLoops, secondsPrFrame: previewFrameDuration)
+            if let viewController = segue.destinationController as? PreviewViewController,
+                let preview = self.previewRepresentation {
+                let previewImg = GIFHandler.createGIF(with: preview.frames, loops: preview.loops)
                 viewController.previewImage = previewImg
             }
         }
@@ -95,31 +92,17 @@ class ViewController: NSViewController {
     // MARK: UI
     override func controlTextDidChange(_ obj: Notification) {
         if let field = obj.object as? NSTextField {
-            
-            if field == frameDurationTextField { // Frame duration changed
-                reloadFPS()
+            if field == loopsTextField {
+                if let _ = Int(loopsTextField.stringValue) { }
+                else {
+                    showError("Loops must be an integer!")
+                    loopsTextField.stringValue = "0"
+                }
             }
         }
 
     }
-    
-    func reloadFPS() {
-        let val = frameDurationTextField.stringValue
-        if let fVal = Float(val) { // Validate field
-            if fVal < 0 {
-                showError("Frame duration must be a positive number.")
-                return
-            }
-            
-            // Find FPS
-            let fps = round(1/fVal)
-            FPSLabel.stringValue = String(format: "seconds (%.0lf FPS)", fps)
-        }
-        else {
-            showError("Frame duration must be a positive number.")
-        }
-    }
-    
+
     func reloadImages() {
         imageCollectionView.reloadData()
     }
@@ -219,7 +202,8 @@ class ViewController: NSViewController {
         panel.begin { (res) in
             if res == NSFileHandlingPanelOKButton {
                 if let url = panel.url {
-                    GIFHandler.createAndSaveGIF(with: validate.images, savePath: url, loops: validate.loops, secondsPrFrame: validate.frameDuration)
+                    let rep = validate.gif
+                    GIFHandler.createAndSaveGIF(with: rep.frames, savePath: url, loops: rep.loops)
                     NSWorkspace.shared().activateFileViewerSelecting([url])
                 }
             }
@@ -257,8 +241,8 @@ class ViewController: NSViewController {
         alert.beginSheetModal(for: self.view.window!) { (resp) in
             if resp == NSAlertFirstButtonReturn { // Yes clicked, reset
                 self.currentFrames = [GIFFrame.emptyFrame]
-                self.frameDurationTextField.stringValue = String(GIFHandler.defaultFrameDuration)
                 self.loopsTextField.stringValue = String(GIFHandler.defaultLoops)
+                
                 self.imageCollectionView.reloadData()
                 self.deselectAll()
             }
@@ -273,9 +257,7 @@ class ViewController: NSViewController {
             return
         }
         
-        self.previewLoops = validate.loops
-        self.previewFrameDuration = validate.frameDuration
-        self.previewImages = validate.images
+        self.previewRepresentation = validate.gif
         
         self.performSegue(withIdentifier: "ShowPreview", sender: self)
     }
@@ -283,40 +265,30 @@ class ViewController: NSViewController {
     
     // MARK: Helpers
     // Validates values from UI and returns them
-    func validateAndFindGIFValues() -> (error: Bool, loops: Int, frameDuration: Double, images: [NSImage]) {
-        let emp:[NSImage] = []
-        let errorReturn = (error: true, loops: GIFHandler.defaultLoops, frameDuration: GIFHandler.defaultFrameDuration, images: emp)
+    func validateAndFindGIFValues() -> (error: Bool, gif: GIFRepresentation) {
+
+        let empRep = GIFRepresentation()
+        let errorReturn = (error: true, gif: empRep)
         
         guard let loops = Int(loopsTextField.stringValue) else {
             showError("Invalid value for loop count.")
             return errorReturn
         }
-        guard let frameDuration = Double(frameDurationTextField.stringValue) else {
-            showError("Invalid value for frame duration.")
-            return errorReturn
-        }
-        if frameDuration < 0.0 {
-            showError("Frame duration must be a positive number.")
-            return errorReturn
-        }
-        
+
         print("Frames: \(currentFrames.count)")
         
         // Remove empty images
-        var tmpImages:[NSImage] = []
-        for frame in currentFrames {
-            if let img = frame.image {
-                tmpImages.append(img)
-            }
-        }
+        let tmpFrames:[GIFFrame] = currentFrames.filter({ (frame) -> Bool in
+            return frame.image != nil
+        })
         
-        if tmpImages.count == 0 {
+        if tmpFrames.count == 0 {
             showError("No frames in gif.")
             return errorReturn
         }
         
         // Success!
-        return (error: false, loops: loops, frameDuration: frameDuration, images: tmpImages)
+        return (error: false, gif: GIFRepresentation(frames: tmpFrames, loops: loops))
     }
     
     // Imports a gif from a given location
@@ -326,12 +298,10 @@ class ViewController: NSViewController {
             let newValues = GIFHandler.loadGIF(with: image)
             
             self.currentFrames = newValues.frames
-            self.frameDurationTextField.stringValue = String(newValues.frameDuration)
             self.loopsTextField.stringValue = String(newValues.loops)
             
             self.selectedRow = nil
             self.imageCollectionView.reloadData()
-            reloadFPS()
         }
     }
     
@@ -352,13 +322,10 @@ class ViewController: NSViewController {
     func documentFramesLoaded(notification: NSNotification) {
         if let values = notification.userInfo?["info"] as? GIFRepresentation {
             self.currentFrames = values.frames
-            self.frameDurationTextField.stringValue = String(values.frameDuration)
             self.loopsTextField.stringValue = String(values.loops)
             
             self.selectedRow = nil
             self.imageCollectionView.reloadData()
-            
-            reloadFPS()
         }
     }
     

@@ -142,38 +142,6 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdb-IB-kUc">
-                                <rect key="frame" x="802" y="571" width="100" height="17"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="96" id="Wqz-p3-1bG"/>
-                                    <constraint firstAttribute="height" constant="17" id="eJc-lg-nNN"/>
-                                </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Frame duration:" id="6CZ-vR-eyo">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField toolTip="The duration of each frame" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dzh-bE-5mK" customClass="SmartTextField" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="902" y="569" width="57" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="Wjv-bf-gkv"/>
-                                    <constraint firstAttribute="width" constant="57" id="oJH-Pl-MTF"/>
-                                </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="0.2" placeholderString="0.2" drawsBackground="YES" id="EzU-cN-rSO" customClass="FancyTextFieldCell" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                            <real key="value" value="5"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                </textFieldCell>
-                                <connections>
-                                    <outlet property="delegate" destination="XfG-lQ-9wD" id="Nq0-gp-fzl"/>
-                                </connections>
-                            </textField>
                             <button toolTip="Adds a frame at the beginning, or after the selected frame" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="grP-pd-YOJ" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
                                 <rect key="frame" x="222" y="566" width="84" height="25"/>
                                 <constraints>
@@ -245,10 +213,10 @@
                                 </connections>
                             </button>
                             <textField toolTip="The amount of loops in the GIF" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tuJ-Kc-Dut" customClass="SmartTextField" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="667" y="569" width="39" height="21"/>
+                                <rect key="frame" x="960" y="569" width="39" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="TGt-W7-hbJ"/>
-                                    <constraint firstAttribute="width" constant="39" id="v0T-0n-GYG"/>
+                                    <constraint firstAttribute="width" constant="39" id="qJD-Dn-VH4"/>
+                                    <constraint firstAttribute="height" constant="21" id="sZY-Ad-zYf"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="0" placeholderString="0" drawsBackground="YES" id="Gld-rM-F3F" customClass="FancyTextFieldCell" customModule="Smart_GIF_Maker" customModuleProvider="target">
                                     <font key="font" metaFont="system"/>
@@ -260,36 +228,27 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="XfG-lQ-9wD" id="Ta0-wB-sgX"/>
+                                </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CkX-nG-WFq">
-                                <rect key="frame" x="707" y="571" width="80" height="17"/>
+                                <rect key="frame" x="1000" y="571" width="80" height="17"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="76" id="MHQ-hl-cO0"/>
-                                    <constraint firstAttribute="height" constant="17" id="p88-LH-Fkr"/>
+                                    <constraint firstAttribute="height" constant="17" id="XJH-jR-ddf"/>
+                                    <constraint firstAttribute="width" constant="76" id="Zvx-Qv-o5a"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(0 is infinite)" id="Hfh-VE-3PT">
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0w9-KP-5Kv">
-                                <rect key="frame" x="960" y="571" width="115" height="17"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="17" id="3yW-db-938"/>
-                                    <constraint firstAttribute="width" constant="111" id="WsA-T9-ufL"/>
-                                </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="seconds (5 FPS)" id="TTP-Le-K4D">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.55925926003418625" green="0.5647964804305643" blue="0.5647964804305643" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vvf-C1-zZH">
-                                <rect key="frame" x="622" y="571" width="45" height="17"/>
+                                <rect key="frame" x="915" y="571" width="45" height="17"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="41" id="drv-su-sfI"/>
-                                    <constraint firstAttribute="height" constant="17" id="nu3-vO-K2w"/>
+                                    <constraint firstAttribute="height" constant="17" id="IWm-Jj-tzQ"/>
+                                    <constraint firstAttribute="width" constant="41" id="ffh-sY-NIO"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Loops:" id="uRO-h7-16V">
                                     <font key="font" metaFont="system"/>
@@ -322,40 +281,32 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="6an-BA-AHa" firstAttribute="leading" secondItem="jpq-ce-ENr" secondAttribute="trailing" constant="7" id="0AS-Ba-ArK"/>
-                            <constraint firstItem="vvf-C1-zZH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="all-MS-gSA" secondAttribute="trailing" constant="10" id="1Pc-Db-n1I"/>
-                            <constraint firstItem="tuJ-Kc-Dut" firstAttribute="leading" secondItem="vvf-C1-zZH" secondAttribute="trailing" constant="2" id="6xi-fG-jgY"/>
+                            <constraint firstItem="vvf-C1-zZH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="all-MS-gSA" secondAttribute="trailing" constant="40" id="2Zd-C3-j28"/>
+                            <constraint firstAttribute="trailing" secondItem="CkX-nG-WFq" secondAttribute="trailing" constant="15" id="393-Pv-qSP"/>
+                            <constraint firstItem="vvf-C1-zZH" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="12" id="5FF-M6-6wW"/>
                             <constraint firstItem="wvK-VW-l1S" firstAttribute="leading" secondItem="grP-pd-YOJ" secondAttribute="trailing" constant="20" id="B7r-8r-UNq"/>
+                            <constraint firstItem="tuJ-Kc-Dut" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="10" id="BIw-WN-rdc"/>
                             <constraint firstItem="6an-BA-AHa" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="9" id="Dwx-wg-JyI"/>
                             <constraint firstItem="5As-yW-scq" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="FGs-Xt-LoV"/>
-                            <constraint firstItem="tuJ-Kc-Dut" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="10" id="J38-uK-AgZ"/>
+                            <constraint firstItem="CkX-nG-WFq" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="12" id="Jja-oC-LRT"/>
                             <constraint firstItem="bf1-g8-pRA" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="9" id="L57-jB-9jI"/>
                             <constraint firstItem="grP-pd-YOJ" firstAttribute="leading" secondItem="6an-BA-AHa" secondAttribute="trailing" constant="20" id="LVa-Rp-IaJ"/>
-                            <constraint firstItem="kdb-IB-kUc" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="12" id="MGg-ge-Zcw"/>
-                            <constraint firstItem="kdb-IB-kUc" firstAttribute="leading" secondItem="CkX-nG-WFq" secondAttribute="trailing" constant="19" id="RVv-NL-638"/>
-                            <constraint firstItem="CkX-nG-WFq" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="12" id="SQq-iy-U6c"/>
                             <constraint firstItem="all-MS-gSA" firstAttribute="leading" secondItem="bf1-g8-pRA" secondAttribute="trailing" constant="7" id="TgA-a1-b2c"/>
                             <constraint firstAttribute="trailing" secondItem="5As-yW-scq" secondAttribute="trailing" id="U50-pA-tqN"/>
-                            <constraint firstAttribute="trailing" secondItem="0w9-KP-5Kv" secondAttribute="trailing" constant="20" id="Xmn-jc-Sa9"/>
                             <constraint firstItem="bf1-g8-pRA" firstAttribute="leading" secondItem="wvK-VW-l1S" secondAttribute="trailing" constant="7" id="XtJ-De-Hdp"/>
                             <constraint firstItem="all-MS-gSA" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="9" id="ZmX-Oh-l3V"/>
                             <constraint firstItem="grP-pd-YOJ" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="9" id="aS7-fO-NVX"/>
                             <constraint firstItem="5As-yW-scq" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="40" id="cOO-FP-Z6k"/>
-                            <constraint firstItem="0w9-KP-5Kv" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="12" id="eZM-FA-Z4z"/>
-                            <constraint firstItem="dzh-bE-5mK" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="10" id="fYd-OT-61b"/>
-                            <constraint firstItem="CkX-nG-WFq" firstAttribute="leading" secondItem="tuJ-Kc-Dut" secondAttribute="trailing" constant="3" id="ge3-m5-gvW"/>
-                            <constraint firstItem="vvf-C1-zZH" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="12" id="h8c-fi-WUf"/>
                             <constraint firstItem="wvK-VW-l1S" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="9" id="h9E-PF-dVo"/>
                             <constraint firstItem="jpq-ce-ENr" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="25" id="jbD-oJ-51j"/>
+                            <constraint firstItem="CkX-nG-WFq" firstAttribute="leading" secondItem="tuJ-Kc-Dut" secondAttribute="trailing" constant="3" id="jgL-J9-lnc"/>
                             <constraint firstAttribute="bottom" secondItem="5As-yW-scq" secondAttribute="bottom" id="kRU-Cu-Fhi"/>
-                            <constraint firstItem="0w9-KP-5Kv" firstAttribute="leading" secondItem="dzh-bE-5mK" secondAttribute="trailing" constant="3" id="ktM-Ku-9aW"/>
                             <constraint firstItem="jpq-ce-ENr" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="9" id="rca-tc-ZiT"/>
-                            <constraint firstItem="dzh-bE-5mK" firstAttribute="leading" secondItem="kdb-IB-kUc" secondAttribute="trailing" constant="2" id="yPV-6I-Qhu"/>
+                            <constraint firstItem="tuJ-Kc-Dut" firstAttribute="leading" secondItem="vvf-C1-zZH" secondAttribute="trailing" constant="2" id="xIL-op-0Bk"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="FPSLabel" destination="0w9-KP-5Kv" id="Bp2-rI-lCy"/>
                         <outlet property="addFrameButton" destination="grP-pd-YOJ" id="edU-bC-Otm"/>
-                        <outlet property="frameDurationTextField" destination="dzh-bE-5mK" id="4ub-Pw-cFz"/>
                         <outlet property="imageCollectionView" destination="QWv-z0-wuy" id="IvU-QJ-7y0"/>
                         <outlet property="loopsTextField" destination="tuJ-Kc-Dut" id="ZB5-Dl-MTM"/>
                         <segue destination="bcM-KL-fP7" kind="sheet" identifier="ShowPreview" id="5h1-V8-Yoc"/>
@@ -363,7 +314,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="235" y="1306"/>
+            <point key="canvasLocation" x="235" y="1336"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="Fb2-sv-vcH">
