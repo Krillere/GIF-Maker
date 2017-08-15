@@ -18,7 +18,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: Setup
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(AppDelegate.productsLoaded),
                                                name: IAPHelper.IAPLoadedNotificationName,

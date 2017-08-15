@@ -60,7 +60,7 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource, 
         panel.allowsMultipleSelection = false
         panel.canChooseDirectories = false
         panel.canChooseFiles = true
-        panel.allowedFileTypes = ["png", "jpg", "jpeg", "gif", "tiff"]
+        panel.allowedFileTypes = ["png", "jpg", "jpeg", "gif", "tiff", "bmp"]
         panel.beginSheetModal(for: self.view.window!) { (response) -> Void in
             
             // Insert image into imageview and 'currentImages' and reload
