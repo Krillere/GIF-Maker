@@ -12,6 +12,7 @@ import Cocoa
 
 extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource, FrameCollectionViewItemDelegate {
     
+    
     // MARK: FrameCollectionViewitemDelegate
     func removeFrame(item: FrameCollectionViewItem) {
         
@@ -68,8 +69,14 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource, 
                 let URL = panel.url
                 if URL != nil {
                     if let image = NSImage(contentsOf: URL!) {
-                        let frame = GIFFrame(image: image)
-                        self.currentFrames[item.itemIndex] = frame
+                        
+                        let newFrame = GIFFrame(image: image)
+                        if let frame = imgView.gifFrame {
+                            newFrame.duration = frame.duration
+                        }
+                        
+                        self.currentFrames[item.itemIndex] = newFrame
+
                     }
                     self.imageCollectionView.reloadData()
                 }
@@ -78,6 +85,14 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource, 
             imgView.resignFirstResponder()
             self.addFrameButton.becomeFirstResponder()
         }
+    }
+    
+    // Frame duration changed
+    func frameDurationChanged(item: FrameCollectionViewItem) {
+        guard let imgView = item.imageView as? DragNotificationImageView,
+            let frame = imgView.gifFrame,
+            let newDuration = Double(item.durationTextField.stringValue) else { return }
+        frame.duration = newDuration
     }
     
     // MARK: NSCollectionView
@@ -107,7 +122,7 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource, 
     // Deselects all items
     func deselectAll() {
         let paths = imageCollectionView.indexPathsForVisibleItems()
-        for path in paths {
+        paths.forEach { (path) in
             if let item = imageCollectionView.item(at: path) as? FrameCollectionViewItem {
                 item.setHighlight(selected: false)
             }
@@ -124,6 +139,7 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource, 
         
         // Cast to FrameCollectionView, set index and reset image (To remove old index image)
         guard let frameCollectionViewItem = item as? FrameCollectionViewItem else { return item }
+        
         frameCollectionViewItem.delegate = self
         frameCollectionViewItem.setFrameNumber(indexPath.item+1)
         frameCollectionViewItem.itemIndex = indexPath.item
@@ -134,7 +150,10 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource, 
             frameCollectionViewItem.setHighlight(selected: true)
         }
         
-        
+        // Set GIFFrame
+        if let imgView = frameCollectionViewItem.imageView as? DragNotificationImageView {
+            imgView.gifFrame = currentFrames[indexPath.item]
+        }
         
         // If we have an image, insert it here
         if let img = currentFrames[indexPath.item].image {

@@ -66,11 +66,9 @@ class ViewController: NSViewController {
         self.imageCollectionView.backgroundView?.backgroundColor = ViewController.backgroundColor
         self.imageCollectionView.backgroundColor = ViewController.backgroundColor
         
-        
-        
         addFrameButton.becomeFirstResponder()
         
-        // Do we already have menu items?
+        // If menu items does not exist, create them
         if let menu = NSApplication.shared().menu {
             if menu.item(withTitle: "Actions") == nil {
                 self.setupMenuItems()
@@ -183,7 +181,11 @@ class ViewController: NSViewController {
     // Adds a new frame
     @IBAction func addFrameButtonClicked(sender: AnyObject?) {
         if let indexPath = selectedRow { // Add after selectedRow
-            currentFrames.insert(GIFFrame.emptyFrame, at: indexPath.item+1)
+            let selectedFrame = self.currentFrames[indexPath.item]
+            let newFrame = GIFFrame.emptyFrame
+            newFrame.duration = selectedFrame.duration
+            
+            currentFrames.insert(newFrame, at: indexPath.item+1)
             selectedRow = IndexPath(item: indexPath.item+1, section: 0)
         }
         else { // Add empty frame

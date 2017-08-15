@@ -181,9 +181,9 @@
 				AAA9C4CE1ECCA01A007EC0D4 /* FancyAlert.swift */,
 				AA3E1E601F000F8C0030E636 /* Buttons */,
 				AA17D4A11ECB710600E260A7 /* NSViewExtension.swift */,
+				AABC063B1F431D25002DFEE6 /* FancyTextFieldCell.swift */,
 				AA33867D1EBF45970056354F /* SmartTextField.swift */,
 				AA3E1E611F000FA60030E636 /* GIFFrames in UI */,
-				AABC063B1F431D25002DFEE6 /* FancyTextFieldCell.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";

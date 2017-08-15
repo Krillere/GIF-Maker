@@ -24,7 +24,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="X7q-xL-EOs"/>
                     </constraints>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="QeT-G1-HQD">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Frame #" id="QeT-G1-HQD">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -66,39 +66,46 @@
                         <action selector="editMeWithSender:" target="8hu-CX-LPd" id="BgR-rZ-eAg"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XTW-WP-b4F">
-                    <rect key="frame" x="177" y="8" width="15" height="15"/>
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PrH-4c-hvj" customClass="SmartTextField" customModule="Smart_GIF_Maker" customModuleProvider="target">
+                    <rect key="frame" x="152" y="6" width="40" height="19"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="15" id="XnX-AW-4aU"/>
-                        <constraint firstAttribute="width" constant="15" id="vp1-K9-PAq"/>
+                        <constraint firstAttribute="width" constant="40" id="6n7-yv-Ho1"/>
+                        <constraint firstAttribute="height" constant="19" id="Yqb-DO-McO"/>
                     </constraints>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="clock" imagePosition="overlaps" alignment="center" imageScaling="axesIndependently" inset="2" id="Oaz-MP-VAj">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="0.001" drawsBackground="YES" id="j46-Y4-UdQ" customClass="FancyTextFieldCell" customModule="Smart_GIF_Maker" customModuleProvider="target">
+                        <font key="font" metaFont="system" size="10"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </textFieldCell>
                     <connections>
-                        <action selector="editMeWithSender:" target="8hu-CX-LPd" id="kKO-v2-n2Y"/>
+                        <outlet property="delegate" destination="8hu-CX-LPd" id="1xP-0h-Bns"/>
                     </connections>
-                </button>
+                </textField>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="wwL-y8-YJX" secondAttribute="trailing" constant="8" id="0ha-U5-gFc"/>
                 <constraint firstAttribute="trailing" secondItem="njh-Y3-7K3" secondAttribute="trailing" constant="3" id="2i9-2F-rrk"/>
                 <constraint firstItem="wwL-y8-YJX" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="8" id="5KX-PV-MYr"/>
-                <constraint firstAttribute="bottom" secondItem="XTW-WP-b4F" secondAttribute="bottom" constant="8" id="5yU-Ad-NVz"/>
                 <constraint firstAttribute="bottom" secondItem="mJu-9S-cSR" secondAttribute="bottom" constant="8" id="7xe-Qi-Lw4"/>
                 <constraint firstAttribute="bottom" secondItem="cEm-Va-vEd" secondAttribute="bottom" constant="8" id="9qi-hb-HZk"/>
                 <constraint firstItem="mJu-9S-cSR" firstAttribute="leading" secondItem="cEm-Va-vEd" secondAttribute="trailing" constant="10" id="B0i-Ld-TAX"/>
                 <constraint firstItem="cEm-Va-vEd" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="8" id="HsA-vt-Df9"/>
-                <constraint firstAttribute="trailing" secondItem="XTW-WP-b4F" secondAttribute="trailing" constant="8" id="ONt-tm-aWQ"/>
                 <constraint firstItem="njh-Y3-7K3" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="3" id="QDP-CZ-cOR"/>
+                <constraint firstAttribute="bottom" secondItem="PrH-4c-hvj" secondAttribute="bottom" constant="6" id="ShO-pU-l7K"/>
                 <constraint firstItem="njh-Y3-7K3" firstAttribute="top" secondItem="wwL-y8-YJX" secondAttribute="bottom" constant="5" id="ZTW-q9-WC1"/>
+                <constraint firstAttribute="trailing" secondItem="PrH-4c-hvj" secondAttribute="trailing" constant="8" id="nAn-c3-DMf"/>
                 <constraint firstItem="wwL-y8-YJX" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="8" id="vsD-nY-4vJ"/>
             </constraints>
             <point key="canvasLocation" x="159" y="270"/>
         </customView>
         <collectionViewItem id="8hu-CX-LPd" customClass="FrameCollectionViewItem" customModule="Smart_GIF_Maker" customModuleProvider="target">
             <connections>
+                <outlet property="durationTextField" destination="PrH-4c-hvj" id="aQe-i0-gU2"/>
                 <outlet property="imageView" destination="wwL-y8-YJX" id="M3e-2a-RIy"/>
                 <outlet property="textField" destination="njh-Y3-7K3" id="OnX-Ok-MT0"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="v7j-IM-kBI"/>
@@ -106,7 +113,6 @@
         </collectionViewItem>
     </objects>
     <resources>
-        <image name="clock" width="256" height="256"/>
         <image name="edit" width="256" height="256"/>
         <image name="trash" width="256" height="256"/>
     </resources>

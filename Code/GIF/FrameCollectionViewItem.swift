@@ -14,11 +14,14 @@ protocol FrameCollectionViewItemDelegate {
     
     func frameImageChanged(item: FrameCollectionViewItem)
     func frameImageClicked(item: FrameCollectionViewItem)
+    func frameDurationChanged(item: FrameCollectionViewItem)
 }
 
 class FrameCollectionViewItem: NSCollectionViewItem, DragNotificationImageViewDelegate {
     var itemIndex = -1
     var delegate:FrameCollectionViewItemDelegate?
+    
+    @IBOutlet var durationTextField:SmartTextField!
 
     // MARK: NSCollectionViewItem init
     override func viewDidLoad() {
@@ -30,8 +33,19 @@ class FrameCollectionViewItem: NSCollectionViewItem, DragNotificationImageViewDe
         view.layer?.cornerRadius = 10
         view.layer?.borderColor = NSColor.selectedControlColor.cgColor
         
+        self.durationTextField.stringValue = String(format: "%.3lf", GIFHandler.defaultFrameDuration)
+        
         if let imgView = self.imageView as? DragNotificationImageView {
             imgView.delegate = self
+        }
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        
+        if let imgView = self.imageView as? DragNotificationImageView,
+            let frame = imgView.gifFrame {
+            self.durationTextField.stringValue = String(format: "%.3lf", frame.duration)
         }
     }
     
@@ -45,6 +59,19 @@ class FrameCollectionViewItem: NSCollectionViewItem, DragNotificationImageViewDe
     }
     
     // MARK: UI
+    override func controlTextDidChange(_ obj: Notification) {
+        if let field = obj.object as? NSTextField {
+            if field == self.durationTextField {
+                if let _ = Double(self.durationTextField.stringValue) {
+                    self.delegate?.frameDurationChanged(item: self)
+                }
+                else {
+                    self.durationTextField.stringValue = String(format: "%.3lf", GIFHandler.defaultFrameDuration)
+                }
+            }
+        }
+    }
+    
     // Sets the frame number
     func setFrameNumber(_ n: Int) {
         self.textField?.stringValue = "Frame "+String(n)
