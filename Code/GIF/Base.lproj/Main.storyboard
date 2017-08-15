@@ -383,10 +383,7 @@
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hoe-iU-3z1">
                                 <rect key="frame" x="7" y="39" width="306" height="306"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="Prr-Ng-4sJ"/>
-                                </constraints>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="piO-hS-a8V"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" imageFrameStyle="grayBezel" id="piO-hS-a8V"/>
                             </imageView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="R3v-6X-hyj" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
                                 <rect key="frame" x="117" y="7" width="87" height="25"/>
@@ -405,10 +402,10 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="hoe-iU-3z1" firstAttribute="top" secondItem="SUP-8b-kfX" secondAttribute="top" constant="10" id="9db-gA-n0D"/>
-                            <constraint firstAttribute="bottom" secondItem="R3v-6X-hyj" secondAttribute="bottom" constant="7" id="B6K-ZS-oIG"/>
+                            <constraint firstAttribute="bottom" secondItem="R3v-6X-hyj" secondAttribute="bottom" constant="7" id="Oly-VJ-qoa"/>
                             <constraint firstAttribute="trailing" secondItem="hoe-iU-3z1" secondAttribute="trailing" constant="10" id="dKP-xd-Nk4"/>
-                            <constraint firstItem="R3v-6X-hyj" firstAttribute="top" secondItem="hoe-iU-3z1" secondAttribute="bottom" constant="10" id="ff5-9K-AeF"/>
                             <constraint firstItem="R3v-6X-hyj" firstAttribute="centerX" secondItem="SUP-8b-kfX" secondAttribute="centerX" id="j6h-TO-9fY"/>
+                            <constraint firstItem="R3v-6X-hyj" firstAttribute="top" secondItem="hoe-iU-3z1" secondAttribute="bottom" constant="10" id="kjN-GV-hoz"/>
                             <constraint firstItem="hoe-iU-3z1" firstAttribute="leading" secondItem="SUP-8b-kfX" secondAttribute="leading" constant="10" id="uIq-V0-vd6"/>
                         </constraints>
                     </view>

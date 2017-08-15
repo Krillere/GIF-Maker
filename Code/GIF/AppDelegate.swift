@@ -11,13 +11,6 @@ import StoreKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
-    // Undo / Redo menu items
-    @IBOutlet var undoMenuItem:NSMenuItem!
-    @IBOutlet var redoMenuItem:NSMenuItem!
-    
-    @IBOutlet var eraserMenuItem:NSMenuItem!
-    @IBOutlet var eyedropperMenuItem:NSMenuItem!
     
     // iAP
     var products = [SKProduct]()
@@ -31,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                                name: IAPHelper.IAPLoadedNotificationName,
                                                object: nil)
         
-//        reloadProducts()
+//        loadProducts()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -43,7 +36,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     
-    // MARK: Pro
+    // MARK: Pro / watermark removal
+    // Should this really be in AppDelegate?
     func createPurchaseMenuItem() {
         guard let menu = NSApplication.shared().mainMenu else { return }
         let newItem = NSMenuItem(title: "UnlockPro", action: nil, keyEquivalent: "")
@@ -77,11 +71,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         Products.store.restorePurchases()
     }
-    
-    
+
     
     // MARK: In app purchase
-    func reloadProducts() {
+    func loadProducts() {
         products = []
         Products.store.requestProducts{success, products in
             if success {

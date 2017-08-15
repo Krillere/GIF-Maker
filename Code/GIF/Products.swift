@@ -10,7 +10,7 @@ import Foundation
 
 public struct Products {
     
-    fileprivate static let Prefix = "com.iMakezAppz.GIF."
+    fileprivate static let Prefix = "com.imakezappz.GIF."
     
     public static let Pro = Prefix + "pro"
     
