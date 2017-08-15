@@ -66,8 +66,7 @@ class ViewController: NSViewController {
         self.imageCollectionView.backgroundView?.backgroundColor = ViewController.backgroundColor
         self.imageCollectionView.backgroundColor = ViewController.backgroundColor
         
-        frameDurationTextField.wantsLayer = true
-        frameDurationTextField.layer?.cornerRadius = 3
+        
         
         addFrameButton.becomeFirstResponder()
         

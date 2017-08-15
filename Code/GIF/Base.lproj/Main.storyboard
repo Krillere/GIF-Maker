@@ -160,10 +160,15 @@
                                     <constraint firstAttribute="height" constant="21" id="Wjv-bf-gkv"/>
                                     <constraint firstAttribute="width" constant="57" id="oJH-Pl-MTF"/>
                                 </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="0.2" placeholderString="0.2" drawsBackground="YES" id="EzU-cN-rSO">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="0.2" placeholderString="0.2" drawsBackground="YES" id="EzU-cN-rSO" customClass="FancyTextFieldCell" customModule="Smart_GIF_Maker" customModuleProvider="target">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </textFieldCell>
                                 <connections>
                                     <outlet property="delegate" destination="XfG-lQ-9wD" id="Nq0-gp-fzl"/>
@@ -245,10 +250,15 @@
                                     <constraint firstAttribute="height" constant="21" id="TGt-W7-hbJ"/>
                                     <constraint firstAttribute="width" constant="39" id="v0T-0n-GYG"/>
                                 </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="0" placeholderString="0" drawsBackground="YES" id="Gld-rM-F3F">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="0" placeholderString="0" drawsBackground="YES" id="Gld-rM-F3F" customClass="FancyTextFieldCell" customModule="Smart_GIF_Maker" customModuleProvider="target">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CkX-nG-WFq">

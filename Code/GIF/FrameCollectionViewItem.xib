@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="njh-Y3-7K3">
-                    <rect key="frame" x="1" y="24" width="198" height="17"/>
+                    <rect key="frame" x="1" y="26" width="198" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="X7q-xL-EOs"/>
                     </constraints>
@@ -53,10 +53,10 @@
                     <imageCell key="cell" selectable="YES" editable="YES" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="LOv-di-G3W"/>
                 </imageView>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mJu-9S-cSR">
-                    <rect key="frame" x="177" y="8" width="15" height="15"/>
+                    <rect key="frame" x="33" y="8" width="15" height="15"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="15" id="rAQ-Vm-paw"/>
-                        <constraint firstAttribute="height" constant="15" id="ye0-wY-FIA"/>
+                        <constraint firstAttribute="width" constant="15" id="VjR-bD-P5x"/>
+                        <constraint firstAttribute="height" constant="15" id="YNB-Ly-9Ze"/>
                     </constraints>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="edit" imagePosition="overlaps" alignment="center" imageScaling="axesIndependently" inset="2" id="UGJ-ny-Nqa">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -67,10 +67,10 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XTW-WP-b4F">
-                    <rect key="frame" x="152" y="8" width="15" height="15"/>
+                    <rect key="frame" x="177" y="8" width="15" height="15"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="15" id="BHu-2r-F1c"/>
-                        <constraint firstAttribute="height" constant="15" id="urj-Gf-acr"/>
+                        <constraint firstAttribute="height" constant="15" id="XnX-AW-4aU"/>
+                        <constraint firstAttribute="width" constant="15" id="vp1-K9-PAq"/>
                     </constraints>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="clock" imagePosition="overlaps" alignment="center" imageScaling="axesIndependently" inset="2" id="Oaz-MP-VAj">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -85,14 +85,14 @@
                 <constraint firstAttribute="trailing" secondItem="wwL-y8-YJX" secondAttribute="trailing" constant="8" id="0ha-U5-gFc"/>
                 <constraint firstAttribute="trailing" secondItem="njh-Y3-7K3" secondAttribute="trailing" constant="3" id="2i9-2F-rrk"/>
                 <constraint firstItem="wwL-y8-YJX" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="8" id="5KX-PV-MYr"/>
-                <constraint firstAttribute="bottom" secondItem="mJu-9S-cSR" secondAttribute="bottom" constant="8" id="5Ng-TX-o98"/>
-                <constraint firstItem="mJu-9S-cSR" firstAttribute="leading" secondItem="XTW-WP-b4F" secondAttribute="trailing" constant="10" id="6du-9l-zQH"/>
+                <constraint firstAttribute="bottom" secondItem="XTW-WP-b4F" secondAttribute="bottom" constant="8" id="5yU-Ad-NVz"/>
+                <constraint firstAttribute="bottom" secondItem="mJu-9S-cSR" secondAttribute="bottom" constant="8" id="7xe-Qi-Lw4"/>
                 <constraint firstAttribute="bottom" secondItem="cEm-Va-vEd" secondAttribute="bottom" constant="8" id="9qi-hb-HZk"/>
+                <constraint firstItem="mJu-9S-cSR" firstAttribute="leading" secondItem="cEm-Va-vEd" secondAttribute="trailing" constant="10" id="B0i-Ld-TAX"/>
                 <constraint firstItem="cEm-Va-vEd" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="8" id="HsA-vt-Df9"/>
+                <constraint firstAttribute="trailing" secondItem="XTW-WP-b4F" secondAttribute="trailing" constant="8" id="ONt-tm-aWQ"/>
                 <constraint firstItem="njh-Y3-7K3" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="3" id="QDP-CZ-cOR"/>
-                <constraint firstItem="njh-Y3-7K3" firstAttribute="top" secondItem="wwL-y8-YJX" secondAttribute="bottom" constant="7" id="ZTW-q9-WC1"/>
-                <constraint firstAttribute="bottom" secondItem="XTW-WP-b4F" secondAttribute="bottom" constant="8" id="tOf-zX-FTm"/>
-                <constraint firstAttribute="trailing" secondItem="mJu-9S-cSR" secondAttribute="trailing" constant="8" id="tjP-u0-Pcw"/>
+                <constraint firstItem="njh-Y3-7K3" firstAttribute="top" secondItem="wwL-y8-YJX" secondAttribute="bottom" constant="5" id="ZTW-q9-WC1"/>
                 <constraint firstItem="wwL-y8-YJX" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="8" id="vsD-nY-4vJ"/>
             </constraints>
             <point key="canvasLocation" x="159" y="270"/>
