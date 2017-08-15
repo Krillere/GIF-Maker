@@ -133,14 +133,14 @@ class ViewController: NSViewController {
         let newMenu = NSMenu(title: "Actions")
         
         /*
-         Import .GIF
-         Export .GIF
+         Import .GIF (CMD+O)
+         Export .GIF (CMD+S)
          -
-         Add frame
+         Add frame (CMD+F)
          -
-         Preview
-         Edit
-         Reset
+         Preview (CMD+P)
+         Edit (CMD+E)
+         Reset (CMD+R)
         */
         
         let importItem = NSMenuItem(title: "Import .GIF", action: #selector(ViewController.loadGIFButtonClicked(sender:)), keyEquivalent: "")
@@ -299,6 +299,8 @@ class ViewController: NSViewController {
             return errorReturn
         }
         
+        print("Frames: \(currentFrames.count)")
+        
         // Remove empty images
         var tmpImages:[NSImage] = []
         for frame in currentFrames {
@@ -308,7 +310,7 @@ class ViewController: NSViewController {
         }
         
         if tmpImages.count == 0 {
-            showError("No frames in gif")
+            showError("No frames in gif.")
             return errorReturn
         }
         

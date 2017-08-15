@@ -97,10 +97,10 @@ class GIFHandler {
         let loopCountDic = NSDictionary(dictionary: [kCGImagePropertyGIFDictionary:NSDictionary(dictionary: [kCGImagePropertyGIFLoopCount: loops])])
         
         // Watermark?
-        let saveImages:[NSImage] = images
+        var saveImages:[NSImage] = images
         if !Products.store.isProductPurchased(Products.Pro) {
             // Comment this line to avoid watermarks
-//            saveImages = GIFHandler.addWatermark(images: images, watermark: "Smart GIF Maker")
+            saveImages = GIFHandler.addWatermark(images: images, watermark: "Smart GIF Maker")
         }
         
         // Destination (Data object)
@@ -147,19 +147,18 @@ class GIFHandler {
         
         for image in images {
             // We need to create a 'copy' of the imagerep, as we need 'isPlanar' to be false in order to draw on it
-            // Thanks http://stackoverflow.com/a/13617013
+            // Thanks http://stackoverflow.com/a/13617013 and https://gist.github.com/randomsequence/b9f4462b005d0ced9a6c
             let tmpRep = NSBitmapImageRep(data: image.tiffRepresentation!)!
             guard let imgRep = NSBitmapImageRep(bitmapDataPlanes: nil,
-                                                             pixelsWide: tmpRep.pixelsWide,
-                                                             pixelsHigh: tmpRep.pixelsHigh,
-                                                             bitsPerSample: tmpRep.bitsPerSample,
-                                                             samplesPerPixel: tmpRep.samplesPerPixel,
-                                                             hasAlpha: tmpRep.hasAlpha,
-                                                             isPlanar: false,
-                                                             colorSpaceName: NSDeviceRGBColorSpace,
-                                                             bitmapFormat: NSAlphaFirstBitmapFormat,
-                                                             bytesPerRow: tmpRep.bytesPerRow,
-                                                             bitsPerPixel: tmpRep.bitsPerPixel) else { print("Fejl med billede!"); continue }
+                             pixelsWide: tmpRep.pixelsWide,
+                             pixelsHigh: tmpRep.pixelsHigh,
+                             bitsPerSample: 8,
+                             samplesPerPixel: 4,
+                             hasAlpha: true,
+                             isPlanar: false,
+                             colorSpaceName: NSCalibratedRGBColorSpace,
+                             bytesPerRow: 0,
+                             bitsPerPixel: 0) else { print("Error image"); continue }
             
             NSGraphicsContext.saveGraphicsState()
             NSGraphicsContext.setCurrent(NSGraphicsContext.init(bitmapImageRep: imgRep))

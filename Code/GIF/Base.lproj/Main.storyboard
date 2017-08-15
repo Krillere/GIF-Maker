@@ -160,7 +160,7 @@
                                     <constraint firstAttribute="height" constant="21" id="Wjv-bf-gkv"/>
                                     <constraint firstAttribute="width" constant="57" id="oJH-Pl-MTF"/>
                                 </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="0.2" placeholderString="0.2" bezelStyle="round" id="EzU-cN-rSO">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="0.2" placeholderString="0.2" drawsBackground="YES" id="EzU-cN-rSO">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -245,7 +245,7 @@
                                     <constraint firstAttribute="height" constant="21" id="TGt-W7-hbJ"/>
                                     <constraint firstAttribute="width" constant="39" id="v0T-0n-GYG"/>
                                 </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="0" placeholderString="0" bezelStyle="round" id="Gld-rM-F3F">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="0" placeholderString="0" drawsBackground="YES" id="Gld-rM-F3F">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
