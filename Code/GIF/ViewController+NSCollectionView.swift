@@ -40,7 +40,6 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource, 
     func frameImageChanged(item: FrameCollectionViewItem) {
         guard let imgView = item.imageView as? DragNotificationImageView else { return }
         guard let img = imgView.image else { return }
-
         
         let newFrame = GIFFrame(image: img)
         if let frame = imgView.gifFrame {
