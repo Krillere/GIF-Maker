@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GIF/FrameCollectionViewItem.swift"
-            timestampString = "524496547.497917"
+            timestampString = "524497485.98098"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "viewWillAppear()"
             landmarkType = "7">
          </BreakpointContent>

@@ -43,6 +43,7 @@ class FrameCollectionViewItem: NSCollectionViewItem, DragNotificationImageViewDe
     override func viewWillAppear() {
         super.viewWillAppear()
         
+        // Set duration if known
         if let imgView = self.imageView as? DragNotificationImageView,
             let frame = imgView.gifFrame {
             self.durationTextField.stringValue = String(format: "%.3lf", frame.duration)
