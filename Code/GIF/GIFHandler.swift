@@ -97,7 +97,7 @@ class GIFHandler {
         let loopCountDic = NSDictionary(dictionary: [kCGImagePropertyGIFDictionary:NSDictionary(dictionary: [kCGImagePropertyGIFLoopCount: loops])])
         
         // Watermark?
-        var saveImages:[NSImage] = images
+        let saveImages:[NSImage] = images
         if !Products.store.isProductPurchased(Products.Pro) {
             // Comment this line to avoid watermarks
 //            saveImages = GIFHandler.addWatermark(images: images, watermark: "Smart GIF Maker")

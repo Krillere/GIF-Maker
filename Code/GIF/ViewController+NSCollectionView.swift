@@ -35,15 +35,23 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource, 
         showEditing(withIndex: index)
     }
     
+    // An image was dragged onto the DragNotificationImageView
     func frameImageChanged(item: FrameCollectionViewItem) {
-        guard let imgView = item.imageView as? DragNotificationImageView,
-            let frame = imgView.gifFrame else { return }
+        guard let imgView = item.imageView as? DragNotificationImageView else { return }
+        guard let img = imgView.image else { return }
+
         
-        currentFrames[item.itemIndex] = frame
+        let newFrame = GIFFrame(image: img)
+        if let frame = imgView.gifFrame {
+            newFrame.duration = frame.duration
+        }
+        
+        currentFrames[item.itemIndex] = newFrame
         self.selectedRow = nil
         self.imageCollectionView.reloadData()
     }
     
+    // User clicked DragNotificationImageView
     func frameImageClicked(item: FrameCollectionViewItem) {
         guard let imgView = item.imageView as? DragNotificationImageView else { return }
         

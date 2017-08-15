@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GIF/DragNotificationImageView.swift"
-            timestampString = "520356740.033382"
+            timestampString = "524488171.911971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "25"
@@ -96,6 +96,22 @@
             startingLineNumber = "151"
             endingLineNumber = "151"
             landmarkName = "addWatermark(images:watermark:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GIF/ViewController+NSCollectionView.swift"
+            timestampString = "524488171.911971"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "frameImageChanged(item:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
