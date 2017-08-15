@@ -100,7 +100,7 @@ class GIFHandler {
         var saveImages:[NSImage] = images
         if !Products.store.isProductPurchased(Products.Pro) {
             // Comment this line to avoid watermarks
-            saveImages = GIFHandler.addWatermark(images: images, watermark: "Smart GIF Maker")
+//            saveImages = GIFHandler.addWatermark(images: images, watermark: "Smart GIF Maker")
         }
         
         // Destination (Data object)
@@ -149,21 +149,20 @@ class GIFHandler {
             // We need to create a 'copy' of the imagerep, as we need 'isPlanar' to be false in order to draw on it
             // Thanks http://stackoverflow.com/a/13617013
             let tmpRep = NSBitmapImageRep(data: image.tiffRepresentation!)!
-            let imgRep = NSBitmapImageRep(bitmapDataPlanes: nil,
-                                          pixelsWide: tmpRep.pixelsWide,
-                                          pixelsHigh: tmpRep.pixelsHigh,
-                                          bitsPerSample: tmpRep.bitsPerSample,
-                                          samplesPerPixel: tmpRep.samplesPerPixel,
-                                          hasAlpha: true,
-                                          isPlanar: false,
-                                          colorSpaceName: NSDeviceRGBColorSpace,
-                                          bitmapFormat: NSAlphaFirstBitmapFormat,
-                                          bytesPerRow: tmpRep.bytesPerRow,
-                                          bitsPerPixel: tmpRep.bitsPerPixel)
-            
+            guard let imgRep = NSBitmapImageRep(bitmapDataPlanes: nil,
+                                                             pixelsWide: tmpRep.pixelsWide,
+                                                             pixelsHigh: tmpRep.pixelsHigh,
+                                                             bitsPerSample: tmpRep.bitsPerSample,
+                                                             samplesPerPixel: tmpRep.samplesPerPixel,
+                                                             hasAlpha: tmpRep.hasAlpha,
+                                                             isPlanar: false,
+                                                             colorSpaceName: NSDeviceRGBColorSpace,
+                                                             bitmapFormat: NSAlphaFirstBitmapFormat,
+                                                             bytesPerRow: tmpRep.bytesPerRow,
+                                                             bitsPerPixel: tmpRep.bitsPerPixel) else { print("Fejl med billede!"); continue }
             
             NSGraphicsContext.saveGraphicsState()
-            NSGraphicsContext.setCurrent(NSGraphicsContext.init(bitmapImageRep: imgRep!))
+            NSGraphicsContext.setCurrent(NSGraphicsContext.init(bitmapImageRep: imgRep))
             
             // Draw image and string
             image.draw(at: NSPoint.zero, from: NSZeroRect, operation: .copy, fraction: 1.0)
@@ -171,7 +170,7 @@ class GIFHandler {
             
             NSGraphicsContext.restoreGraphicsState()
             
-            let data = imgRep?.representation(using: .GIF, properties: [:])
+            let data = imgRep.representation(using: .GIF, properties: [:])
             let newImg = NSImage(data: data!)
             returnImages.append(newImg!)
         }

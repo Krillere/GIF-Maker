@@ -415,7 +415,7 @@
                 </viewController>
                 <customObject id="yTP-8M-pbw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1044" y="1264"/>
+            <point key="canvasLocation" x="1042" y="1306"/>
         </scene>
         <!--Edit View Controller-->
         <scene sceneID="K42-av-tNc">
