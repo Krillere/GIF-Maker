@@ -150,13 +150,16 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource, 
             frameCollectionViewItem.setHighlight(selected: true)
         }
         
+        let frame = currentFrames[indexPath.item]
+        
         // Set GIFFrame
         if let imgView = frameCollectionViewItem.imageView as? DragNotificationImageView {
-            imgView.gifFrame = currentFrames[indexPath.item]
+            imgView.gifFrame = frame
+            frameCollectionViewItem.durationTextField.stringValue = String(format: "%.3lf", frame.duration)
         }
         
         // If we have an image, insert it here
-        if let img = currentFrames[indexPath.item].image {
+        if let img = frame.image {
             frameCollectionViewItem.setImage(img)
         }
         

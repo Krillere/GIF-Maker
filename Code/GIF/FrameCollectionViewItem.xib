@@ -50,7 +50,7 @@
                         <constraint firstAttribute="width" constant="184" id="Ed2-nM-J3G"/>
                         <constraint firstAttribute="height" constant="184" id="xLq-19-I3H"/>
                     </constraints>
-                    <imageCell key="cell" selectable="YES" editable="YES" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="LOv-di-G3W"/>
+                    <imageCell key="cell" selectable="YES" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="LOv-di-G3W"/>
                 </imageView>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mJu-9S-cSR">
                     <rect key="frame" x="33" y="8" width="15" height="15"/>
