@@ -364,10 +364,12 @@
                         <constraints>
                             <constraint firstItem="hoe-iU-3z1" firstAttribute="top" secondItem="SUP-8b-kfX" secondAttribute="top" constant="10" id="9db-gA-n0D"/>
                             <constraint firstAttribute="bottom" secondItem="R3v-6X-hyj" secondAttribute="bottom" constant="7" id="Oly-VJ-qoa"/>
+                            <constraint firstItem="R3v-6X-hyj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SUP-8b-kfX" secondAttribute="leading" constant="10" id="Y5a-G2-Hho"/>
                             <constraint firstAttribute="trailing" secondItem="hoe-iU-3z1" secondAttribute="trailing" constant="10" id="dKP-xd-Nk4"/>
                             <constraint firstItem="R3v-6X-hyj" firstAttribute="centerX" secondItem="SUP-8b-kfX" secondAttribute="centerX" id="j6h-TO-9fY"/>
                             <constraint firstItem="R3v-6X-hyj" firstAttribute="top" secondItem="hoe-iU-3z1" secondAttribute="bottom" constant="10" id="kjN-GV-hoz"/>
                             <constraint firstItem="hoe-iU-3z1" firstAttribute="leading" secondItem="SUP-8b-kfX" secondAttribute="leading" constant="10" id="uIq-V0-vd6"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="R3v-6X-hyj" secondAttribute="trailing" constant="10" id="zwF-Fj-Laa"/>
                         </constraints>
                     </view>
                     <connections>
