@@ -108,10 +108,10 @@ class GIFHandler {
         // Add images to destination
         frames.forEach { (frame) in
             guard var image = frame.image else { return }
-            if !Products.store.isProductPurchased(Products.Pro) {
-                // Watermark
-                image = GIFHandler.addWatermark(image: image, watermark: "Smart GIF Maker")
-            }
+//            if !Products.store.isProductPurchased(Products.Pro) {
+//                // Watermark
+//                image = GIFHandler.addWatermark(image: image, watermark: "Smart GIF Maker")
+//            }
             
             if let imageRef = image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
                 // Frame duration
