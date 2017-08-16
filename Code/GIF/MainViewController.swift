@@ -285,11 +285,9 @@ class MainViewController: NSViewController {
         let errorReturn = (error: true, gif: empRep)
         
         guard let loops = Int(loopsTextField.stringValue) else {
-            showError("Invalid value for loop count.")
+            showError("Invalid value for loop count (Zero or positive integer).")
             return errorReturn
         }
-
-        print("Frames: \(currentFrames.count)")
         
         // Remove empty images
         let tmpFrames:[GIFFrame] = currentFrames.filter({ (frame) -> Bool in
@@ -297,7 +295,7 @@ class MainViewController: NSViewController {
         })
         
         if tmpFrames.count == 0 {
-            showError("No frames in gif.")
+            showError("No frames to export.")
             return errorReturn
         }
         
@@ -310,37 +308,51 @@ class MainViewController: NSViewController {
         let fileExtension = from.pathExtension
         
         if fileExtension == "mp4" { // Load mp4
-            let representation = GIFHandler.loadMP4(with: from, withFPS: 5)
-            
-            if representation.frames.count < 1 {
-                self.showError("Could not open file. It might not be in a format that Smart GIF Maker does not understand.")
-                return
+            DispatchQueue.global(qos: .utility).async {
+                GIFHandler.loadVideo(with: from, withFPS: 5, onFinish: { representation in
+                    if representation.frames.count < 1 {
+                        DispatchQueue.main.async {
+                            self.importError()
+                        }
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.currentFrames = representation.frames
+                        self.loopsTextField.stringValue = String(representation.loops)
+                        
+                        self.selectedRow = nil
+                        self.imageCollectionView.reloadData()
+                    }
+                })
             }
-            
-            self.currentFrames = representation.frames
-            self.loopsTextField.stringValue = String(representation.loops)
-            
-            self.selectedRow = nil
-            self.imageCollectionView.reloadData()
         }
         else if fileExtension == "gif" { // Load gif
             if let image = NSImage(contentsOf: from) {
-                // Set values from the .GIF
-                let newValues = GIFHandler.loadGIF(with: image)
-                
-                self.currentFrames = newValues.frames
-                self.loopsTextField.stringValue = String(newValues.loops)
-                
-                self.selectedRow = nil
-                self.imageCollectionView.reloadData()
+                DispatchQueue.global(qos: .utility).async { // Perform in background to not break UI
+                    // Set values from the .GIF
+                    GIFHandler.loadGIF(with: image, onFinish: { rep in
+                        self.currentFrames = rep.frames
+                        self.loopsTextField.stringValue = String(rep.loops)
+                        
+                        DispatchQueue.main.async { // Update UI in main
+                            self.selectedRow = nil
+                            self.imageCollectionView.reloadData()
+                        }
+                    })
+                }
             }
             else {
-                self.showError("Could not open file. It might not be in a format that Smart GIF Maker does not understand.")
+                self.importError()
             }
         }
         else { // Wat?
-            self.showError("Could not open file. It might not be in a format that Smart GIF Maker does not understand.")
+            self.importError()
         }
+    }
+    
+    func importError() {
+        self.showError("Could not open file. It might be in a format that Smart GIF Maker does not understand.")
     }
     
     // Adds NotificationCenter listeners

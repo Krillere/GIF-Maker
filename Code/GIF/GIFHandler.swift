@@ -33,16 +33,16 @@ class GIFHandler {
     static let defaultFrameDuration:Double = 0.2
     
     // MARK: Loading gifs
-    static func loadGIF(with image: NSImage) -> GIFRepresentation {
+    static func loadGIF(with image: NSImage, onFinish: ((GIFRepresentation) -> ())) {
         
         // Attempt to fetch the number of frames, frame duration, and loop count from the .gif
         guard let bitmapRep = image.representations[0] as? NSBitmapImageRep,
             let frameCount = (bitmapRep.value(forProperty: NSImageFrameCount) as? NSNumber)?.intValue,
             let loopCount = (bitmapRep.value(forProperty: NSImageLoopCount) as? NSNumber)?.intValue else {
                 
-            print("Error loading gif")
             NotificationCenter.default.post(name: errorNotificationName, object: self, userInfo: ["Error":"Could not load gif. The file does not contain the metadata required for a gif."])
-            return GIFRepresentation()
+            onFinish(GIFRepresentation())
+            return
         }
 
         
@@ -64,23 +64,25 @@ class GIFHandler {
             }
         }
         
-        return GIFRepresentation(frames: retFrames, loops: loopCount)
+        onFinish(GIFRepresentation(frames: retFrames, loops: loopCount))
     }
     
-    // MARK: Loading mp4 files
-    static func loadMP4(with path: URL, withFPS: Float64 = 10) -> GIFRepresentation {
+    // MARK: Loading video files
+    static func loadVideo(with path: URL, withFPS: Float64 = 5, onFinish: ((GIFRepresentation) -> ())) {
         let videoRepresentation = GIFRepresentation(frames: [], loops: 0)
         
+        // Read video
         let asset = AVURLAsset(url: path)
         let generator = AVAssetImageGenerator(asset: asset)
         generator.requestedTimeToleranceAfter = kCMTimeZero
         generator.requestedTimeToleranceBefore = kCMTimeZero
         
-        var i:Float64 = 0
+        // Find frames and setup variables
+        var curFrame:Float64 = 0
         let duration = CMTimeGetSeconds(asset.duration)
-        let goal = duration * withFPS
-        while i < goal {
-            let time = CMTimeMake(Int64(i), Int32(withFPS))
+        let frames = duration * withFPS
+        while curFrame < frames { // Find images
+            let time = CMTimeMake(Int64(curFrame), Int32(withFPS))
             var actualTime:CMTime = CMTime()
             
             do {
@@ -90,14 +92,16 @@ class GIFHandler {
                 videoRepresentation.frames.append(GIFFrame(image: img, duration: (duration/withFPS)/100))
             }
             catch {
-                print("Exception under load.")
-                return videoRepresentation
+                print("Exception during MP4 load.")
+                NotificationCenter.default.post(name: errorNotificationName, object: self, userInfo: ["Error":"Error loading frame in video."])
+                onFinish(videoRepresentation)
+                return
             }
             
-            i += 1
+            curFrame += 1
         }
         
-        return videoRepresentation
+        onFinish(videoRepresentation)
     }
     
     // MARK: Making gifs from iamges

@@ -32,9 +32,10 @@ class Document: NSDocument {
         
         // Load NSImage from data, fetch info, and send
         if let gif = NSImage(data: data) {
-            let gifInfo = GIFHandler.loadGIF(with: gif)
-            let userInfo = ["info":gifInfo]
-            NotificationCenter.default.post(name: MainViewController.loadedDocumentFramesNotificationName, object: self, userInfo: userInfo)
+            GIFHandler.loadGIF(with: gif, onFinish: { repr in
+                let userInfo = ["info":repr]
+                NotificationCenter.default.post(name: MainViewController.loadedDocumentFramesNotificationName, object: self, userInfo: userInfo)
+            })
         }
     }
 
