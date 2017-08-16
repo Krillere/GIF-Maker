@@ -1,6 +1,6 @@
 //
-//  ViewController.swift
-//  ImageFun
+//  EditViewController.swift
+//  Smart GIF Maker
 //
 //  Created by Christian Lundtofte on 13/05/2017.
 //  Copyright © 2017 Christian Lundtofte. All rights reserved.
@@ -70,20 +70,20 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         super.viewWillAppear()
         
         // Sets up UI controls
-        imageBackgroundView.backgroundColor = ViewController.backgroundColor
+        imageBackgroundView.backgroundColor = MainViewController.backgroundColor
         currentFrameImageView.backgroundColor = DrawingOptionsHandler.shared.imageBackgroundColor
         
         imageBackgroundView.zoomView = currentFrameImageView
         imageBackgroundView.delegate = self
-        imageScrollView.backgroundColor = ViewController.backgroundColor
+        imageScrollView.backgroundColor = MainViewController.backgroundColor
         
-        self.view.backgroundColor = ViewController.backgroundColor
+        self.view.backgroundColor = MainViewController.backgroundColor
         
         // Sets up window border
         self.view.window?.titlebarAppearsTransparent = true
         self.view.window?.isMovableByWindowBackground = true
         self.view.window?.titleVisibility = NSWindowTitleVisibility.hidden
-        self.view.window?.backgroundColor = ViewController.backgroundColor
+        self.view.window?.backgroundColor = MainViewController.backgroundColor
         self.view.window?.acceptsMouseMovedEvents = true
         self.view.window?.delegate = self
         
@@ -107,7 +107,7 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
             panel.close()
         }
         
-        NotificationCenter.default.post(name: ViewController.editingEndedNotificationName, object: nil)
+        NotificationCenter.default.post(name: MainViewController.editingEndedNotificationName, object: nil)
         
         self.removeEditorMenu()
     }

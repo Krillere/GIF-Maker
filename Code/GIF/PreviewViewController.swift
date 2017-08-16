@@ -16,7 +16,7 @@ class PreviewViewController: NSViewController {
         super.viewDidLoad()
         
         self.view.wantsLayer = true
-        self.view.backgroundColor = ViewController.backgroundColor
+        self.view.backgroundColor = MainViewController.backgroundColor
         
         // Load image or dismiss preview
         if let previewImage = previewImage {
@@ -31,7 +31,7 @@ class PreviewViewController: NSViewController {
         super.viewDidAppear()
         
         self.view.wantsLayer = true
-        self.view.backgroundColor = ViewController.backgroundColor
+        self.view.backgroundColor = MainViewController.backgroundColor
     }
     
     @IBAction func closeButtonClicked(sender: AnyObject?) {

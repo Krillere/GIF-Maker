@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  GIF
 //
 //  Created by Christian Lundtofte on 14/03/2017.
@@ -9,7 +9,7 @@
 import Cocoa
 import StoreKit
 
-class ViewController: NSViewController {
+class MainViewController: NSViewController {
     // MARK: Fields
     
     // Constants
@@ -51,16 +51,16 @@ class ViewController: NSViewController {
     override func viewDidAppear() {
         super.viewDidAppear()
         
-        self.view.backgroundColor = ViewController.backgroundColor
+        self.view.backgroundColor = MainViewController.backgroundColor
 
         // Sets up window border
         self.view.window?.titlebarAppearsTransparent = true
         self.view.window?.isMovableByWindowBackground = true
         self.view.window?.titleVisibility = NSWindowTitleVisibility.hidden
-        self.view.window?.backgroundColor = ViewController.backgroundColor
+        self.view.window?.backgroundColor = MainViewController.backgroundColor
         
-        self.imageCollectionView.backgroundView?.backgroundColor = ViewController.backgroundColor
-        self.imageCollectionView.backgroundColor = ViewController.backgroundColor
+        self.imageCollectionView.backgroundView?.backgroundColor = MainViewController.backgroundColor
+        self.imageCollectionView.backgroundColor = MainViewController.backgroundColor
         
         addFrameButton.becomeFirstResponder()
         
@@ -123,29 +123,29 @@ class ViewController: NSViewController {
          Reset (CMD+R)
         */
         
-        let importItem = NSMenuItem(title: "Import .GIF", action: #selector(ViewController.loadGIFButtonClicked(sender:)), keyEquivalent: "")
+        let importItem = NSMenuItem(title: "Import .GIF", action: #selector(MainViewController.loadGIFButtonClicked(sender:)), keyEquivalent: "")
         importItem.keyEquivalentModifierMask = .command
         importItem.keyEquivalent = "o"
         
-        let exportItem = NSMenuItem(title: "Export .GIF", action: #selector(ViewController.exportGIFButtonClicked(sender:)), keyEquivalent: "")
+        let exportItem = NSMenuItem(title: "Export .GIF", action: #selector(MainViewController.exportGIFButtonClicked(sender:)), keyEquivalent: "")
         exportItem.keyEquivalentModifierMask = .command
         exportItem.keyEquivalent = "s"
         
-        let addFrameItem = NSMenuItem(title: "Add frame", action: #selector(ViewController.addFrameButtonClicked(sender:)), keyEquivalent: "")
+        let addFrameItem = NSMenuItem(title: "Add frame", action: #selector(MainViewController.addFrameButtonClicked(sender:)), keyEquivalent: "")
         addFrameItem.keyEquivalent = "f"
         addFrameItem.keyEquivalentModifierMask = .command
         
-        let reverseItem = NSMenuItem(title: "Reverse frames", action: #selector(ViewController.reverseFrames), keyEquivalent: "")
+        let reverseItem = NSMenuItem(title: "Reverse frames", action: #selector(MainViewController.reverseFrames), keyEquivalent: "")
         
-        let previewItem = NSMenuItem(title: "Preview", action: #selector(ViewController.previewButtonClicked(sender:)), keyEquivalent: "")
+        let previewItem = NSMenuItem(title: "Preview", action: #selector(MainViewController.previewButtonClicked(sender:)), keyEquivalent: "")
         previewItem.keyEquivalentModifierMask = .command
         previewItem.keyEquivalent = "p"
         
-        let editItem = NSMenuItem(title: "Edit", action: #selector(ViewController.editButtonClicked(sender:)), keyEquivalent: "")
+        let editItem = NSMenuItem(title: "Edit", action: #selector(MainViewController.editButtonClicked(sender:)), keyEquivalent: "")
         editItem.keyEquivalentModifierMask = .command
         editItem.keyEquivalent = "e"
         
-        let resetItem = NSMenuItem(title: "Reset", action: #selector(ViewController.resetButtonClicked(sender:)), keyEquivalent: "")
+        let resetItem = NSMenuItem(title: "Reset", action: #selector(MainViewController.resetButtonClicked(sender:)), keyEquivalent: "")
         resetItem.keyEquivalent = "r"
         resetItem.keyEquivalentModifierMask = .command
         
@@ -323,13 +323,13 @@ class ViewController: NSViewController {
     // Adds NotificationCenter listeners
     func setupNotificationListeners() {
         // Listeners for events regarding frames and images
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.reloadImages),
-                                               name: ViewController.editingEndedNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.documentFramesLoaded(notification:)),
-                                               name: ViewController.loadedDocumentFramesNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.reloadImages),
+                                               name: MainViewController.editingEndedNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.documentFramesLoaded(notification:)),
+                                               name: MainViewController.loadedDocumentFramesNotificationName, object: nil)
         
         // GIFHandler events
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.gifError(sender:)),
+        NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.gifError(sender:)),
                                                name: GIFHandler.errorNotificationName, object: nil)
     }
     

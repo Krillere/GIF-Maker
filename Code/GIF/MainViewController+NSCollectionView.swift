@@ -1,5 +1,5 @@
 //
-//  ViewController+NSCollectionView.swift
+//  MainViewController+NSCollectionView.swift
 //  Smart GIF Maker
 //
 //  Created by Christian Lundtofte on 25/06/2017.
@@ -10,7 +10,7 @@ import Foundation
 import Cocoa
 
 
-extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource, FrameCollectionViewItemDelegate {
+extension MainViewController: NSCollectionViewDelegate, NSCollectionViewDataSource, FrameCollectionViewItemDelegate {
     
     
     // MARK: FrameCollectionViewitemDelegate

@@ -34,7 +34,7 @@ class Document: NSDocument {
         if let gif = NSImage(data: data) {
             let gifInfo = GIFHandler.loadGIF(with: gif)
             let userInfo = ["info":gifInfo]
-            NotificationCenter.default.post(name: ViewController.loadedDocumentFramesNotificationName, object: self, userInfo: userInfo)
+            NotificationCenter.default.post(name: MainViewController.loadedDocumentFramesNotificationName, object: self, userInfo: userInfo)
         }
     }
 
