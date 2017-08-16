@@ -20,4 +20,6 @@ class DrawingOptionsHandler {
     var imageBackgroundColor:NSColor = NSColor.lightGray
     
     var isPickingColor = false
+    
+    var brushSize:Int = 1
 }

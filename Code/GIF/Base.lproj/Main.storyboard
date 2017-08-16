@@ -410,11 +410,11 @@
             <objects>
                 <viewController id="MFk-Ct-PSX" customClass="EditViewController" customModule="Smart_GIF_Maker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="gxT-PU-9tt">
-                        <rect key="frame" x="0.0" y="0.0" width="823" height="560"/>
+                        <rect key="frame" x="0.0" y="0.0" width="901" height="560"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EoR-U0-zOP">
-                                <rect key="frame" x="645" y="529" width="32" height="21"/>
+                                <rect key="frame" x="723" y="529" width="32" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="8J9-0L-avv"/>
                                     <constraint firstAttribute="width" constant="32" id="fJY-Qr-V4A"/>
@@ -428,7 +428,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Wuw-AR-cuf">
-                                <rect key="frame" x="785" y="529" width="32" height="21"/>
+                                <rect key="frame" x="863" y="529" width="32" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="Ple-6b-whz"/>
                                     <constraint firstAttribute="height" constant="21" id="ViK-X6-Mtc"/>
@@ -442,7 +442,7 @@
                                 </connections>
                             </button>
                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtK-0j-DDM">
-                                <rect key="frame" x="684" y="532" width="94" height="17"/>
+                                <rect key="frame" x="762" y="532" width="94" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="BFg-7f-eyb"/>
                                     <constraint firstAttribute="height" constant="17" id="VgF-T6-U86"/>
@@ -454,9 +454,9 @@
                                 </textFieldCell>
                             </textField>
                             <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="npC-Ig-P3D">
-                                <rect key="frame" x="0.0" y="0.0" width="823" height="520"/>
+                                <rect key="frame" x="0.0" y="0.0" width="901" height="520"/>
                                 <clipView key="contentView" id="b75-oU-khL">
-                                    <rect key="frame" x="0.0" y="0.0" width="823" height="520"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="901" height="520"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bwc-gm-Ogc" customClass="ZoomView" customModule="Smart_GIF_Maker" customModuleProvider="target">
@@ -474,40 +474,40 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="e43-hm-UyI">
-                                    <rect key="frame" x="0.0" y="504" width="823" height="16"/>
+                                    <rect key="frame" x="0.0" y="504" width="901" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="5l2-7Q-Qex">
-                                    <rect key="frame" x="807" y="0.0" width="16" height="520"/>
+                                    <rect key="frame" x="885" y="0.0" width="16" height="520"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYB-Rb-riu">
-                                <rect key="frame" x="8" y="530" width="73" height="17"/>
+                                <rect key="frame" x="8" y="530" width="64" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="cnx-jU-PDQ"/>
-                                    <constraint firstAttribute="width" constant="69" id="tDA-oG-5BN"/>
+                                    <constraint firstAttribute="width" constant="60" id="tDA-oG-5BN"/>
                                 </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Draw color:" id="4SD-Z8-WrM">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Drawing:" id="4SD-Z8-WrM">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Upo-YT-bg9">
-                                <rect key="frame" x="127" y="530" width="115" height="17"/>
+                                <rect key="frame" x="112" y="530" width="89" height="17"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="111" id="HYI-et-Kb8"/>
+                                    <constraint firstAttribute="width" constant="85" id="HYI-et-Kb8"/>
                                     <constraint firstAttribute="height" constant="17" id="xaE-nY-ONp"/>
                                 </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Background color:" id="v2w-jf-sxu">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Background:" id="v2w-jf-sxu">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <colorWell toolTip="The color used for drawing" bordered="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N24-an-IUb">
-                                <rect key="frame" x="83" y="525" width="25" height="25"/>
+                                <rect key="frame" x="74" y="525" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="VVU-lX-PCF"/>
                                     <constraint firstAttribute="height" constant="25" id="mJR-VY-lAw"/>
@@ -515,7 +515,7 @@
                                 <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </colorWell>
                             <colorWell toolTip="The background color being shown" bordered="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Nl-gQ-bOi">
-                                <rect key="frame" x="244" y="525" width="25" height="25"/>
+                                <rect key="frame" x="203" y="525" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="fZG-e6-hXM"/>
                                     <constraint firstAttribute="width" constant="25" id="hnS-Yq-jCd"/>
@@ -523,7 +523,7 @@
                                 <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </colorWell>
                             <button toolTip="Used for erasing pixels" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dWm-TY-uf5" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="304" y="525" width="60" height="25"/>
+                                <rect key="frame" x="385" y="525" width="60" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="JXC-pA-V4L"/>
                                     <constraint firstAttribute="height" constant="25" id="URR-Ie-Mpx"/>
@@ -537,7 +537,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Pick a color from the image" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gor-4c-Y7p" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="374" y="525" width="88" height="25"/>
+                                <rect key="frame" x="455" y="525" width="88" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="88" id="E9y-hF-HLl"/>
                                     <constraint firstAttribute="height" constant="25" id="YiY-No-c2V"/>
@@ -551,7 +551,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7RV-SU-fUj">
-                                <rect key="frame" x="83" y="525" width="25" height="25"/>
+                                <rect key="frame" x="74" y="525" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="5hO-gA-beW"/>
                                     <constraint firstAttribute="width" constant="25" id="OtL-m0-jxC"/>
@@ -565,7 +565,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KtZ-KJ-AOA">
-                                <rect key="frame" x="244" y="525" width="25" height="25"/>
+                                <rect key="frame" x="203" y="525" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="Xw9-HU-AYC"/>
                                     <constraint firstAttribute="height" constant="25" id="nmC-nS-IUp"/>
@@ -579,7 +579,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Used for erasing pixels" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="F41-Q5-jKu" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="497" y="525" width="43" height="25"/>
+                                <rect key="frame" x="568" y="525" width="43" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="43" id="CG2-bw-2DX"/>
                                     <constraint firstAttribute="height" constant="25" id="KTI-4G-usj"/>
@@ -593,7 +593,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Used for erasing pixels" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l7u-l3-Q2g" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="550" y="525" width="43" height="25"/>
+                                <rect key="frame" x="621" y="525" width="43" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="43" id="RU5-ff-gIK"/>
                                     <constraint firstAttribute="height" constant="25" id="rom-yz-8eP"/>
@@ -606,6 +606,33 @@
                                     <action selector="redoButtonClickedWithSender:" target="MFk-Ct-PSX" id="0RW-l9-Rql"/>
                                 </connections>
                             </button>
+                            <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlI-IY-U83">
+                                <rect key="frame" x="330" y="526" width="35" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="35" id="8DM-42-yQb"/>
+                                    <constraint firstAttribute="height" constant="22" id="zoP-uW-mDX"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="1" drawsBackground="YES" id="TRg-uq-Bzz" customClass="FancyTextFieldCell" customModule="Smart_GIF_Maker" customModuleProvider="target">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="MFk-Ct-PSX" id="pBf-63-e3S"/>
+                                </connections>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Pj-Mv-l02">
+                                <rect key="frame" x="241" y="530" width="89" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="SnN-Ac-fED"/>
+                                    <constraint firstAttribute="width" constant="85" id="f5f-w9-hT2"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Drawing size:" id="59r-Yx-EkE">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="npC-Ig-P3D" secondAttribute="trailing" id="0Yl-Sg-dU9"/>
@@ -614,35 +641,40 @@
                             <constraint firstItem="gor-4c-Y7p" firstAttribute="leading" secondItem="dWm-TY-uf5" secondAttribute="trailing" constant="10" id="4Cf-Vx-W5u"/>
                             <constraint firstItem="Wuw-AR-cuf" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="4cq-L8-GqK"/>
                             <constraint firstItem="npC-Ig-P3D" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="40" id="4in-pA-oor"/>
+                            <constraint firstItem="tlI-IY-U83" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="12" id="4x8-lM-d6w"/>
                             <constraint firstItem="N24-an-IUb" firstAttribute="leading" secondItem="PYB-Rb-riu" secondAttribute="trailing" constant="4" id="Awt-X7-fZG"/>
                             <constraint firstItem="KtZ-KJ-AOA" firstAttribute="leading" secondItem="Upo-YT-bg9" secondAttribute="trailing" constant="4" id="EyJ-aE-2e4"/>
                             <constraint firstItem="ZtK-0j-DDM" firstAttribute="leading" secondItem="EoR-U0-zOP" secondAttribute="trailing" constant="9" id="GgC-kJ-ZCx"/>
                             <constraint firstItem="1Nl-gQ-bOi" firstAttribute="leading" secondItem="Upo-YT-bg9" secondAttribute="trailing" constant="4" id="Jhj-PO-etO"/>
+                            <constraint firstItem="1Pj-Mv-l02" firstAttribute="leading" secondItem="KtZ-KJ-AOA" secondAttribute="trailing" constant="15" id="LnQ-Mk-3n3"/>
                             <constraint firstItem="N24-an-IUb" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="MDl-XA-mnn"/>
                             <constraint firstItem="KtZ-KJ-AOA" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="QRz-VP-vIP"/>
                             <constraint firstItem="7RV-SU-fUj" firstAttribute="leading" secondItem="PYB-Rb-riu" secondAttribute="trailing" constant="4" id="S9h-go-vnt"/>
                             <constraint firstAttribute="trailing" secondItem="Wuw-AR-cuf" secondAttribute="trailing" constant="6" id="Tmg-9E-47R"/>
+                            <constraint firstItem="1Pj-Mv-l02" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="13" id="TxT-Ek-Pve"/>
                             <constraint firstItem="ZtK-0j-DDM" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="11" id="VBC-Cr-eR2"/>
+                            <constraint firstItem="tlI-IY-U83" firstAttribute="leading" secondItem="1Pj-Mv-l02" secondAttribute="trailing" constant="2" id="XME-Pc-cBv"/>
                             <constraint firstItem="7RV-SU-fUj" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="XaO-Wd-YtL"/>
                             <constraint firstItem="gor-4c-Y7p" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="Xey-NT-8Wp"/>
                             <constraint firstItem="npC-Ig-P3D" firstAttribute="leading" secondItem="gxT-PU-9tt" secondAttribute="leading" id="ctK-Gx-QxU"/>
-                            <constraint firstItem="Upo-YT-bg9" firstAttribute="leading" secondItem="N24-an-IUb" secondAttribute="trailing" constant="21" id="dcY-CL-NZO"/>
+                            <constraint firstItem="Upo-YT-bg9" firstAttribute="leading" secondItem="N24-an-IUb" secondAttribute="trailing" constant="15" id="dcY-CL-NZO"/>
                             <constraint firstItem="dWm-TY-uf5" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="elt-Zk-roD"/>
                             <constraint firstItem="EoR-U0-zOP" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="fZa-Kj-B8I"/>
                             <constraint firstItem="l7u-l3-Q2g" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="gaF-dF-DGz"/>
                             <constraint firstItem="Upo-YT-bg9" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="13" id="gse-Xq-lXH"/>
                             <constraint firstAttribute="bottom" secondItem="npC-Ig-P3D" secondAttribute="bottom" id="idi-Tv-xgj"/>
-                            <constraint firstItem="F41-Q5-jKu" firstAttribute="leading" secondItem="gor-4c-Y7p" secondAttribute="trailing" constant="35" id="mO3-VA-m1o"/>
+                            <constraint firstItem="F41-Q5-jKu" firstAttribute="leading" secondItem="gor-4c-Y7p" secondAttribute="trailing" constant="25" id="mO3-VA-m1o"/>
                             <constraint firstItem="PYB-Rb-riu" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="13" id="pbk-eQ-kWf"/>
+                            <constraint firstItem="dWm-TY-uf5" firstAttribute="leading" secondItem="tlI-IY-U83" secondAttribute="trailing" constant="20" id="psB-fz-r9p"/>
                             <constraint firstItem="PYB-Rb-riu" firstAttribute="leading" secondItem="gxT-PU-9tt" secondAttribute="leading" constant="10" id="qLA-LE-hdj"/>
                             <constraint firstItem="F41-Q5-jKu" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="t7G-8z-tbG"/>
-                            <constraint firstItem="dWm-TY-uf5" firstAttribute="leading" secondItem="1Nl-gQ-bOi" secondAttribute="trailing" constant="35" id="tNN-Fh-vtg"/>
                             <constraint firstItem="l7u-l3-Q2g" firstAttribute="leading" secondItem="F41-Q5-jKu" secondAttribute="trailing" constant="10" id="vWG-Ig-XLO"/>
                             <constraint firstItem="1Nl-gQ-bOi" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="zhP-8m-EmD"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="backgroundColorPicker" destination="1Nl-gQ-bOi" id="Jl1-K9-lpj"/>
+                        <outlet property="brushSizeField" destination="tlI-IY-U83" id="5To-4V-j29"/>
                         <outlet property="colorPicker" destination="N24-an-IUb" id="tJx-1z-DgV"/>
                         <outlet property="currentFrameImageView" destination="2ZO-68-BOr" id="dOy-pB-o3K"/>
                         <outlet property="eyedropperButtonCell" destination="1by-lp-dZx" id="vHy-Pu-PG1"/>
@@ -657,7 +689,7 @@
                 </viewController>
                 <customObject id="jip-CG-JdL" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1705" y="1103"/>
+            <point key="canvasLocation" x="1705" y="1107"/>
         </scene>
     </scenes>
     <resources>

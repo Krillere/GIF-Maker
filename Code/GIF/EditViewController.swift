@@ -19,6 +19,7 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     @IBOutlet var currentFrameImageView:PixelImageView!
     @IBOutlet var previousFrameButton:NSButton!
     @IBOutlet var nextFrameButton:NSButton!
+    @IBOutlet var brushSizeField:NSTextField!
     
     @IBOutlet var eyedropperButtonCell:FancyButtonCell!
     
@@ -60,8 +61,6 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(EditViewController.colorChangedOutside), name: DrawingOptionsHandler.colorChangedNotificationName, object: nil)
         
-        // UI setup
-        self.backgroundColorPicker.color = DrawingOptionsHandler.shared.imageBackgroundColor
         
         self.view.wantsLayer = true
     }
@@ -70,8 +69,12 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         super.viewWillAppear()
         
         // Sets up UI controls
-        imageBackgroundView.backgroundColor = Constants.darkBackgroundColor
-        currentFrameImageView.backgroundColor = DrawingOptionsHandler.shared.imageBackgroundColor
+        self.imageBackgroundView.backgroundColor = Constants.darkBackgroundColor
+        self.currentFrameImageView.backgroundColor = DrawingOptionsHandler.shared.imageBackgroundColor
+        self.brushSizeField.stringValue = String(DrawingOptionsHandler.shared.brushSize)
+        
+        self.colorPicker.color = DrawingOptionsHandler.shared.drawingColor
+        self.backgroundColorPicker.color = DrawingOptionsHandler.shared.imageBackgroundColor
         
         imageBackgroundView.zoomView = currentFrameImageView
         imageBackgroundView.delegate = self
@@ -86,6 +89,8 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         self.view.window?.backgroundColor = Constants.darkBackgroundColor
         self.view.window?.acceptsMouseMovedEvents = true
         self.view.window?.delegate = self
+        
+        
         
         // Show specific frame if chosen from main window
         if let frameIndex = self.initialFrameNumber {
@@ -114,7 +119,7 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     
     
     // MARK: Values changing
-    // Observe changes
+    // Observe changes (Used for color wells)
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "color" {
             guard let object = object as? NSColorWell else { return }
@@ -176,8 +181,6 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         self.currentFrameImageView.redo()
     }
 
-    
-    
     @IBAction func nextFrameButtonClicked(sender: AnyObject?) {
         if self.currentFrameNumber+1 > self.frames.count-1 {
             self.currentFrameNumber = 0
@@ -323,6 +326,16 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         currentFrameImageView.backgroundColor = DrawingOptionsHandler.shared.imageBackgroundColor
     }
     
+    // Textfield changed
+    override func controlTextDidChange(_ obj: Notification) {
+        if let field = obj.object as? NSTextField {
+            if field == self.brushSizeField { // Set brush size
+                if let size = Int(self.brushSizeField.stringValue) {
+                    DrawingOptionsHandler.shared.brushSize = size
+                }
+            }
+        }
+    }
     
     // MARK: Helpers
     func allowColorPanelAlpha() {
@@ -342,6 +355,7 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         return (width: srcWidth*ratio, height: srcHeight*ratio)
     }
 
+    // Setter for frames
     func setFrames(frames: [GIFFrame]) {
         self.frames = frames
         self.currentFrameNumber = 0
