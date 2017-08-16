@@ -199,7 +199,7 @@ class PixelImageView: NSImageView {
     // Returns NSColor at given coordinates
     func getPixelColor(x: Int, y: Int) -> NSColor? {
         guard let image = self.image else { Swift.print("Nope1"); return nil }
-        guard let imgRep = image.representations[0] as? NSBitmapImageRep else { Swift.print("Nope2"); return nil }
+        guard let imgRep = image.representations[0] as? NSBitmapImageRep else { Swift.print("Nope2"); Swift.print(image.representations[0] .className); return nil }
         
         return imgRep.colorAt(x:x, y:y)
     }

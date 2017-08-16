@@ -11,7 +11,7 @@ import Cocoa
 class FancyAlert: NSAlert {
     override func awakeFromNib() {
         if let contentView = self.window.contentView {
-            self.window.contentView?.backgroundColor = MainViewController.backgroundColor
+            self.window.contentView?.backgroundColor = Constants.darkBackgroundColor
         
             // Modify or find subviews to be changed
             contentView.subviews.forEach({ (subview) in

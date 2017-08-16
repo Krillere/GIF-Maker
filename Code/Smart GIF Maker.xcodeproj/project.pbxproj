@@ -17,6 +17,10 @@
 		AA45A54A1ED8603100D508BC /* PixelImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A5481ED8603100D508BC /* PixelImageView.swift */; };
 		AA45A54E1ED8604100D508BC /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A54B1ED8604100D508BC /* EditViewController.swift */; };
 		AA45A5501ED8604100D508BC /* DrawingOptionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45A54D1ED8604100D508BC /* DrawingOptionsHandler.swift */; };
+		AA6992A51F4478B7008F7409 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6992A41F4478B7008F7409 /* LoadingView.swift */; };
+		AA6992A71F447A0C008F7409 /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = AA6992A61F447A0C008F7409 /* loading.gif */; };
+		AA6992A91F447CF8008F7409 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6992A81F447CF8008F7409 /* Constants.swift */; };
+		AA6992AD1F448487008F7409 /* NSImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6992AC1F448487008F7409 /* NSImageExtension.swift */; };
 		AA6D4BB81E7B3DEA00F1B642 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6D4BB71E7B3DEA00F1B642 /* PreviewViewController.swift */; };
 		AA8F63961E787DE2000965B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8F63951E787DE2000965B5 /* AppDelegate.swift */; };
 		AA8F63981E787DE2000965B5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8F63971E787DE2000965B5 /* MainViewController.swift */; };
@@ -45,6 +49,10 @@
 		AA45A5481ED8603100D508BC /* PixelImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PixelImageView.swift; sourceTree = "<group>"; };
 		AA45A54B1ED8604100D508BC /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		AA45A54D1ED8604100D508BC /* DrawingOptionsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingOptionsHandler.swift; sourceTree = "<group>"; };
+		AA6992A41F4478B7008F7409 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		AA6992A61F447A0C008F7409 /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
+		AA6992A81F447CF8008F7409 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		AA6992AC1F448487008F7409 /* NSImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSImageExtension.swift; sourceTree = "<group>"; };
 		AA6D4BB71E7B3DEA00F1B642 /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		AA8F63921E787DE2000965B5 /* Smart GIF Maker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smart GIF Maker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA8F63951E787DE2000965B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -141,6 +149,32 @@
 			name = Edit;
 			sourceTree = "<group>";
 		};
+		AA6992AA1F448109008F7409 /* Loading view */ = {
+			isa = PBXGroup;
+			children = (
+				AA6992A61F447A0C008F7409 /* loading.gif */,
+				AA6992A41F4478B7008F7409 /* LoadingView.swift */,
+			);
+			name = "Loading view";
+			sourceTree = "<group>";
+		};
+		AA6992AB1F448467008F7409 /* IAP */ = {
+			isa = PBXGroup;
+			children = (
+				AAEC81D01F41C5CE00B71D5D /* IAPHelper.swift */,
+				AAEC81D31F41C93C00B71D5D /* Products.swift */,
+			);
+			name = IAP;
+			sourceTree = "<group>";
+		};
+		AA6992AE1F448781008F7409 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AA6992AC1F448487008F7409 /* NSImageExtension.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		AA8F63891E787DE2000965B5 = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +210,7 @@
 		AACB80061E795D7200A3F195 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				AA6992AA1F448109008F7409 /* Loading view */,
 				AA45A5471ED8603100D508BC /* ZoomView.swift */,
 				AA45A5481ED8603100D508BC /* PixelImageView.swift */,
 				AAA9C4CE1ECCA01A007EC0D4 /* FancyAlert.swift */,
@@ -199,10 +234,11 @@
 		AAEC81D21F41C67A00B71D5D /* Misc classes */ = {
 			isa = PBXGroup;
 			children = (
+				AA6992AB1F448467008F7409 /* IAP */,
+				AA6992A81F447CF8008F7409 /* Constants.swift */,
 				AA8F63951E787DE2000965B5 /* AppDelegate.swift */,
 				AAEF89D91F04432D00658D9F /* Document.swift */,
-				AAEC81D01F41C5CE00B71D5D /* IAPHelper.swift */,
-				AAEC81D31F41C93C00B71D5D /* Products.swift */,
+				AA6992AE1F448781008F7409 /* Extensions */,
 			);
 			name = "Misc classes";
 			sourceTree = "<group>";
@@ -277,6 +313,7 @@
 			files = (
 				AACB80051E795D5D00A3F195 /* FrameCollectionViewItem.xib in Resources */,
 				AA8F639A1E787DE2000965B5 /* Assets.xcassets in Resources */,
+				AA6992A71F447A0C008F7409 /* loading.gif in Resources */,
 				AA8F639D1E787DE2000965B5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -290,9 +327,12 @@
 			files = (
 				AAA9C4CF1ECCA01A007EC0D4 /* FancyAlert.swift in Sources */,
 				AA8F63981E787DE2000965B5 /* MainViewController.swift in Sources */,
+				AA6992AD1F448487008F7409 /* NSImageExtension.swift in Sources */,
 				AA45A5491ED8603100D508BC /* ZoomView.swift in Sources */,
+				AA6992A51F4478B7008F7409 /* LoadingView.swift in Sources */,
 				AACB80081E796A7400A3F195 /* DragNotificationImageView.swift in Sources */,
 				AA17D4A21ECB710600E260A7 /* NSViewExtension.swift in Sources */,
+				AA6992A91F447CF8008F7409 /* Constants.swift in Sources */,
 				AA45A54E1ED8604100D508BC /* EditViewController.swift in Sources */,
 				AA45A54A1ED8603100D508BC /* PixelImageView.swift in Sources */,
 				AA8F63961E787DE2000965B5 /* AppDelegate.swift in Sources */,

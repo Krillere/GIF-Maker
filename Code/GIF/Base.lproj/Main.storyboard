@@ -143,7 +143,7 @@
                                 </scroller>
                             </scrollView>
                             <button toolTip="Adds a frame at the beginning, or after the selected frame" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="grP-pd-YOJ" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="222" y="566" width="84" height="25"/>
+                                <rect key="frame" x="212" y="566" width="84" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="b7F-kg-83y"/>
                                     <constraint firstAttribute="width" constant="84" id="oWS-GD-PhD"/>
@@ -157,7 +157,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Export a .gif file" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6an-BA-AHa" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="117" y="566" width="85" height="25"/>
+                                <rect key="frame" x="107" y="566" width="85" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="85" id="YCI-fS-afY"/>
                                     <constraint firstAttribute="height" constant="25" id="ed8-8g-hmU"/>
@@ -171,21 +171,21 @@
                                 </connections>
                             </button>
                             <button toolTip="Import frames and options from a .gif file" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jpq-ce-ENr" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="25" y="566" width="85" height="25"/>
+                                <rect key="frame" x="25" y="566" width="75" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="85" id="fGl-eu-fRl"/>
+                                    <constraint firstAttribute="width" constant="75" id="fGl-eu-fRl"/>
                                     <constraint firstAttribute="height" constant="25" id="mn1-Tj-cnH"/>
                                 </constraints>
-                                <buttonCell key="cell" type="square" title="Import .GIF" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nwy-Ee-Zyk" customClass="FancyButtonCell" customModule="Smart_GIF_Maker" customModuleProvider="target">
+                                <buttonCell key="cell" type="square" title="Import" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nwy-Ee-Zyk" customClass="FancyButtonCell" customModule="Smart_GIF_Maker" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="loadGIFButtonClickedWithSender:" target="XfG-lQ-9wD" id="N95-7a-N2F"/>
+                                    <action selector="importButtonClickedWithSender:" target="XfG-lQ-9wD" id="EuR-2W-MTT"/>
                                 </connections>
                             </button>
                             <button toolTip="Preview the GIF" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wvK-VW-l1S" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="326" y="566" width="63" height="25"/>
+                                <rect key="frame" x="316" y="566" width="63" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="L1z-7P-Ncu"/>
                                     <constraint firstAttribute="width" constant="63" id="luv-23-jjB"/>
@@ -199,7 +199,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Edit the frames of the GIF" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bf1-g8-pRA" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="396" y="566" width="63" height="25"/>
+                                <rect key="frame" x="386" y="566" width="63" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="63" id="1F1-Yf-LZm"/>
                                     <constraint firstAttribute="height" constant="25" id="2NK-dP-ioM"/>
@@ -257,7 +257,7 @@
                                 </textFieldCell>
                             </textField>
                             <button toolTip="Remove all frames" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="all-MS-gSA" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="466" y="566" width="63" height="25"/>
+                                <rect key="frame" x="456" y="566" width="63" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="PBi-vd-w8j"/>
                                     <constraint firstAttribute="width" constant="63" id="dfd-XC-zp5"/>
@@ -278,9 +278,30 @@
                                     <action selector="resetButtonClickedWithSender:" target="XfG-lQ-9wD" id="MDz-l7-wqX"/>
                                 </connections>
                             </button>
+                            <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Isb-3s-OCy" customClass="LoadingView" customModule="Smart_GIF_Maker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="1093" height="560"/>
+                                <subviews>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oJX-Wr-zgA">
+                                        <rect key="frame" x="454" y="188" width="184" height="184"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="184" id="4B8-Uj-qeA"/>
+                                            <constraint firstAttribute="width" constant="184" id="kg0-z3-9Id"/>
+                                        </constraints>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="UN3-Hr-QZm"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="oJX-Wr-zgA" firstAttribute="centerX" secondItem="Isb-3s-OCy" secondAttribute="centerX" id="Awl-Ud-BnU"/>
+                                    <constraint firstItem="oJX-Wr-zgA" firstAttribute="centerY" secondItem="Isb-3s-OCy" secondAttribute="centerY" id="Tq0-2t-ukN"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="oJX-Wr-zgA" id="zC8-GB-I5O"/>
+                                </connections>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="6an-BA-AHa" firstAttribute="leading" secondItem="jpq-ce-ENr" secondAttribute="trailing" constant="7" id="0AS-Ba-ArK"/>
+                            <constraint firstItem="Isb-3s-OCy" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="14E-ba-3uO"/>
                             <constraint firstItem="vvf-C1-zZH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="all-MS-gSA" secondAttribute="trailing" constant="40" id="2Zd-C3-j28"/>
                             <constraint firstAttribute="trailing" secondItem="CkX-nG-WFq" secondAttribute="trailing" constant="15" id="393-Pv-qSP"/>
                             <constraint firstItem="vvf-C1-zZH" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="12" id="5FF-M6-6wW"/>
@@ -291,8 +312,10 @@
                             <constraint firstItem="CkX-nG-WFq" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="12" id="Jja-oC-LRT"/>
                             <constraint firstItem="bf1-g8-pRA" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="9" id="L57-jB-9jI"/>
                             <constraint firstItem="grP-pd-YOJ" firstAttribute="leading" secondItem="6an-BA-AHa" secondAttribute="trailing" constant="20" id="LVa-Rp-IaJ"/>
+                            <constraint firstItem="Isb-3s-OCy" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="40" id="OgZ-aL-gI0"/>
                             <constraint firstItem="all-MS-gSA" firstAttribute="leading" secondItem="bf1-g8-pRA" secondAttribute="trailing" constant="7" id="TgA-a1-b2c"/>
                             <constraint firstAttribute="trailing" secondItem="5As-yW-scq" secondAttribute="trailing" id="U50-pA-tqN"/>
+                            <constraint firstAttribute="trailing" secondItem="Isb-3s-OCy" secondAttribute="trailing" id="VvM-Ws-jIz"/>
                             <constraint firstItem="bf1-g8-pRA" firstAttribute="leading" secondItem="wvK-VW-l1S" secondAttribute="trailing" constant="7" id="XtJ-De-Hdp"/>
                             <constraint firstItem="all-MS-gSA" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="9" id="ZmX-Oh-l3V"/>
                             <constraint firstItem="grP-pd-YOJ" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="9" id="aS7-fO-NVX"/>
@@ -301,6 +324,7 @@
                             <constraint firstItem="jpq-ce-ENr" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="25" id="jbD-oJ-51j"/>
                             <constraint firstItem="CkX-nG-WFq" firstAttribute="leading" secondItem="tuJ-Kc-Dut" secondAttribute="trailing" constant="3" id="jgL-J9-lnc"/>
                             <constraint firstAttribute="bottom" secondItem="5As-yW-scq" secondAttribute="bottom" id="kRU-Cu-Fhi"/>
+                            <constraint firstAttribute="bottom" secondItem="Isb-3s-OCy" secondAttribute="bottom" id="n1W-KV-0Wq"/>
                             <constraint firstItem="jpq-ce-ENr" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="9" id="rca-tc-ZiT"/>
                             <constraint firstItem="tuJ-Kc-Dut" firstAttribute="leading" secondItem="vvf-C1-zZH" secondAttribute="trailing" constant="2" id="xIL-op-0Bk"/>
                         </constraints>
@@ -308,13 +332,14 @@
                     <connections>
                         <outlet property="addFrameButton" destination="grP-pd-YOJ" id="edU-bC-Otm"/>
                         <outlet property="imageCollectionView" destination="QWv-z0-wuy" id="IvU-QJ-7y0"/>
+                        <outlet property="loadingView" destination="Isb-3s-OCy" id="AJA-jx-0Bn"/>
                         <outlet property="loopsTextField" destination="tuJ-Kc-Dut" id="ZB5-Dl-MTM"/>
                         <segue destination="bcM-KL-fP7" kind="sheet" identifier="ShowPreview" id="5h1-V8-Yoc"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="235" y="1336"/>
+            <point key="canvasLocation" x="234.5" y="1336"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="Fb2-sv-vcH">
@@ -378,7 +403,7 @@
                 </viewController>
                 <customObject id="yTP-8M-pbw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1042" y="1306"/>
+            <point key="canvasLocation" x="1055" y="1336"/>
         </scene>
         <!--Edit View Controller-->
         <scene sceneID="K42-av-tNc">

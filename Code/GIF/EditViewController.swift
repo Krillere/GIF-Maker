@@ -70,20 +70,20 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         super.viewWillAppear()
         
         // Sets up UI controls
-        imageBackgroundView.backgroundColor = MainViewController.backgroundColor
+        imageBackgroundView.backgroundColor = Constants.darkBackgroundColor
         currentFrameImageView.backgroundColor = DrawingOptionsHandler.shared.imageBackgroundColor
         
         imageBackgroundView.zoomView = currentFrameImageView
         imageBackgroundView.delegate = self
-        imageScrollView.backgroundColor = MainViewController.backgroundColor
+        imageScrollView.backgroundColor = Constants.darkBackgroundColor
         
-        self.view.backgroundColor = MainViewController.backgroundColor
+        self.view.backgroundColor = Constants.darkBackgroundColor
         
         // Sets up window border
         self.view.window?.titlebarAppearsTransparent = true
         self.view.window?.isMovableByWindowBackground = true
         self.view.window?.titleVisibility = NSWindowTitleVisibility.hidden
-        self.view.window?.backgroundColor = MainViewController.backgroundColor
+        self.view.window?.backgroundColor = Constants.darkBackgroundColor
         self.view.window?.acceptsMouseMovedEvents = true
         self.view.window?.delegate = self
         

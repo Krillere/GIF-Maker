@@ -12,7 +12,6 @@ class MainViewController: NSViewController {
     // MARK: Fields
     
     // Constants
-    static let backgroundColor = NSColor(red: 50.0/255.0, green: 50.0/255.0, blue: 50.0/255.0, alpha: 1.0)
     
     // TODO: Create a delegate or something instead of this mess
     static let editingEndedNotificationName = NSNotification.Name(rawValue: "EditingEnded")
@@ -22,6 +21,7 @@ class MainViewController: NSViewController {
     @IBOutlet var imageCollectionView:NSCollectionView!
     @IBOutlet var addFrameButton:NSButton!
     @IBOutlet var loopsTextField:NSTextField!
+    @IBOutlet var loadingView:LoadingView!
     
     // Fields used in UI handling
     var currentFrames:[GIFFrame] = [GIFFrame.emptyFrame] // Default is 1 empty image, to show something in UI
@@ -50,16 +50,16 @@ class MainViewController: NSViewController {
     override func viewDidAppear() {
         super.viewDidAppear()
         
-        self.view.backgroundColor = MainViewController.backgroundColor
+        self.view.backgroundColor = Constants.darkBackgroundColor
 
         // Sets up window border
         self.view.window?.titlebarAppearsTransparent = true
         self.view.window?.isMovableByWindowBackground = true
         self.view.window?.titleVisibility = NSWindowTitleVisibility.hidden
-        self.view.window?.backgroundColor = MainViewController.backgroundColor
+        self.view.window?.backgroundColor = Constants.darkBackgroundColor
         
-        self.imageCollectionView.backgroundView?.backgroundColor = MainViewController.backgroundColor
-        self.imageCollectionView.backgroundColor = MainViewController.backgroundColor
+        self.imageCollectionView.backgroundView?.backgroundColor = Constants.darkBackgroundColor
+        self.imageCollectionView.backgroundColor = Constants.darkBackgroundColor
         
         addFrameButton.becomeFirstResponder()
         
@@ -122,7 +122,7 @@ class MainViewController: NSViewController {
          Reset (CMD+R)
         */
         
-        let importItem = NSMenuItem(title: "Import .GIF", action: #selector(MainViewController.loadGIFButtonClicked(sender:)), keyEquivalent: "")
+        let importItem = NSMenuItem(title: "Import", action: #selector(MainViewController.importButtonClicked(sender:)), keyEquivalent: "")
         importItem.keyEquivalentModifierMask = .command
         importItem.keyEquivalent = "o"
         
@@ -171,6 +171,21 @@ class MainViewController: NSViewController {
         alert.alertStyle = .critical
         alert.addButton(withTitle: "OK")
         alert.beginSheetModal(for: self.view.window!, completionHandler: nil)
+    }
+    
+    // Shows informational alert
+    func showAlert(title: String, msg: String) {
+        let alert = FancyAlert()
+        alert.messageText = title
+        alert.informativeText = msg
+        alert.alertStyle = .informational
+        alert.addButton(withTitle: "OK")
+        alert.beginSheetModal(for: self.view.window!, completionHandler: nil)
+    }
+    
+    // Shows import error
+    func importError() {
+        self.showError("Could not open file. It might be in a format that Smart GIF Maker does not understand.")
     }
     
     
@@ -226,7 +241,7 @@ class MainViewController: NSViewController {
     }
     
     // Load a gif from a file
-    @IBAction func loadGIFButtonClicked(sender: AnyObject?) {
+    @IBAction func importButtonClicked(sender: AnyObject?) {
         
         // Show file panel
         let panel = NSOpenPanel()
@@ -244,7 +259,7 @@ class MainViewController: NSViewController {
                         self.importGIF(from: url)
                     }
                     else if fileExtension == "mp4" {
-                        self.importMP4(from: url)
+                        self.importVideo(from: url)
                     }
                 }
             }
@@ -333,7 +348,11 @@ class MainViewController: NSViewController {
     }
     
     // Imports MP4 from given location
-    func importMP4(from: URL) {
+    func importVideo(from: URL) {
+        
+        showAlert(title: "Importing..", msg: "This might take a while.")
+        self.loadingView.isHidden = false
+        
         DispatchQueue.global(qos: .utility).async {
             GIFHandler.loadVideo(with: from, withFPS: 5, onFinish: { representation in
                 if representation.frames.count < 1 {
@@ -349,14 +368,16 @@ class MainViewController: NSViewController {
                     
                     self.selectedRow = nil
                     self.imageCollectionView.reloadData()
+                    self.loadingView.isHidden = true
+                    
+                    self.view.window?.sheets.forEach({ (win) in
+                        win.orderOut(self)
+                    })
                 }
             })
         }
     }
-    
-    func importError() {
-        self.showError("Could not open file. It might be in a format that Smart GIF Maker does not understand.")
-    }
+
     
     // Adds NotificationCenter listeners
     func setupNotificationListeners() {
