@@ -91,7 +91,7 @@ class GIFHandler {
                 
                 // Remove representations, and add NSBitmapImageRep (Used for modifying when editing)
                 let img = NSImage()
-                img.addRepresentation(img.unscaledBitmapImageRep())
+                img.addRepresentation(tmpImg.unscaledBitmapImageRep())
                 
                 videoRepresentation.frames.append(GIFFrame(image: img, duration: (duration/withFPS)/100))
             }
