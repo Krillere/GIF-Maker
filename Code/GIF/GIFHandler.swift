@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 import Cocoa
 
 // Replaces the old '(frames: [GIFFrame], loops:Int, secondsPrFrame: Float)' with a type
@@ -66,6 +67,38 @@ class GIFHandler {
         return GIFRepresentation(frames: retFrames, loops: loopCount)
     }
     
+    // MARK: Loading mp4 files
+    static func loadMP4(with path: URL, withFPS: Float64 = 10) -> GIFRepresentation {
+        let videoRepresentation = GIFRepresentation(frames: [], loops: 0)
+        
+        let asset = AVURLAsset(url: path)
+        let generator = AVAssetImageGenerator(asset: asset)
+        generator.requestedTimeToleranceAfter = kCMTimeZero
+        generator.requestedTimeToleranceBefore = kCMTimeZero
+        
+        var i:Float64 = 0
+        let duration = CMTimeGetSeconds(asset.duration)
+        let goal = duration * withFPS
+        while i < goal {
+            let time = CMTimeMake(Int64(i), Int32(withFPS))
+            var actualTime:CMTime = CMTime()
+            
+            do {
+                let cgimg = try generator.copyCGImage(at: time, actualTime: &actualTime)
+                let img = NSImage(cgImage: cgimg, size: NSSize(width: cgimg.width, height: cgimg.height))
+                
+                videoRepresentation.frames.append(GIFFrame(image: img, duration: (duration/withFPS)/100))
+            }
+            catch {
+                print("Exception under load.")
+                return videoRepresentation
+            }
+            
+            i += 1
+        }
+        
+        return videoRepresentation
+    }
     
     // MARK: Making gifs from iamges
     // Creates and saves a gif

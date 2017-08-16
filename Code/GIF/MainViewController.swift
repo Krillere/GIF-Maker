@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import StoreKit
 
 class MainViewController: NSViewController {
     // MARK: Fields
@@ -230,7 +229,7 @@ class MainViewController: NSViewController {
     @IBAction func loadGIFButtonClicked(sender: AnyObject?) {
         // Show file panel
         let panel = NSOpenPanel()
-        panel.allowedFileTypes = ["gif"]
+        panel.allowedFileTypes = ["gif", "mp4"]
         panel.allowsMultipleSelection = false
         panel.allowsOtherFileTypes = false
         panel.canChooseDirectories = false
@@ -308,15 +307,39 @@ class MainViewController: NSViewController {
     
     // Imports a gif from a given location
     func importGIF(from: URL) {
-        if let image = NSImage(contentsOf: from) {
-            // Set values from the .GIF
-            let newValues = GIFHandler.loadGIF(with: image)
+        let fileExtension = from.pathExtension
+        
+        if fileExtension == "mp4" { // Load mp4
+            let representation = GIFHandler.loadMP4(with: from, withFPS: 5)
             
-            self.currentFrames = newValues.frames
-            self.loopsTextField.stringValue = String(newValues.loops)
+            if representation.frames.count < 1 {
+                self.showError("Could not open file. It might not be in a format that Smart GIF Maker does not understand.")
+                return
+            }
+            
+            self.currentFrames = representation.frames
+            self.loopsTextField.stringValue = String(representation.loops)
             
             self.selectedRow = nil
             self.imageCollectionView.reloadData()
+        }
+        else if fileExtension == "gif" { // Load gif
+            if let image = NSImage(contentsOf: from) {
+                // Set values from the .GIF
+                let newValues = GIFHandler.loadGIF(with: image)
+                
+                self.currentFrames = newValues.frames
+                self.loopsTextField.stringValue = String(newValues.loops)
+                
+                self.selectedRow = nil
+                self.imageCollectionView.reloadData()
+            }
+            else {
+                self.showError("Could not open file. It might not be in a format that Smart GIF Maker does not understand.")
+            }
+        }
+        else { // Wat?
+            self.showError("Could not open file. It might not be in a format that Smart GIF Maker does not understand.")
         }
     }
     
