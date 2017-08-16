@@ -132,6 +132,11 @@ class PixelImageView: NSImageView {
         }
     }
     
+    func resetUndoRedo() {
+        self.redoOperations.removeAll()
+        self.undoOperations.removeAll()
+    }
+    
     
     // MARK: Helpers
     // Images and NSViews have flipped Y coordinates, this turns them
