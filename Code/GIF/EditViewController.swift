@@ -274,6 +274,8 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     func showFrame(frame: GIFFrame) {
         guard let image = frame.image else { return }
         
+        self.currentFrameImageView.resetUndoRedo()
+        
         let maxWidth = imageBackgroundView.bounds.width
         let maxHeight = imageBackgroundView.bounds.height
         let width = image.size.width
