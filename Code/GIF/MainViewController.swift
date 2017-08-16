@@ -205,7 +205,7 @@ class MainViewController: NSViewController {
     
     // Export a gif
     @IBAction func exportGIFButtonClicked(sender: AnyObject?) {
-        let validate = self.validateAndFindGIFValues()
+        let validate = self.findAndValidateUIValues()
         
         if validate.error {
             return
@@ -227,6 +227,7 @@ class MainViewController: NSViewController {
     
     // Load a gif from a file
     @IBAction func loadGIFButtonClicked(sender: AnyObject?) {
+        
         // Show file panel
         let panel = NSOpenPanel()
         panel.allowedFileTypes = ["gif", "mp4"]
@@ -237,7 +238,14 @@ class MainViewController: NSViewController {
             if res == NSFileHandlingPanelOKButton {
                 // Load image from file
                 if let url = panel.url {
-                    self.importGIF(from: url)
+                    let fileExtension = url.pathExtension
+                    
+                    if fileExtension == "gif" {
+                        self.importGIF(from: url)
+                    }
+                    else if fileExtension == "mp4" {
+                        self.importMP4(from: url)
+                    }
                 }
             }
         }
@@ -265,7 +273,7 @@ class MainViewController: NSViewController {
     
     // Preview
     @IBAction func previewButtonClicked(sender: AnyObject?) {
-        let validate = self.validateAndFindGIFValues()
+        let validate = self.findAndValidateUIValues()
         
         if validate.error {
             return
@@ -279,7 +287,7 @@ class MainViewController: NSViewController {
     
     // MARK: Helpers
     // Validates values from UI and returns them
-    func validateAndFindGIFValues() -> (error: Bool, gif: GIFRepresentation) {
+    func findAndValidateUIValues() -> (error: Bool, gif: GIFRepresentation) {
 
         let empRep = GIFRepresentation()
         let errorReturn = (error: true, gif: empRep)
@@ -305,49 +313,44 @@ class MainViewController: NSViewController {
     
     // Imports a gif from a given location
     func importGIF(from: URL) {
-        let fileExtension = from.pathExtension
-        
-        if fileExtension == "mp4" { // Load mp4
-            DispatchQueue.global(qos: .utility).async {
-                GIFHandler.loadVideo(with: from, withFPS: 5, onFinish: { representation in
-                    if representation.frames.count < 1 {
-                        DispatchQueue.main.async {
-                            self.importError()
-                        }
-                        return
-                    }
+        if let image = NSImage(contentsOf: from) {
+            DispatchQueue.global(qos: .utility).async { // Perform in background to not break UI
+                // Set values from the .GIF
+                GIFHandler.loadGIF(with: image, onFinish: { rep in
+                    self.currentFrames = rep.frames
+                    self.loopsTextField.stringValue = String(rep.loops)
                     
-                    DispatchQueue.main.async {
-                        self.currentFrames = representation.frames
-                        self.loopsTextField.stringValue = String(representation.loops)
-                        
+                    DispatchQueue.main.async { // Update UI in main
                         self.selectedRow = nil
                         self.imageCollectionView.reloadData()
                     }
                 })
             }
         }
-        else if fileExtension == "gif" { // Load gif
-            if let image = NSImage(contentsOf: from) {
-                DispatchQueue.global(qos: .utility).async { // Perform in background to not break UI
-                    // Set values from the .GIF
-                    GIFHandler.loadGIF(with: image, onFinish: { rep in
-                        self.currentFrames = rep.frames
-                        self.loopsTextField.stringValue = String(rep.loops)
-                        
-                        DispatchQueue.main.async { // Update UI in main
-                            self.selectedRow = nil
-                            self.imageCollectionView.reloadData()
-                        }
-                    })
-                }
-            }
-            else {
-                self.importError()
-            }
-        }
-        else { // Wat?
+        else {
             self.importError()
+        }
+    }
+    
+    // Imports MP4 from given location
+    func importMP4(from: URL) {
+        DispatchQueue.global(qos: .utility).async {
+            GIFHandler.loadVideo(with: from, withFPS: 5, onFinish: { representation in
+                if representation.frames.count < 1 {
+                    DispatchQueue.main.async {
+                        self.importError()
+                    }
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.currentFrames = representation.frames
+                    self.loopsTextField.stringValue = String(representation.loops)
+                    
+                    self.selectedRow = nil
+                    self.imageCollectionView.reloadData()
+                }
+            })
         }
     }
     
