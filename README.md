@@ -6,8 +6,7 @@ The current release can be downloaded from the App Store: https://itunes.apple.c
 
 This will often be significantly older than the version on Github, but obviously be more stable than the development version on here. :-)
 
-I'm working on the UI, and the editing feature. The editing feature is sort of broken, but I'll work it out eventually.
-
+Working on MP4 import/export.
 
 Screenshots:
 ![New window](Misc/Screenshots/ss1.png)
