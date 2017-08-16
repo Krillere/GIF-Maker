@@ -22,18 +22,28 @@ extension NSImage {
             samplesPerPixel: 4,
             hasAlpha: true,
             isPlanar: false,
-            colorSpaceName: NSDeviceRGBColorSpace,
+            colorSpaceName: NSCalibratedRGBColorSpace,
             bytesPerRow: 0,
             bitsPerPixel: 0
             ) else {
                 preconditionFailure()
         }
-        
+ 
         NSGraphicsContext.saveGraphicsState()
         NSGraphicsContext.setCurrent(NSGraphicsContext(bitmapImageRep: rep))
         self.draw(at: NSZeroPoint, from: NSZeroRect, operation: .sourceOver, fraction: 1.0)
         NSGraphicsContext.restoreGraphicsState()
-        
+ 
         return rep
+    }
+    
+    func getBitmapRep() -> NSBitmapImageRep? {
+        for rep in self.representations {
+            if let tmpRep = rep as? NSBitmapImageRep {
+                return tmpRep
+            }
+        }
+        
+        return self.unscaledBitmapImageRep()
     }
 }

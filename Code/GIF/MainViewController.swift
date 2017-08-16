@@ -245,7 +245,7 @@ class MainViewController: NSViewController {
         
         // Show file panel
         let panel = NSOpenPanel()
-        panel.allowedFileTypes = ["gif", "mp4"]
+        panel.allowedFileTypes = ["gif", "mp4", "mov"]
         panel.allowsMultipleSelection = false
         panel.allowsOtherFileTypes = false
         panel.canChooseDirectories = false
@@ -258,7 +258,7 @@ class MainViewController: NSViewController {
                     if fileExtension == "gif" {
                         self.importGIF(from: url)
                     }
-                    else if fileExtension == "mp4" {
+                    else if fileExtension == "mp4" || fileExtension == "mov" {
                         self.importVideo(from: url)
                     }
                 }

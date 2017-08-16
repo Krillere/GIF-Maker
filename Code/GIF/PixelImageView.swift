@@ -142,7 +142,7 @@ class PixelImageView: NSImageView {
     // Converts window event position go pixel coordinates
     func convertWindowToPixels(windowLoc: NSPoint) -> (x: Int, y: Int) {
         guard let image = self.image else { return (x: 0, y: 0) }
-        guard let imgRep = image.representations[0] as? NSBitmapImageRep else { return (x: 0, y: 0) }
+        guard let imgRep = image.getBitmapRep() else { return (x: 0, y: 0) }
         
         let localLoc = self.pointInFlippedRect(inPoint: self.convert(windowLoc, from: nil), aRect: self.frame)
         
@@ -181,7 +181,7 @@ class PixelImageView: NSImageView {
     // Sets a color at a given coordinate
     func setPixelColor(color: NSColor, x: Int, y: Int) {
         guard let image = self.image,
-            let imgRep = image.representations[0] as? NSBitmapImageRep else { return }
+            let imgRep = image.getBitmapRep() else { return }
         
         let red = Int(color.redComponent*255)
         let green = Int(color.greenComponent*255)
@@ -199,7 +199,7 @@ class PixelImageView: NSImageView {
     // Returns NSColor at given coordinates
     func getPixelColor(x: Int, y: Int) -> NSColor? {
         guard let image = self.image else { Swift.print("Nope1"); return nil }
-        guard let imgRep = image.representations[0] as? NSBitmapImageRep else { Swift.print("Nope2"); Swift.print(image.representations[0] .className); return nil }
+        guard let imgRep = image.getBitmapRep() else { return nil }
         
         return imgRep.colorAt(x:x, y:y)
     }

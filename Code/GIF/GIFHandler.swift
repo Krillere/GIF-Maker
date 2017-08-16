@@ -87,12 +87,10 @@ class GIFHandler {
             
             do {
                 let cgimg = try generator.copyCGImage(at: time, actualTime: &actualTime)
-                let img = NSImage(cgImage: cgimg, size: NSSize(width: cgimg.width, height: cgimg.height))
+                let tmpImg = NSImage(cgImage: cgimg, size: NSSize(width: cgimg.width, height: cgimg.height))
                 
                 // Remove representations, and add NSBitmapImageRep (Used for modifying when editing)
-                img.representations.forEach({ (rep) in
-                    img.removeRepresentation(rep)
-                })
+                let img = NSImage()
                 img.addRepresentation(img.unscaledBitmapImageRep())
                 
                 videoRepresentation.frames.append(GIFFrame(image: img, duration: (duration/withFPS)/100))
