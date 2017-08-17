@@ -219,6 +219,10 @@ extension MainViewController: NSCollectionViewDelegate, NSCollectionViewDataSour
             frameAr.append(frame)
         }
         
+        if images.count == 0 {
+            return
+        }
+        
         // One empty frame, remove this and insert new images
         if currentFrames.count == 1 && currentFrames[0].image == nil {
             currentFrames.removeAll()
