@@ -149,16 +149,16 @@ class PixelImageView: NSImageView {
     func createUndoOperation(x: Int, y: Int, newColor: NSColor) {
         // Create undo operation
         guard let curColor = getPixelColor(x: x, y: y) else {
-            
-            if !drawing {
-                return
-            }
-            
-            // Dragged outside window
-            self.closeCurrentUndo()
-            
-            drawing = false
-            
+//            
+//            if !drawing {
+//                return
+//            }
+//            
+//            // Dragged outside window
+//            self.closeCurrentUndo()
+//            
+//            drawing = false
+//            
             return
         }
         

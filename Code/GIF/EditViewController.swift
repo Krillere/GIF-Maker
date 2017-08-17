@@ -162,10 +162,12 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     
     
     // MARK: Buttons
+    // Eraser
     @IBAction func eraserButtonClicked(sender: AnyObject?) {
         colorPicker.color = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
     }
     
+    // Eyedropper
     @IBAction func eyedropperButtonClicked(sender: AnyObject?) {
         DrawingOptionsHandler.shared.isPickingColor = !DrawingOptionsHandler.shared.isPickingColor
         
@@ -173,14 +175,17 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         self.eyedropperButtonCell.redraw()
     }
     
+    // Undo
     @IBAction func undoButtonClicked(sender: AnyObject?) {
         self.currentFrameImageView.undo()
     }
     
+    // Redo
     @IBAction func redoButtonClicked(sender: AnyObject?) {
         self.currentFrameImageView.redo()
     }
 
+    // Next frame
     @IBAction func nextFrameButtonClicked(sender: AnyObject?) {
         if self.currentFrameNumber+1 > self.frames.count-1 {
             self.currentFrameNumber = 0
@@ -193,6 +198,7 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         self.updateFrameLabel()
     }
     
+    // Previous frame
     @IBAction func previousFrameButtonClicked(sender: AnyObject?) {
         if self.currentFrameNumber-1 < 0 {
             self.currentFrameNumber = self.frames.count-1
@@ -206,11 +212,13 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     }
     
     // Buttons on top of color wells
+    // Drawing color
     @IBAction func drawingColorWellClicked(sender: AnyObject?) {
         colorPicker.performClick(sender)
         allowColorPanelAlpha()
     }
     
+    // Background color
     @IBAction func backgroundColorWellClicked(sender: AnyObject?) {
         backgroundColorPicker.performClick(sender)
         allowColorPanelAlpha()
