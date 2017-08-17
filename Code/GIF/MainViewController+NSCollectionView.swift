@@ -198,18 +198,19 @@ extension MainViewController: NSCollectionViewDelegate, NSCollectionViewDataSour
                 }
                 else { // No clicked. Remove gif, and insert frames
                     droppedImages.remove(at: gifIndex)
-                    self.insertReplaceImages(images: droppedImages, at: indexPath)
+                    self.insertImages(images: droppedImages, at: indexPath)
                 }
             })
         }
         else {
             // Insert frames
-            self.insertReplaceImages(images: droppedImages, at: indexPath)
+            self.insertImages(images: droppedImages, at: indexPath)
         }
         
     }
     
-    func insertReplaceImages(images: [NSImage], at indexPath: IndexPath) {
+    // Inserts the given images
+    func insertImages(images: [NSImage], at indexPath: IndexPath) {
         var frameAr:[GIFFrame] = []
         images.forEach { (image) in
             let frame = GIFFrame(image: image)
