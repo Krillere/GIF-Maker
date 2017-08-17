@@ -63,26 +63,43 @@ extension MainViewController: NSCollectionViewDelegate, NSCollectionViewDataSour
         panel.allowedFileTypes = ["png", "jpg", "jpeg", "gif", "tiff", "bmp"]
         panel.beginSheetModal(for: self.view.window!) { (response) -> Void in
             
-            // Insert image into imageview and 'currentImages' and reload
-            if response == NSFileHandlingPanelOKButton {
-                let URL = panel.url
-                if URL != nil {
-                    if let image = NSImage(contentsOf: URL!) {
-                        
-                        let newFrame = GIFFrame(image: image)
-                        if let frame = imgView.gifFrame {
-                            newFrame.duration = frame.duration
-                        }
-                        
-                        self.currentFrames[item.itemIndex] = newFrame
-
-                    }
-                    self.imageCollectionView.reloadData()
-                }
-            }
-            
             imgView.resignFirstResponder()
             self.addFrameButton.becomeFirstResponder()
+            
+            if response != NSFileHandlingPanelOKButton {
+                return
+            }
+            
+            // Insert image into imageview and 'currentImages' and reload
+            guard let URL = panel.url else { return }
+            guard let image = NSImage(contentsOf: URL) else { self.showError("Could not load image."); return }
+            
+            if GIFHandler.isAnimatedGIF(image) { // Gif
+                // Import?
+                let alert = FancyAlert()
+                alert.messageText = "GIF Found"
+                alert.informativeText = "Do you want to import it and replace all frames with the contents of this GIF?"
+                
+                alert.addButton(withTitle: "Yes")
+                alert.addButton(withTitle: "No")
+                
+                alert.beginSheetModal(for: self.view.window!, completionHandler: { (resp) in
+                    if resp == NSAlertFirstButtonReturn { // Replace
+                        self.importGIF(from: URL)
+                    }
+                })
+                
+            }
+            else { // Single image
+                let newFrame = GIFFrame(image: image)
+                if let frame = imgView.gifFrame {
+                    newFrame.duration = frame.duration
+                }
+                
+                self.currentFrames[item.itemIndex] = newFrame
+            }
+
+            self.imageCollectionView.reloadData()
         }
     }
     
@@ -93,6 +110,7 @@ extension MainViewController: NSCollectionViewDelegate, NSCollectionViewDataSour
             let newDuration = Double(item.durationTextField.stringValue) else { return }
         frame.duration = newDuration
     }
+    
     
     // MARK: NSCollectionView
     // Sets up the collection view variables (Could probably be done in IB), and allows drag'n'drop
