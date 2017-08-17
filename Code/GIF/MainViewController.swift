@@ -340,20 +340,25 @@ class MainViewController: NSViewController {
         if let image = NSImage(contentsOf: from) {
             DispatchQueue.global(qos: .utility).async { // Perform in background to not break UI
                 // Set values from the .GIF
-                GIFHandler.loadGIF(with: image, onFinish: { rep in
-                    self.currentFrames = rep.frames
-                    self.loopsTextField.stringValue = String(rep.loops)
-                    
-                    DispatchQueue.main.async { // Update UI in main
-                        self.selectedRow = nil
-                        self.imageCollectionView.reloadData()
-                    }
-                })
+                self.loadAndSetGIF(image: image)
             }
         }
         else {
             self.importError()
         }
+    }
+    
+    // Loads gif from NSImage and sets variables in UI
+    func loadAndSetGIF(image: NSImage) {
+        GIFHandler.loadGIF(with: image, onFinish: { rep in
+            self.currentFrames = rep.frames
+            self.loopsTextField.stringValue = String(rep.loops)
+            
+            DispatchQueue.main.async { // Update UI in main
+                self.selectedRow = nil
+                self.imageCollectionView.reloadData()
+            }
+        })
     }
     
     // Imports MP4 from given location
