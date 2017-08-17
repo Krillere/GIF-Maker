@@ -207,7 +207,7 @@ class PixelImageView: NSImageView {
         }
         else {
             // Draw all pixels inside radius
-            let r = size
+            let r = Int(size/2)
             let r2 = r*r
             
             var i:Int = y - r

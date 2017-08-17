@@ -209,6 +209,8 @@ extension MainViewController: NSCollectionViewDelegate, NSCollectionViewDataSour
         
     }
     
+    
+    // MARK: Helpers
     // Inserts the given images
     func insertImages(images: [NSImage], at indexPath: IndexPath) {
         var frameAr:[GIFFrame] = []
