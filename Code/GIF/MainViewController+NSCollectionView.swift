@@ -41,14 +41,41 @@ extension MainViewController: NSCollectionViewDelegate, NSCollectionViewDataSour
         guard let imgView = item.imageView as? DragNotificationImageView else { return }
         guard let img = imgView.image else { return }
         
-        let newFrame = GIFFrame(image: img)
-        if let frame = imgView.gifFrame {
-            newFrame.duration = frame.duration
+        if GIFHandler.isAnimatedGIF(img) { // Dragged GIF
+            // Import?
+            let alert = FancyAlert()
+            alert.messageText = "GIF Found"
+            alert.informativeText = "Do you want to import it and replace all frames with the contents of this GIF?"
+            
+            alert.addButton(withTitle: "Yes")
+            alert.addButton(withTitle: "No")
+            
+            alert.beginSheetModal(for: self.view.window!, completionHandler: { (resp) in
+                if resp == NSAlertFirstButtonReturn { // Replace
+                    GIFHandler.loadGIF(with: img, onFinish: { rep in
+                        self.currentFrames = rep.frames
+                        self.loopsTextField.stringValue = String(rep.loops)
+                        
+                        DispatchQueue.main.async { // Update UI in main
+                            self.selectedRow = nil
+                            self.imageCollectionView.reloadData()
+                        }
+                    })
+                }
+                else { // TODO: Load first image, I guess
+                }
+            })
         }
-        
-        currentFrames[item.itemIndex] = newFrame
-        self.selectedRow = nil
-        self.imageCollectionView.reloadData()
+        else { // Dragged regular image
+            let newFrame = GIFFrame(image: img)
+            if let frame = imgView.gifFrame {
+                newFrame.duration = frame.duration
+            }
+            
+            currentFrames[item.itemIndex] = newFrame
+            self.selectedRow = nil
+            self.imageCollectionView.reloadData()
+        }
     }
     
     // User clicked DragNotificationImageView
@@ -86,6 +113,8 @@ extension MainViewController: NSCollectionViewDelegate, NSCollectionViewDataSour
                 alert.beginSheetModal(for: self.view.window!, completionHandler: { (resp) in
                     if resp == NSAlertFirstButtonReturn { // Replace
                         self.importGIF(from: URL)
+                    }
+                    else { // TODO: Load first image, I guess
                     }
                 })
                 
