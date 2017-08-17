@@ -364,7 +364,7 @@ class MainViewController: NSViewController {
     // Imports MP4 from given location
     func importVideo(from: URL) {
         
-        showAlert(title: "Importing..", msg: "This might take a while.")
+        showAlert(title: "Importing video", msg: "This might take a while.")
         self.loadingView.isHidden = false
         
         DispatchQueue.global(qos: .utility).async {
@@ -376,7 +376,7 @@ class MainViewController: NSViewController {
                     return
                 }
                 
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { // Set variables in main thread
                     self.currentFrames = representation.frames
                     self.loopsTextField.stringValue = String(representation.loops)
                     

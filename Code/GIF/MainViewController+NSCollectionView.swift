@@ -109,6 +109,7 @@ extension MainViewController: NSCollectionViewDelegate, NSCollectionViewDataSour
         deselectAll()
     }
     
+    
     // MARK: Drag and drop
     private func collectionView(collectionView: NSCollectionView, canDragItemsAtIndexes indexes: NSIndexSet, withEvent event: NSEvent) -> Bool {
         return true
@@ -170,27 +171,64 @@ extension MainViewController: NSCollectionViewDelegate, NSCollectionViewDataSour
     // Inserts frames that were dragged from outside the app
     func handleOutsideDrag(draggingInfo: NSDraggingInfo, indexPath: IndexPath) {
         
-        // Enumerate URLs, load images, and insert into currentImages
-        var dropped:[GIFFrame] = []
-        draggingInfo.enumerateDraggingItems(options: NSDraggingItemEnumerationOptions.concurrent, for: imageCollectionView, classes: [NSURL.self], searchOptions: [NSPasteboardURLReadingFileURLsOnlyKey : NSNumber(value: true)]) { (draggingItem, idx, stop) in
+        // Enumerate URLs and load images
+        var droppedImages:[NSImage] = []
+        draggingInfo.enumerateDraggingItems(options: NSDraggingItemEnumerationOptions.concurrent,
+                                            for: imageCollectionView,
+                                            classes: [NSURL.self],
+                                            searchOptions: [NSPasteboardURLReadingFileURLsOnlyKey : NSNumber(value: true)]) { (draggingItem, idx, stop) in
             if let url = draggingItem.item as? URL,
-                let image = NSImage(contentsOf: url){
-                let frame = GIFFrame(image: image)
-                dropped.append(frame)
+                let image = NSImage(contentsOf: url) {
+                droppedImages.append(image)
             }
+        }
+        
+        
+        // Any gifs?
+        let hasGifs = droppedImages.index { (img) -> Bool in
+            return GIFHandler.isAnimatedGIF(img)
+        }
+        
+        if let gifIndex = hasGifs { // A gif was dragged
+            let alert = self.createAskImportAlert()
+            alert.beginSheetModal(for: self.view.window!, completionHandler: { (resp) in
+                if resp == NSAlertFirstButtonReturn { // Replace all with gif
+                    let gif = droppedImages[gifIndex]
+                    self.loadAndSetGIF(image: gif)
+                }
+                else { // No clicked. Remove gif, and insert frames
+                    droppedImages.remove(at: gifIndex)
+                    self.insertReplaceImages(images: droppedImages, at: indexPath)
+                }
+            })
+        }
+        else {
+            // Insert frames
+            self.insertReplaceImages(images: droppedImages, at: indexPath)
+        }
+        
+    }
+    
+    func insertReplaceImages(images: [NSImage], at indexPath: IndexPath) {
+        var frameAr:[GIFFrame] = []
+        images.forEach { (image) in
+            let frame = GIFFrame(image: image)
+            frameAr.append(frame)
         }
         
         // One empty frame, remove this and insert new images
         if currentFrames.count == 1 && currentFrames[0].image == nil {
             currentFrames.removeAll()
-            currentFrames = dropped
+            currentFrames = frameAr
         }
         else { // Append to frames already in view
-            for n in 0 ..< dropped.count {
-                currentFrames.insert(dropped[n], at: indexPath.item+n)
+            for n in 0 ..< frameAr.count {
+                currentFrames.insert(frameAr[n], at: indexPath.item+n)
             }
         }
         
+        self.selectedRow = nil
+        self.imageCollectionView.reloadData()
     }
     
     // Moves frames that were dragged inside the app
