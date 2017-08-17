@@ -114,7 +114,7 @@ class GIFHandler {
     // Creates and saves a gif
     static func createAndSaveGIF(with frames: [GIFFrame], savePath: URL, loops: Int = GIFHandler.defaultLoops, watermark: Bool = true) {
         // Get and save data at 'savePath'
-        let data = GIFHandler.createGIFData(with: frames, loops: loops)
+        let data = GIFHandler.createGIFData(with: frames, loops: loops, watermark: watermark)
         
         do {
             try data.write(to: savePath)
@@ -128,13 +128,13 @@ class GIFHandler {
     // Creates and returns an NSImage from given images
     static func createGIF(with frames: [GIFFrame], loops: Int = GIFHandler.defaultLoops, watermark: Bool = true) -> NSImage? {
         // Get data and convert to image
-        let data = GIFHandler.createGIFData(with: frames, loops: loops)
+        let data = GIFHandler.createGIFData(with: frames, loops: loops, watermark: watermark)
         let img = NSImage(data: data)
         return img
     }
     
     // Creates NSData from given images
-    static func createGIFData(with frames: [GIFFrame], loops: Int = GIFHandler.defaultLoops, watermark: Bool = true) -> Data {
+    static func createGIFData(with frames: [GIFFrame], loops: Int = GIFHandler.defaultLoops, watermark: Bool) -> Data {
         // Loop count
         let loopCountDic = NSDictionary(dictionary: [kCGImagePropertyGIFDictionary:NSDictionary(dictionary: [kCGImagePropertyGIFLoopCount: loops])])
         
