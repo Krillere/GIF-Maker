@@ -63,11 +63,33 @@ class FrameCollectionViewItem: NSCollectionViewItem, DragNotificationImageViewDe
     override func controlTextDidChange(_ obj: Notification) {
         if let field = obj.object as? NSTextField {
             if field == self.durationTextField {
-                if let _ = Double(self.durationTextField.stringValue) {
+                if var val = Double(self.durationTextField.stringValue) {
+                    if val < GIFHandler.minFrameDuration {
+                        val = GIFHandler.minFrameDuration
+                    }
+                    
                     self.delegate?.frameDurationChanged(item: self)
                 }
                 else {
                     self.durationTextField.stringValue = String(format: "%.3lf", GIFHandler.defaultFrameDuration)
+                }
+            }
+        }
+    }
+    
+    override func controlTextDidEndEditing(_ obj: Notification) {
+        if let field = obj.object as? NSTextField {
+            if field == self.durationTextField {
+                if var val = Double(self.durationTextField.stringValue) {
+                    if val < GIFHandler.minFrameDuration {
+                        val = GIFHandler.minFrameDuration
+                    }
+                    
+                    self.delegate?.frameDurationChanged(item: self)
+                    self.durationTextField.stringValue = String(format: "%.3lf", val)
+                }
+                else {
+                    
                 }
             }
         }

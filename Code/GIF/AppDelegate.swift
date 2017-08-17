@@ -19,18 +19,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: Setup
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // In app purchase setup
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(AppDelegate.productsLoaded),
-//                                               name: IAPHelper.IAPLoadedNotificationName,
-//                                               object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.handlePurchaseNotification(_:)),
-//                                               name: NSNotification.Name(rawValue: IAPHelper.IAPHelperPurchaseNotification),
-//                                               object: nil)
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(AppDelegate.failedPurchase),
-//                                               name: NSNotification.Name(rawValue: IAPHelper.IAPPurchaseFailed),
-//                                               object: nil)
-//        loadProducts()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(AppDelegate.productsLoaded),
+                                               name: IAPHelper.IAPLoadedNotificationName,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.handlePurchaseNotification(_:)),
+                                               name: NSNotification.Name(rawValue: IAPHelper.IAPHelperPurchaseNotification),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(AppDelegate.failedPurchase),
+                                               name: NSNotification.Name(rawValue: IAPHelper.IAPPurchaseFailed),
+                                               object: nil)
+        loadProducts()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {

@@ -175,6 +175,15 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		AA6992AF1F44BB53008F7409 /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				AABC063B1F431D25002DFEE6 /* FancyTextFieldCell.swift */,
+				AA33867D1EBF45970056354F /* SmartTextField.swift */,
+			);
+			name = TextFields;
+			sourceTree = "<group>";
+		};
 		AA8F63891E787DE2000965B5 = {
 			isa = PBXGroup;
 			children = (
@@ -216,8 +225,7 @@
 				AAA9C4CE1ECCA01A007EC0D4 /* FancyAlert.swift */,
 				AA3E1E601F000F8C0030E636 /* Buttons */,
 				AA17D4A11ECB710600E260A7 /* NSViewExtension.swift */,
-				AABC063B1F431D25002DFEE6 /* FancyTextFieldCell.swift */,
-				AA33867D1EBF45970056354F /* SmartTextField.swift */,
+				AA6992AF1F44BB53008F7409 /* TextFields */,
 				AA3E1E611F000FA60030E636 /* GIFFrames in UI */,
 			);
 			name = UI;

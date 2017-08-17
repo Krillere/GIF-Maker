@@ -523,7 +523,7 @@
                                 <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </colorWell>
                             <button toolTip="Used for erasing pixels" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dWm-TY-uf5" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="385" y="525" width="60" height="25"/>
+                                <rect key="frame" x="382" y="525" width="60" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="JXC-pA-V4L"/>
                                     <constraint firstAttribute="height" constant="25" id="URR-Ie-Mpx"/>
@@ -537,7 +537,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Pick a color from the image" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gor-4c-Y7p" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="455" y="525" width="88" height="25"/>
+                                <rect key="frame" x="452" y="525" width="88" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="88" id="E9y-hF-HLl"/>
                                     <constraint firstAttribute="height" constant="25" id="YiY-No-c2V"/>
@@ -579,7 +579,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Used for erasing pixels" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="F41-Q5-jKu" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="568" y="525" width="43" height="25"/>
+                                <rect key="frame" x="565" y="525" width="43" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="43" id="CG2-bw-2DX"/>
                                     <constraint firstAttribute="height" constant="25" id="KTI-4G-usj"/>
@@ -593,7 +593,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Used for erasing pixels" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l7u-l3-Q2g" customClass="FancyButton" customModule="Smart_GIF_Maker" customModuleProvider="target">
-                                <rect key="frame" x="621" y="525" width="43" height="25"/>
+                                <rect key="frame" x="618" y="525" width="43" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="43" id="RU5-ff-gIK"/>
                                     <constraint firstAttribute="height" constant="25" id="rom-yz-8eP"/>
@@ -607,7 +607,7 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlI-IY-U83">
-                                <rect key="frame" x="330" y="526" width="35" height="22"/>
+                                <rect key="frame" x="327" y="526" width="35" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="8DM-42-yQb"/>
                                     <constraint firstAttribute="height" constant="22" id="zoP-uW-mDX"/>
@@ -622,10 +622,10 @@
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Pj-Mv-l02">
-                                <rect key="frame" x="241" y="530" width="89" height="17"/>
+                                <rect key="frame" x="241" y="530" width="82" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="SnN-Ac-fED"/>
-                                    <constraint firstAttribute="width" constant="85" id="f5f-w9-hT2"/>
+                                    <constraint firstAttribute="width" constant="78" id="f5f-w9-hT2"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Drawing size:" id="59r-Yx-EkE">
                                     <font key="font" metaFont="system"/>
@@ -653,7 +653,7 @@
                             <constraint firstAttribute="trailing" secondItem="Wuw-AR-cuf" secondAttribute="trailing" constant="6" id="Tmg-9E-47R"/>
                             <constraint firstItem="1Pj-Mv-l02" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="13" id="TxT-Ek-Pve"/>
                             <constraint firstItem="ZtK-0j-DDM" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="11" id="VBC-Cr-eR2"/>
-                            <constraint firstItem="tlI-IY-U83" firstAttribute="leading" secondItem="1Pj-Mv-l02" secondAttribute="trailing" constant="2" id="XME-Pc-cBv"/>
+                            <constraint firstItem="tlI-IY-U83" firstAttribute="leading" secondItem="1Pj-Mv-l02" secondAttribute="trailing" constant="6" id="XME-Pc-cBv"/>
                             <constraint firstItem="7RV-SU-fUj" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="XaO-Wd-YtL"/>
                             <constraint firstItem="gor-4c-Y7p" firstAttribute="top" secondItem="gxT-PU-9tt" secondAttribute="top" constant="10" id="Xey-NT-8Wp"/>
                             <constraint firstItem="npC-Ig-P3D" firstAttribute="leading" secondItem="gxT-PU-9tt" secondAttribute="leading" id="ctK-Gx-QxU"/>

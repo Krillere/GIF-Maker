@@ -31,6 +31,7 @@ class GIFHandler {
     static let errorNotificationName = NSNotification.Name(rawValue: "GIFError")
     static let defaultLoops:Int = 0
     static let defaultFrameDuration:Double = 0.2
+    static let minFrameDuration:Double = 0.06
     
     // MARK: Loading gifs
     static func loadGIF(with image: NSImage, onFinish: ((GIFRepresentation) -> ())) {
@@ -68,7 +69,7 @@ class GIFHandler {
     }
     
     // MARK: Loading video files
-    static func loadVideo(with path: URL, withFPS: Float64 = 5, onFinish: ((GIFRepresentation) -> ())) {
+    static func loadVideo(with path: URL, withFPS: Float64 = 4, onFinish: ((GIFRepresentation) -> ())) {
         let videoRepresentation = GIFRepresentation(frames: [], loops: 0)
         
         // Read video
@@ -149,10 +150,10 @@ class GIFHandler {
         // Add images to destination
         frames.forEach { (frame) in
             guard var image = frame.image else { return }
-//            if !Products.store.isProductPurchased(Products.Pro) {
-//                // Watermark
-//                image = GIFHandler.addWatermark(image: image, watermark: "Smart GIF Maker")
-//            }
+            if !Products.store.isProductPurchased(Products.Pro) {
+                // Watermark
+                image = GIFHandler.addWatermark(image: image, watermark: "Smart GIF Maker")
+            }
             
             if let imageRef = image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
                 // Frame duration

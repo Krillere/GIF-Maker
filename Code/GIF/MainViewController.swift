@@ -30,7 +30,7 @@ class MainViewController: NSViewController {
     var editingWindowController:NSWindowController?
     
     // Preview variables
-    var previewRepresentation:GIFRepresentation?
+    var previewImage:NSImage?
 
     
     // MARK: View setup
@@ -80,9 +80,8 @@ class MainViewController: NSViewController {
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowPreview" {
             if let viewController = segue.destinationController as? PreviewViewController,
-                let preview = self.previewRepresentation {
-                let previewImg = GIFHandler.createGIF(with: preview.frames, loops: preview.loops)
-                viewController.previewImage = previewImg
+                let preview = self.previewImage {
+                viewController.previewImage = preview
             }
         }
     }
@@ -106,6 +105,7 @@ class MainViewController: NSViewController {
         imageCollectionView.reloadData()
     }
     
+    // Creates menu item
     func setupMenuItems() {
         guard let menu = NSApplication.shared().mainMenu else { return }
         let newItem = NSMenuItem(title: "Actions", action: nil, keyEquivalent: "")
@@ -116,6 +116,8 @@ class MainViewController: NSViewController {
          Export .GIF (CMD+S)
          -
          Add frame (CMD+F)
+         Reverse frames
+         Set all frame durations
          -
          Preview (CMD+P)
          Edit (CMD+E)
@@ -135,6 +137,7 @@ class MainViewController: NSViewController {
         addFrameItem.keyEquivalentModifierMask = .command
         
         let reverseItem = NSMenuItem(title: "Reverse frames", action: #selector(MainViewController.reverseFrames), keyEquivalent: "")
+        let changeDuration = NSMenuItem(title: "Set all frame durations", action: #selector(MainViewController.setAllFrameDurations), keyEquivalent: "")
         
         let previewItem = NSMenuItem(title: "Preview", action: #selector(MainViewController.previewButtonClicked(sender:)), keyEquivalent: "")
         previewItem.keyEquivalentModifierMask = .command
@@ -152,8 +155,8 @@ class MainViewController: NSViewController {
         newMenu.addItem(exportItem)
         newMenu.addItem(NSMenuItem.separator())
         newMenu.addItem(addFrameItem)
-        newMenu.addItem(NSMenuItem.separator())
         newMenu.addItem(reverseItem)
+        newMenu.addItem(changeDuration)
         newMenu.addItem(NSMenuItem.separator())
         newMenu.addItem(previewItem)
         newMenu.addItem(editItem)
@@ -232,8 +235,7 @@ class MainViewController: NSViewController {
             if res == NSFileHandlingPanelOKButton {
                 if let url = panel.url {
                     let rep = validate.gif
-                    GIFHandler.createAndSaveGIF(with: rep.frames, savePath: url, loops: rep.loops)
-                    NSWorkspace.shared().activateFileViewerSelecting([url])
+                    self.exportGIF(to: url, gif: rep)
                 }
             }
         }
@@ -294,9 +296,16 @@ class MainViewController: NSViewController {
             return
         }
         
-        self.previewRepresentation = validate.gif
+        self.loadingView.isHidden = false
         
-        self.performSegue(withIdentifier: "ShowPreview", sender: self)
+        DispatchQueue.global(qos: .utility).async {
+            self.previewImage = GIFHandler.createGIF(with: validate.gif.frames, loops: validate.gif.loops)
+            
+            DispatchQueue.main.async {
+                self.loadingView.isHidden = true
+                self.performSegue(withIdentifier: "ShowPreview", sender: self)
+            }
+        }
     }
     
     
@@ -369,15 +378,25 @@ class MainViewController: NSViewController {
                     self.selectedRow = nil
                     self.imageCollectionView.reloadData()
                     self.loadingView.isHidden = true
-                    
-                    self.view.window?.sheets.forEach({ (win) in
-                        win.orderOut(self)
-                    })
                 }
             })
         }
     }
 
+    // Exports given gif to given url
+    func exportGIF(to: URL, gif: GIFRepresentation) {
+        self.loadingView.isHidden = false
+        
+        DispatchQueue.global(qos: .utility).async {
+            // GIFHandler.createGIF(with: preview.frames, loops: preview.loops)
+            GIFHandler.createAndSaveGIF(with: gif.frames, savePath: to, loops: gif.loops)
+            NSWorkspace.shared().activateFileViewerSelecting([to])
+            
+            DispatchQueue.main.async {
+                self.loadingView.isHidden = true
+            }
+        }
+    }
     
     // Adds NotificationCenter listeners
     func setupNotificationListeners() {
@@ -426,9 +445,44 @@ class MainViewController: NSViewController {
         showError(error)
     }
     
+    // MARK: Actions
     // Reverses alle frames
     func reverseFrames() {
         self.currentFrames.reverse()
         self.reloadImages()
+    }
+    
+    func setAllFrameDurations() {
+        let alert = FancyAlert()
+        alert.messageText = "Set frame duration"
+        alert.informativeText = "What frame duration do you want to set?"
+        alert.alertStyle = .informational
+        alert.addButton(withTitle: "Set frame durations")
+        alert.addButton(withTitle: "Cancel")
+        
+        let input = NSTextField(frame: NSRect(x: 0, y: 0, width: 200, height: 24))
+        input.stringValue = String(GIFHandler.defaultFrameDuration)
+        
+        alert.accessoryView = input
+        
+        alert.beginSheetModal(for: self.view.window!) { (resp) in
+            if resp == NSAlertFirstButtonReturn {
+                guard var duration = Double(input.stringValue) else { // Could not parse as Double
+                    self.showError("Frame duration must be a number!")
+                    return
+                }
+                
+                if duration < GIFHandler.minFrameDuration { // Limit
+                    duration = GIFHandler.minFrameDuration
+                }
+                
+                self.currentFrames.forEach({ (frame) in
+                    frame.duration = duration
+                })
+                self.reloadImages()
+            }
+            else { // Cancel
+            }
+        }
     }
 }
