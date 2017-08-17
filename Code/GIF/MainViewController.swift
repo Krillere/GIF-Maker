@@ -299,7 +299,7 @@ class MainViewController: NSViewController {
         self.loadingView.isHidden = false
         
         DispatchQueue.global(qos: .utility).async {
-            self.previewImage = GIFHandler.createGIF(with: validate.gif.frames, loops: validate.gif.loops)
+            self.previewImage = GIFHandler.createGIF(with: validate.gif.frames, loops: validate.gif.loops, watermark: false)
             
             DispatchQueue.main.async {
                 self.loadingView.isHidden = true

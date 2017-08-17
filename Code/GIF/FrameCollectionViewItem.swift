@@ -89,7 +89,7 @@ class FrameCollectionViewItem: NSCollectionViewItem, DragNotificationImageViewDe
                     self.durationTextField.stringValue = String(format: "%.3lf", val)
                 }
                 else {
-                    
+                    self.durationTextField.stringValue = String(format: "%.3lf", GIFHandler.defaultFrameDuration)
                 }
             }
         }

@@ -97,7 +97,7 @@ class GIFHandler {
                 videoRepresentation.frames.append(GIFFrame(image: img, duration: (duration/withFPS)/100))
             }
             catch {
-                print("Exception during MP4 load.")
+                print("Exception during video load.")
                 NotificationCenter.default.post(name: errorNotificationName, object: self, userInfo: ["Error":"Error loading frame in video."])
                 onFinish(videoRepresentation)
                 return
@@ -109,9 +109,10 @@ class GIFHandler {
         onFinish(videoRepresentation)
     }
     
-    // MARK: Making gifs from iamges
+    
+    // MARK: Making gifs from frames
     // Creates and saves a gif
-    static func createAndSaveGIF(with frames: [GIFFrame], savePath: URL, loops: Int = GIFHandler.defaultLoops) {
+    static func createAndSaveGIF(with frames: [GIFFrame], savePath: URL, loops: Int = GIFHandler.defaultLoops, watermark: Bool = true) {
         // Get and save data at 'savePath'
         let data = GIFHandler.createGIFData(with: frames, loops: loops)
         
@@ -125,7 +126,7 @@ class GIFHandler {
     }
     
     // Creates and returns an NSImage from given images
-    static func createGIF(with frames: [GIFFrame], loops: Int = GIFHandler.defaultLoops) -> NSImage? {
+    static func createGIF(with frames: [GIFFrame], loops: Int = GIFHandler.defaultLoops, watermark: Bool = true) -> NSImage? {
         // Get data and convert to image
         let data = GIFHandler.createGIFData(with: frames, loops: loops)
         let img = NSImage(data: data)
@@ -133,7 +134,7 @@ class GIFHandler {
     }
     
     // Creates NSData from given images
-    static func createGIFData(with frames: [GIFFrame], loops: Int = GIFHandler.defaultLoops) -> Data {
+    static func createGIFData(with frames: [GIFFrame], loops: Int = GIFHandler.defaultLoops, watermark: Bool = true) -> Data {
         // Loop count
         let loopCountDic = NSDictionary(dictionary: [kCGImagePropertyGIFDictionary:NSDictionary(dictionary: [kCGImagePropertyGIFLoopCount: loops])])
         
@@ -150,7 +151,7 @@ class GIFHandler {
         // Add images to destination
         frames.forEach { (frame) in
             guard var image = frame.image else { return }
-            if !Products.store.isProductPurchased(Products.Pro) {
+            if watermark && !Products.store.isProductPurchased(Products.Pro) {
                 // Watermark
                 image = GIFHandler.addWatermark(image: image, watermark: "Smart GIF Maker")
             }
