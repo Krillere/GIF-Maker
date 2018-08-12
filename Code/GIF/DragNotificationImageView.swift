@@ -31,7 +31,6 @@ class DragNotificationImageView: NSImageView {
     // MARK: Drag
     override func draggingEnded(_ sender: NSDraggingInfo?) {
         self.delegate?.imageDragged(imageView: self)
-        Swift.print(self.image)
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {

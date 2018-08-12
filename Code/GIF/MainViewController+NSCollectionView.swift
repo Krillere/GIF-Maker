@@ -219,7 +219,7 @@ extension MainViewController: NSCollectionViewDelegate, NSCollectionViewDataSour
             frameAr.append(frame)
         }
         
-        if images.count == 0 {
+        if images.count == 0 { // No reason to change anything
             return
         }
         
