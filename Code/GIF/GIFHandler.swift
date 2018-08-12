@@ -142,6 +142,7 @@ class GIFHandler {
         let imageCount = frames.filter { (frame) -> Bool in
             return frame.image != nil
         }.count
+        print("Num frames: \(imageCount)")
         
         // Destination (Data object)
         guard let dataObj = CFDataCreateMutable(nil, 0),
@@ -150,24 +151,31 @@ class GIFHandler {
         
         // Add images to destination
         frames.forEach { (frame) in
-            guard var image = frame.image else { return }
+            guard var image = frame.image else { print("No image!"); return }
             if watermark && !Products.store.isProductPurchased(Products.Pro) {
                 // Watermark
                 image = GIFHandler.addWatermark(image: image, watermark: "Smart GIF Maker")
             }
             
-            if let imageRef = image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
+            if let imageRef = image.CGImage { 
                 // Frame duration
                 let frameDurationDic = NSDictionary(dictionary: [kCGImagePropertyGIFDictionary:NSDictionary(dictionary: [kCGImagePropertyGIFDelayTime: frame.duration])])
                 
                 // Add image
                 CGImageDestinationAddImage(dst, imageRef, frameDurationDic as CFDictionary)
             }
+            else {
+                print("Error getting cgImage")
+            }
         }
         
 
         // Close, cast as data and return
-        let _ = CGImageDestinationFinalize(dst)
+        let success = CGImageDestinationFinalize(dst)
+        if !success {
+            print("Failed finalizing the gif!")
+        }
+        
         let retData = dataObj as Data
         return retData
     }

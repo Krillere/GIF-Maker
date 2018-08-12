@@ -46,4 +46,19 @@ extension NSImage {
 
         return self.unscaledBitmapImageRep()
     }
+    
+    var CGImage: CGImage? {
+        get {
+            if let imageData = self.tiffRepresentation,
+                let source = CGImageSourceCreateWithData((imageData as CFData), nil),
+                let maskRef = CGImageSourceCreateImageAtIndex(source, Int(0), nil) {
+                return maskRef
+            }
+            if let cgimg = self.cgImage(forProposedRect: nil, context: nil, hints: nil) {
+                return cgimg
+            }
+            return nil
+        }
+    }
+    
 }

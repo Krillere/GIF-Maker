@@ -30,7 +30,7 @@ class MainViewController: NSViewController {
     var editingWindowController:NSWindowController?
     
     // Preview variables
-    var previewImage:NSImage?
+    var previewImagePath:URL?
 
     
     // MARK: View setup
@@ -80,8 +80,8 @@ class MainViewController: NSViewController {
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowPreview" {
             if let viewController = segue.destinationController as? PreviewViewController,
-                let preview = self.previewImage {
-                viewController.previewImage = preview
+                let preview = self.previewImagePath {
+                viewController.previewImagePath = preview
             }
         }
     }
@@ -299,7 +299,12 @@ class MainViewController: NSViewController {
         self.loadingView.isHidden = false
         
         DispatchQueue.global(qos: .utility).async {
-            self.previewImage = GIFHandler.createGIF(with: validate.gif.frames, loops: validate.gif.loops, watermark: false)
+            let directory = NSTemporaryDirectory()
+            let fileName = NSUUID().uuidString+".gif"
+            if let fullURL = NSURL.fileURL(withPathComponents: [directory, fileName]) {
+                GIFHandler.createAndSaveGIF(with: validate.gif.frames, savePath: fullURL, loops: validate.gif.loops, watermark: false)
+                self.previewImagePath = fullURL
+            }
             
             DispatchQueue.main.async {
                 self.loadingView.isHidden = true

@@ -10,7 +10,7 @@ import Cocoa
 
 class PreviewViewController: NSViewController {
     @IBOutlet var previewImageView:NSImageView!
-    var previewImage:NSImage?
+    var previewImagePath:URL?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,8 +19,11 @@ class PreviewViewController: NSViewController {
         self.view.backgroundColor = Constants.darkBackgroundColor
         
         // Load image or dismiss preview
-        if let previewImage = previewImage {
-            previewImageView.image = previewImage
+        if let previewImagePath = self.previewImagePath {
+            self.previewImageView.canDrawSubviewsIntoLayer = true
+//            self.previewImageView.imageScaling = .scaleProportionallyDown
+            self.previewImageView.animates = true
+            self.previewImageView.image = NSImage(contentsOf: previewImagePath)
         }
         else {
             self.dismiss(self)
@@ -32,6 +35,8 @@ class PreviewViewController: NSViewController {
         
         self.view.wantsLayer = true
         self.view.backgroundColor = Constants.darkBackgroundColor
+        
+        
     }
     
     @IBAction func closeButtonClicked(sender: AnyObject?) {

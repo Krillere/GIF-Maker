@@ -206,7 +206,7 @@ class PixelImageView: NSImageView {
     // Sets a color at a given coordinate
     func setPixelColor(color: NSColor, x: Int, y: Int, canUndo: Bool, size: Int = 1) {
         guard let image = self.image,
-            let imgRep = image.getBitmapRep() else { return }
+            let imgRep : NSBitmapImageRep = image.getBitmapRep() else { return }
         
         var tmps:[Int] = color.getRGBAr()
         
@@ -215,9 +215,8 @@ class PixelImageView: NSImageView {
             if canUndo {
                 self.createUndoOperation(x: x, y: y, newColor: DrawingOptionsHandler.shared.drawingColor)
             }
-        
+            
             imgRep.setPixel(&tmps, atX: x, y: y)
-            //imgRep.setColor(color, atX: x, y: y)
         }
         else {
             // Draw all pixels inside radius
@@ -233,7 +232,8 @@ class PixelImageView: NSImageView {
                     if (j-x)*(j-x) + di2 <= r2 {
                         
                         if canUndo {
-                            self.createUndoOperation(x: j, y: i, newColor: DrawingOptionsHandler.shared.drawingColor)
+                            // TODO: Fix
+                            //self.createUndoOperation(x: j, y: i, newColor: DrawingOptionsHandler.shared.drawingColor)
                         }
                         
                         imgRep.setPixel(&tmps, atX: x, y: y)
