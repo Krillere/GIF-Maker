@@ -136,7 +136,7 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     
     // Called when something changes the color from outside this viewcontroller
     func colorChangedOutside() {
-        colorPicker.color = DrawingOptionsHandler.shared.drawingColor
+        self.colorPicker.color = DrawingOptionsHandler.shared.drawingColor
     }
     
     // Called when eyedropper tool selects color
@@ -164,7 +164,7 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     // MARK: Buttons
     // Eraser
     @IBAction func eraserButtonClicked(sender: AnyObject?) {
-        colorPicker.color = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+        self.colorPicker.color = NSColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
     }
     
     // Eyedropper
@@ -215,13 +215,13 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     // Drawing color
     @IBAction func drawingColorWellClicked(sender: AnyObject?) {
         colorPicker.performClick(sender)
-        allowColorPanelAlpha()
+        self.allowColorPanelAlpha()
     }
     
     // Background color
     @IBAction func backgroundColorWellClicked(sender: AnyObject?) {
         backgroundColorPicker.performClick(sender)
-        allowColorPanelAlpha()
+        self.allowColorPanelAlpha()
     }
     
     
@@ -276,9 +276,9 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     func updateFrameLabel() {
         self.frameNumberLabel.stringValue = "\(currentFrameNumber+1)/\(frames.count)"
         
-        previousFrameButton.isHidden = false
-        nextFrameButton.isHidden = false
-        frameNumberLabel.isHidden = false
+        self.previousFrameButton.isHidden = false
+        self.nextFrameButton.isHidden = false
+        self.frameNumberLabel.isHidden = false
     }
     
     // Shows a given GIFFrame
@@ -294,17 +294,17 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         
         let tmp = calculateAspectRatioFit(srcWidth: width, srcHeight: height, maxWidth: maxWidth, maxHeight: maxHeight)
         
-        currentFrameImageView.frame = NSRect(x: 0, y: 0, width: tmp.width, height: tmp.height)
-        currentFrameImageView.image = image
-        currentFrameImageView.isHidden = false
+        self.currentFrameImageView.frame = NSRect(x: 0, y: 0, width: tmp.width, height: tmp.height)
+        self.currentFrameImageView.image = image
+        self.currentFrameImageView.isHidden = false
         
         handleCenterImage()
     }
     
     // Updates the scrollview contentView size, if necessary
     func updateScrollViewSize() {
-        let imgWidth = currentFrameImageView.frame.width
-        let imgHeight = currentFrameImageView.frame.height
+        let imgWidth = self.currentFrameImageView.frame.width
+        let imgHeight = self.currentFrameImageView.frame.height
         
         var newSize = NSMakeSize(imageScrollView.frame.width, imageScrollView.frame.height)
 
@@ -316,22 +316,22 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
             newSize.width = imgWidth+20
         }
         
-        imageBackgroundView.setFrameSize(newSize)
+        self.imageBackgroundView.setFrameSize(newSize)
     }
     
     // Centers the image and redo the zoom
     func handleCenterImage() {
-        if imageBackgroundView.previousZoomSize != nil {
-            imageBackgroundView.redoZoom()
+        if self.imageBackgroundView.previousZoomSize != nil {
+            self.imageBackgroundView.redoZoom()
         }
         else {
-            currentFrameImageView.center(inView: imageBackgroundView)
+            self.currentFrameImageView.center(inView: imageBackgroundView)
         }
     }
 
     // Called when the user changes the background color of the image
     func imageBackgroundColorUpdated() {
-        currentFrameImageView.backgroundColor = DrawingOptionsHandler.shared.imageBackgroundColor
+        self.currentFrameImageView.backgroundColor = DrawingOptionsHandler.shared.imageBackgroundColor
     }
     
     // Textfield changed
@@ -368,9 +368,9 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         self.frames = frames
         self.currentFrameNumber = 0
         
-        updateFrameLabel()
+        self.updateFrameLabel()
         
-        showFrame(frame: self.frames[self.currentFrameNumber])
+        self.showFrame(frame: self.frames[self.currentFrameNumber])
     }
 }
 

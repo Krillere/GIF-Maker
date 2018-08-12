@@ -138,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GIF/NSImageExtension.swift"
-            timestampString = "524586306.731057"
+            timestampString = "555765300.994979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "29"
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GIF/PixelImageView.swift"
-            timestampString = "524597772.502624"
+            timestampString = "555765300.99554"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
             landmarkName = "createUndoOperation(x:y:newColor:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -30,6 +30,7 @@
 		AAA8F5061F461ECC007EC2CB /* MainViewController+FrameCollectionViewItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA8F5051F461ECC007EC2CB /* MainViewController+FrameCollectionViewItemDelegate.swift */; };
 		AAA9C4CF1ECCA01A007EC0D4 /* FancyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA9C4CE1ECCA01A007EC0D4 /* FancyAlert.swift */; };
 		AABC063C1F431D25002DFEE6 /* FancyTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC063B1F431D25002DFEE6 /* FancyTextFieldCell.swift */; };
+		AAC1DF5B21204CA6000BA24A /* NSColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC1DF5A21204CA6000BA24A /* NSColorExtension.swift */; };
 		AACB80041E795D5D00A3F195 /* FrameCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */; };
 		AACB80051E795D5D00A3F195 /* FrameCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */; };
 		AACB80081E796A7400A3F195 /* DragNotificationImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB80071E796A7400A3F195 /* DragNotificationImageView.swift */; };
@@ -65,6 +66,7 @@
 		AAA8F5051F461ECC007EC2CB /* MainViewController+FrameCollectionViewItemDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainViewController+FrameCollectionViewItemDelegate.swift"; sourceTree = "<group>"; };
 		AAA9C4CE1ECCA01A007EC0D4 /* FancyAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyAlert.swift; sourceTree = "<group>"; };
 		AABC063B1F431D25002DFEE6 /* FancyTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyTextFieldCell.swift; sourceTree = "<group>"; };
+		AAC1DF5A21204CA6000BA24A /* NSColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColorExtension.swift; sourceTree = "<group>"; };
 		AAC9B9B21E799DD70096A497 /* GIF.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GIF.entitlements; sourceTree = "<group>"; };
 		AACB80021E795D5D00A3F195 /* FrameCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameCollectionViewItem.swift; sourceTree = "<group>"; };
 		AACB80031E795D5D00A3F195 /* FrameCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FrameCollectionViewItem.xib; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				AA6992AC1F448487008F7409 /* NSImageExtension.swift */,
+				AAC1DF5A21204CA6000BA24A /* NSColorExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAC1DF5B21204CA6000BA24A /* NSColorExtension.swift in Sources */,
 				AAA9C4CF1ECCA01A007EC0D4 /* FancyAlert.swift in Sources */,
 				AA8F63981E787DE2000965B5 /* MainViewController.swift in Sources */,
 				AA6992AD1F448487008F7409 /* NSImageExtension.swift in Sources */,

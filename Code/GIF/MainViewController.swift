@@ -43,8 +43,8 @@ class MainViewController: NSViewController {
             panel.close()
         }
         
-        configureCollectionView()
-        setupNotificationListeners()
+        self.configureCollectionView()
+        self.setupNotificationListeners()
     }
 
     override func viewDidAppear() {
@@ -93,7 +93,7 @@ class MainViewController: NSViewController {
             if field == loopsTextField {
                 if let _ = Int(loopsTextField.stringValue) { }
                 else {
-                    showError("Loops must be an integer!")
+                    showError("Loop count must be an integer!")
                     loopsTextField.stringValue = "0"
                 }
             }
@@ -317,7 +317,7 @@ class MainViewController: NSViewController {
         let errorReturn = (error: true, gif: empRep)
         
         guard let loops = Int(loopsTextField.stringValue) else {
-            showError("Invalid value for loop count (Zero or positive integer).")
+            showError("Invalid value for loop count (Zero or positive integer allowed)")
             return errorReturn
         }
         

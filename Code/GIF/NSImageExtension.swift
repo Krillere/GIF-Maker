@@ -43,7 +43,7 @@ extension NSImage {
                 return tmpRep
             }
         }
-        
+
         return self.unscaledBitmapImageRep()
     }
 }

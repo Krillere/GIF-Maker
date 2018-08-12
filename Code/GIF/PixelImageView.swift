@@ -63,12 +63,15 @@ class PixelImageView: NSImageView {
         }
         
         // Draw
-        drawing = true
-        previousDrawingPosition = pixelLoc
+        self.drawing = true
+        self.previousDrawingPosition = pixelLoc
         
-        self.currentUndoOperation = UndoOperation() // New
-        
-        self.setPixelColor(color: DrawingOptionsHandler.shared.drawingColor, x: pixelLoc.x, y: pixelLoc.y, canUndo: true, size: DrawingOptionsHandler.shared.brushSize)
+        self.currentUndoOperation = UndoOperation()
+        self.setPixelColor(color: DrawingOptionsHandler.shared.drawingColor,
+                           x: pixelLoc.x,
+                           y: pixelLoc.y,
+                           canUndo: true,
+                           size: DrawingOptionsHandler.shared.brushSize)
     }
     
     // Mouse drag / mouse moved while mouse down
@@ -81,16 +84,24 @@ class PixelImageView: NSImageView {
         let windowLoc = event.locationInWindow
         let pixelLoc = self.convertWindowToPixels(windowLoc: windowLoc)
         
-        if previousDrawingPosition == nil {
-            self.setPixelColor(color: DrawingOptionsHandler.shared.drawingColor, x: pixelLoc.x, y: pixelLoc.y, canUndo: true, size: DrawingOptionsHandler.shared.brushSize)
-            previousDrawingPosition = pixelLoc
+        if self.previousDrawingPosition == nil {
+            self.setPixelColor(color: DrawingOptionsHandler.shared.drawingColor,
+                               x: pixelLoc.x,
+                               y: pixelLoc.y,
+                               canUndo: true,
+                               size: DrawingOptionsHandler.shared.brushSize)
+            self.previousDrawingPosition = pixelLoc
             return
         }
         
         // Only draw on changed pixel, no reason to draw more than necessary
         if pixelLoc.x != previousDrawingPosition!.x || pixelLoc.y != previousDrawingPosition!.y {
-            self.setPixelColor(color: DrawingOptionsHandler.shared.drawingColor, x: pixelLoc.x, y: pixelLoc.y, canUndo: true, size: DrawingOptionsHandler.shared.brushSize)
-            previousDrawingPosition = pixelLoc
+            self.setPixelColor(color: DrawingOptionsHandler.shared.drawingColor,
+                               x: pixelLoc.x,
+                               y: pixelLoc.y,
+                               canUndo: true,
+                               size: DrawingOptionsHandler.shared.brushSize)
+            self.previousDrawingPosition = pixelLoc
         }
     }
 
@@ -197,13 +208,16 @@ class PixelImageView: NSImageView {
         guard let image = self.image,
             let imgRep = image.getBitmapRep() else { return }
         
+        var tmps:[Int] = color.getRGBAr()
+        
         if size == 1 { // Draw single pixel
             
             if canUndo {
-                createUndoOperation(x: x, y: y, newColor: DrawingOptionsHandler.shared.drawingColor)
+                self.createUndoOperation(x: x, y: y, newColor: DrawingOptionsHandler.shared.drawingColor)
             }
-            
-            imgRep.setColor(color, atX: x, y: y)
+        
+            imgRep.setPixel(&tmps, atX: x, y: y)
+            //imgRep.setColor(color, atX: x, y: y)
         }
         else {
             // Draw all pixels inside radius
@@ -219,10 +233,10 @@ class PixelImageView: NSImageView {
                     if (j-x)*(j-x) + di2 <= r2 {
                         
                         if canUndo {
-                            createUndoOperation(x: j, y: i, newColor: DrawingOptionsHandler.shared.drawingColor)
+                            self.createUndoOperation(x: j, y: i, newColor: DrawingOptionsHandler.shared.drawingColor)
                         }
                         
-                        imgRep.setColor(color, atX: j, y: i)
+                        imgRep.setPixel(&tmps, atX: x, y: y)
                     }
                     j += 1
                 }
