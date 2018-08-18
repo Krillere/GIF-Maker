@@ -247,6 +247,10 @@ class MainViewController: NSViewController {
         
         // Show file panel
         let panel = NSOpenPanel()
+        
+        // TODO: Allow other types of imports?
+        // No reason to now allow single images to be selected this way
+        
         panel.allowedFileTypes = ["gif", "mp4", "mov"]
         panel.allowsMultipleSelection = false
         panel.allowsOtherFileTypes = false

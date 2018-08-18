@@ -29,6 +29,9 @@ class PixelImageView: NSImageView {
     fileprivate var drawing = false
     fileprivate var previousDrawingPosition:(x: Int, y: Int)?
     
+    fileprivate var overlayImage : NSImage?
+    fileprivate var overlayImageView : NSImageView!
+    
     // Undo / redo variables
     fileprivate var undoOperations:[UndoOperation] = []
     fileprivate var redoOperations:[UndoOperation] = []
@@ -41,6 +44,7 @@ class PixelImageView: NSImageView {
         NotificationCenter.default.addObserver(self, selector: #selector(PixelImageView.imageChanged),
                                                name: PixelImageView.imageChangedNotificationName,
                                                object: nil)
+
     }
     
     // Disables antialiasing (No smoothing, clean pixels, makes sense when creating gifs.)
@@ -57,7 +61,12 @@ class PixelImageView: NSImageView {
             return
         }
         
-        // Future use possibly?
+        // Overlay used for drawing
+        self.overlayImageView = NSImageView(frame: NSRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
+        self.addSubview(overlayImageView)
+        
+        self.overlayImage = NSImage(size: self.frame.size)
+        self.overlayImageView?.image = self.overlayImage
     }
     
     // MARK: Mouse actions
@@ -269,6 +278,17 @@ class PixelImageView: NSImageView {
     
     override func mouseUp(with event: NSEvent) {
         self.currentPath = nil
+        
+        let img = NSImage(size: self.overlayImageView!.frame.size, flipped: false) { (rect) -> Bool in
+            
+            DrawingOptionsHandler.shared.drawingColor.set()
+            for path in self.paths {
+                path.stroke()
+            }
+            return true
+        }
+        self.overlayImageView.image = img
+        Swift.print(img)
     }
     
     // Should zoom with 'mag' magnification
@@ -276,9 +296,9 @@ class PixelImageView: NSImageView {
 //        var newSize = NSMakeSize(0, 0)
 //        newSize.width = zoomView.frame.size.width * (event.magnification + 1.0)
 //        newSize.height = zoomView.frame.size.height * (event.magnification + 1.0)
-        for path in self.paths {
-            path.scaleBy(mag+1)
-        }
+//        for path in self.paths {
+//            path.scaleBy(mag+1)
+//        }
         
         self.needsDisplay = true
     }
@@ -288,12 +308,10 @@ class PixelImageView: NSImageView {
         NSGraphicsContext.current()?.imageInterpolation = .none
         super.draw(dirtyRect)
         
-        DrawingOptionsHandler.shared.drawingColor.set()
-        
-        for path in self.paths {
-            path.stroke()
-        }
-        
+//        for path in self.paths {
+//            path.stroke()
+//        }
+//        
         NSGraphicsContext.restoreGraphicsState()
     }
 }
