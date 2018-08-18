@@ -12,6 +12,7 @@ fileprivate struct PixelChange {
     var location: (x: Int, y: Int)!
     var oldColor: NSColor!
     var newColor: NSColor!
+    var size: Int!
 }
 
 fileprivate class UndoOperation {
@@ -19,6 +20,11 @@ fileprivate class UndoOperation {
 }
 
 class PixelImageView: NSImageView {
+    
+    static let imageChangedNotificationName = Notification.Name(rawValue: "ColorChangedOutside")
+    
+    // Extra image data
+    fileprivate var imageBitmapRep : NSBitmapImageRep?
     
     // Drawing variables
     fileprivate var drawing = false
@@ -31,7 +37,14 @@ class PixelImageView: NSImageView {
     
     fileprivate static let maxUndoRedoCount = 30
     
-    // Disables antialiasing (No smoothing, clean pixels)
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        NotificationCenter.default.addObserver(self, selector: #selector(PixelImageView.imageChanged),
+                                               name: PixelImageView.imageChangedNotificationName,
+                                               object: nil)
+    }
+    
+    // Disables antialiasing (No smoothing, clean pixels, makes sense when creating gifs.)
     override func draw(_ dirtyRect: NSRect) {
         NSGraphicsContext.saveGraphicsState()
         NSGraphicsContext.current()?.imageInterpolation = .none
@@ -39,6 +52,14 @@ class PixelImageView: NSImageView {
         NSGraphicsContext.restoreGraphicsState()
     }
     
+    // MARK: Notifications
+    @objc func imageChanged() {
+        guard let img = self.image else {
+            return
+        }
+        
+        self.imageBitmapRep = img.getBitmapRep()
+    }
     
     // MARK: Mouse actions
     // Mouse down
@@ -46,7 +67,7 @@ class PixelImageView: NSImageView {
         let windowLoc = event.locationInWindow
         let pixelLoc = self.convertWindowToPixels(windowLoc: windowLoc)
         
-        // Pick a color
+        // User is using eyedropper tool
         if DrawingOptionsHandler.shared.isPickingColor {
             
             // Set color
@@ -62,12 +83,12 @@ class PixelImageView: NSImageView {
             return
         }
         
-        // Draw
+        // Normal drawing procedure
         self.drawing = true
         self.previousDrawingPosition = pixelLoc
         
         self.currentUndoOperation = UndoOperation()
-        self.setPixelColor(color: DrawingOptionsHandler.shared.drawingColor,
+        self.setPixelColor(color: &DrawingOptionsHandler.shared.drawingColorPtr,
                            x: pixelLoc.x,
                            y: pixelLoc.y,
                            canUndo: true,
@@ -85,7 +106,7 @@ class PixelImageView: NSImageView {
         let pixelLoc = self.convertWindowToPixels(windowLoc: windowLoc)
         
         if self.previousDrawingPosition == nil {
-            self.setPixelColor(color: DrawingOptionsHandler.shared.drawingColor,
+            self.setPixelColor(color: &DrawingOptionsHandler.shared.drawingColorPtr,
                                x: pixelLoc.x,
                                y: pixelLoc.y,
                                canUndo: true,
@@ -96,7 +117,7 @@ class PixelImageView: NSImageView {
         
         // Only draw on changed pixel, no reason to draw more than necessary
         if pixelLoc.x != previousDrawingPosition!.x || pixelLoc.y != previousDrawingPosition!.y {
-            self.setPixelColor(color: DrawingOptionsHandler.shared.drawingColor,
+            self.setPixelColor(color: &DrawingOptionsHandler.shared.drawingColorPtr,
                                x: pixelLoc.x,
                                y: pixelLoc.y,
                                canUndo: true,
@@ -118,7 +139,8 @@ class PixelImageView: NSImageView {
     func undo() {
         if let undoOp = self.undoOperations.last {
             undoOp.changes.reversed().forEach({ (change) in
-                self.setPixelColor(color: change.oldColor, x: change.location.x, y: change.location.y, canUndo: false)
+                var tmps:[Int] = change.oldColor.getRGBAr()
+                self.setPixelColor(color: &tmps, x: change.location.x, y: change.location.y, canUndo: false)
             })
             self.undoOperations.removeLast()
             self.redoOperations.append(undoOp)
@@ -132,7 +154,8 @@ class PixelImageView: NSImageView {
     func redo() {
         if let redoOp = self.redoOperations.last {
             redoOp.changes.reversed().forEach({ (change) in
-                self.setPixelColor(color: change.newColor, x: change.location.x, y: change.location.y, canUndo: false)
+                var tmps:[Int] = change.newColor.getRGBAr()
+                self.setPixelColor(color: &tmps, x: change.location.x, y: change.location.y, canUndo: false)
             })
             self.redoOperations.removeLast()
             self.undoOperations.append(redoOp)
@@ -157,7 +180,7 @@ class PixelImageView: NSImageView {
         }
     }
     
-    func createUndoOperation(x: Int, y: Int, newColor: NSColor) {
+    func createUndoOperation(x: Int, y: Int, newColor: NSColor, size: Int) {
         // Create undo operation
         guard let curColor = getPixelColor(x: x, y: y) else {
 //            
@@ -173,7 +196,7 @@ class PixelImageView: NSImageView {
             return
         }
         
-        self.currentUndoOperation?.changes.append(PixelChange(location: (x: x, y: y), oldColor: curColor, newColor: newColor))
+        self.currentUndoOperation?.changes.append(PixelChange(location: (x: x, y: y), oldColor: curColor, newColor: newColor, size: size))
     }
     
     
@@ -185,8 +208,7 @@ class PixelImageView: NSImageView {
     
     // Converts window event position go pixel coordinates
     func convertWindowToPixels(windowLoc: NSPoint) -> (x: Int, y: Int) {
-        guard let image = self.image else { return (x: 0, y: 0) }
-        guard let imgRep = image.getBitmapRep() else { return (x: 0, y: 0) }
+        guard let imgRep = self.imageBitmapRep else { return (x: 0, y: 0) }
         
         let localLoc = self.pointInFlippedRect(inPoint: self.convert(windowLoc, from: nil), aRect: self.frame)
         
@@ -204,19 +226,16 @@ class PixelImageView: NSImageView {
     
     // MARK: Drawing
     // Sets a color at a given coordinate
-    func setPixelColor(color: NSColor, x: Int, y: Int, canUndo: Bool, size: Int = 1) {
-        guard let image = self.image,
-            let imgRep : NSBitmapImageRep = image.getBitmapRep() else { return }
+    func setPixelColor(color: UnsafeMutablePointer<Int>, x: Int, y: Int, canUndo: Bool, size: Int = 1) {
+        guard let imgRep = self.imageBitmapRep else { Swift.print("Error"); return }
         
-        var tmps:[Int] = color.getRGBAr()
+        self.image?.lockFocus()
+        if canUndo {
+            self.createUndoOperation(x: x, y: y, newColor: DrawingOptionsHandler.shared.drawingColor, size: size)
+        }
         
         if size == 1 { // Draw single pixel
-            
-            if canUndo {
-                self.createUndoOperation(x: x, y: y, newColor: DrawingOptionsHandler.shared.drawingColor)
-            }
-            
-            imgRep.setPixel(&tmps, atX: x, y: y)
+            imgRep.setPixel(color, atX: x, y: y)
         }
         else {
             // Draw all pixels inside radius
@@ -230,23 +249,19 @@ class PixelImageView: NSImageView {
                 
                 while j < x+r {
                     if (j-x)*(j-x) + di2 <= r2 {
-                        
-                        if canUndo {
-                            // TODO: Fix
-                            //self.createUndoOperation(x: j, y: i, newColor: DrawingOptionsHandler.shared.drawingColor)
-                        }
-                        
-                        imgRep.setPixel(&tmps, atX: x, y: y)
+                        imgRep.setPixel(color, atX: x, y: y)
                     }
                     j += 1
                 }
                 i += 1
             }
         }
+        self.image?.unlockFocus()
  
-        let newImg = NSImage()
-        newImg.addRepresentation(imgRep)
-        self.image = newImg
+        
+//        let newImg = NSImage()
+//        newImg.addRepresentation(imgRep)
+//        self.image = newImg
     }
     
     // Returns NSColor at given coordinates

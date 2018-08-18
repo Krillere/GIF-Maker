@@ -16,7 +16,18 @@ class DrawingOptionsHandler {
     
     static let shared = DrawingOptionsHandler()
     
-    var drawingColor:NSColor = NSColor.blue
+    var drawingColorPtr : [Int] = NSColor.blue.getRGBAr()
+    
+    private var _drawingColor = NSColor.blue;
+    var drawingColor : NSColor  {
+        get {
+            return _drawingColor
+        }
+        set {
+            _drawingColor = newValue
+            drawingColorPtr = _drawingColor.getRGBAr()
+        }
+    }
     var imageBackgroundColor:NSColor = NSColor.lightGray
     
     var isPickingColor = false

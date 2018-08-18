@@ -49,9 +49,15 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
                                                selector: #selector(EditViewController.windowResized),
                                                name: NSNotification.Name.NSWindowDidResize,
                                                object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(EditViewController.imageBackgroundColorUpdated),
                                                name: DrawingOptionsHandler.backgroundColorChangedNotificationName,
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(EditViewController.colorChangedOutside),
+                                               name: DrawingOptionsHandler.colorChangedNotificationName,
+                                               object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(EditViewController.usedEyeDropper),
                                                name: DrawingOptionsHandler.usedEyeDropperNotificationName,
                                                object: nil)
@@ -59,7 +65,6 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         self.colorPicker.addObserver(self, forKeyPath: "color", options: .new, context: nil)
         self.backgroundColorPicker.addObserver(self, forKeyPath: "color", options: .new, context: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(EditViewController.colorChangedOutside), name: DrawingOptionsHandler.colorChangedNotificationName, object: nil)
         
         
         self.view.wantsLayer = true
@@ -297,6 +302,8 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
         self.currentFrameImageView.frame = NSRect(x: 0, y: 0, width: tmp.width, height: tmp.height)
         self.currentFrameImageView.image = image
         self.currentFrameImageView.isHidden = false
+        
+        NotificationCenter.default.post(name: PixelImageView.imageChangedNotificationName, object: nil)
         
         handleCenterImage()
     }
