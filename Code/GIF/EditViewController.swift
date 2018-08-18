@@ -161,7 +161,8 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     func zoomChanged(magnification: CGFloat) {
         updateScrollViewSize()
         
-        currentFrameImageView.center(inView: imageBackgroundView)
+        self.currentFrameImageView.zoom(mag: magnification)
+        self.currentFrameImageView.center(inView: imageBackgroundView)
     }
 
     
@@ -182,12 +183,12 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     
     // Undo
     @IBAction func undoButtonClicked(sender: AnyObject?) {
-        self.currentFrameImageView.undo()
+//        self.currentFrameImageView.undo()
     }
     
     // Redo
     @IBAction func redoButtonClicked(sender: AnyObject?) {
-        self.currentFrameImageView.redo()
+//        self.currentFrameImageView.redo()
     }
 
     // Next frame

@@ -14,17 +14,15 @@ protocol ZoomViewDelegate {
 }
 
 class ZoomView: NSView {
+    
     var delegate:ZoomViewDelegate?
     var zoomView:NSView?
+    var previousZoomSize:NSSize?
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-
-        // Drawing code here.
     }
 
-    
-    var previousZoomSize:NSSize?
     override func magnify(with event: NSEvent) {
         super.magnify(with: event)
         
@@ -34,8 +32,9 @@ class ZoomView: NSView {
             var newSize = NSMakeSize(0, 0)
             newSize.width = zoomView.frame.size.width * (event.magnification + 1.0)
             newSize.height = zoomView.frame.size.height * (event.magnification + 1.0)
+            
             zoomView.setFrameSize(newSize)
-            previousZoomSize = newSize
+            self.previousZoomSize = newSize
             
             self.delegate?.zoomChanged(magnification: event.magnification)
         }

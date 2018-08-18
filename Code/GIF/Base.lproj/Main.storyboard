@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -94,6 +94,9 @@
                         <rect key="contentRect" x="455" y="263" width="900" height="800"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="600" height="500"/>
+                        <connections>
+                            <outlet property="delegate" destination="B8D-0N-5wS" id="kMs-DT-vKJ"/>
+                        </connections>
                     </window>
                     <connections>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
@@ -119,7 +122,7 @@
                                     <subviews>
                                         <collectionView selectable="YES" id="QWv-z0-wuy">
                                             <rect key="frame" x="0.0" y="0.0" width="1093" height="560"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="ptw-g3-O4M">
                                                 <size key="itemSize" width="10" height="10"/>
                                                 <edgeInsets key="sectionInset" left="10" right="10" top="10" bottom="0.0"/>
@@ -212,7 +215,7 @@
                                     <action selector="editButtonClickedWithSender:" target="XfG-lQ-9wD" id="Jeq-Sc-yz7"/>
                                 </connections>
                             </button>
-                            <textField toolTip="The amount of loops in the GIF" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tuJ-Kc-Dut" customClass="SmartTextField" customModule="Smart_GIF_Maker" customModuleProvider="target">
+                            <textField toolTip="The amount of loops in the GIF" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tuJ-Kc-Dut" customClass="SmartTextField" customModule="Smart_GIF_Maker" customModuleProvider="target">
                                 <rect key="frame" x="960" y="569" width="39" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="39" id="qJD-Dn-VH4"/>
@@ -232,7 +235,7 @@
                                     <outlet property="delegate" destination="XfG-lQ-9wD" id="Ta0-wB-sgX"/>
                                 </connections>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CkX-nG-WFq">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CkX-nG-WFq">
                                 <rect key="frame" x="1000" y="571" width="80" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="XJH-jR-ddf"/>
@@ -244,7 +247,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vvf-C1-zZH">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vvf-C1-zZH">
                                 <rect key="frame" x="915" y="571" width="45" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="IWm-Jj-tzQ"/>
@@ -350,6 +353,9 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+                        <connections>
+                            <outlet property="delegate" destination="qjO-dV-Jnt" id="UIe-Nm-yw5"/>
+                        </connections>
                     </window>
                     <connections>
                         <segue destination="MFk-Ct-PSX" kind="relationship" relationship="window.shadowedContentViewController" id="eq8-jQ-ERL"/>
@@ -441,7 +447,7 @@
                                     <action selector="nextFrameButtonClickedWithSender:" target="MFk-Ct-PSX" id="Kku-8P-omt"/>
                                 </connections>
                             </button>
-                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtK-0j-DDM">
+                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZtK-0j-DDM">
                                 <rect key="frame" x="762" y="532" width="94" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="BFg-7f-eyb"/>
@@ -455,7 +461,7 @@
                             </textField>
                             <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="npC-Ig-P3D">
                                 <rect key="frame" x="0.0" y="0.0" width="901" height="520"/>
-                                <clipView key="contentView" id="b75-oU-khL">
+                                <clipView key="contentView" copiesOnScroll="NO" id="b75-oU-khL">
                                     <rect key="frame" x="0.0" y="0.0" width="901" height="520"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -463,7 +469,7 @@
                                             <rect key="frame" x="0.0" y="2" width="778" height="518"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <subviews>
-                                                <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ZO-68-BOr" customClass="PixelImageView" customModule="Smart_GIF_Maker" customModuleProvider="target">
+                                                <imageView hidden="YES" autoresizesSubviews="NO" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ZO-68-BOr" customClass="PixelImageView" customModule="Smart_GIF_Maker" customModuleProvider="target">
                                                     <rect key="frame" x="365" y="235" width="48" height="48"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="mb7-gv-ufE"/>
@@ -482,7 +488,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYB-Rb-riu">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PYB-Rb-riu">
                                 <rect key="frame" x="8" y="530" width="64" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="cnx-jU-PDQ"/>
@@ -494,7 +500,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Upo-YT-bg9">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Upo-YT-bg9">
                                 <rect key="frame" x="112" y="530" width="89" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="85" id="HYI-et-Kb8"/>
@@ -606,7 +612,7 @@
                                     <action selector="redoButtonClickedWithSender:" target="MFk-Ct-PSX" id="0RW-l9-Rql"/>
                                 </connections>
                             </button>
-                            <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlI-IY-U83">
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tlI-IY-U83">
                                 <rect key="frame" x="327" y="526" width="35" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="8DM-42-yQb"/>
@@ -621,7 +627,7 @@
                                     <outlet property="delegate" destination="MFk-Ct-PSX" id="pBf-63-e3S"/>
                                 </connections>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Pj-Mv-l02">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1Pj-Mv-l02">
                                 <rect key="frame" x="241" y="530" width="82" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="SnN-Ac-fED"/>
