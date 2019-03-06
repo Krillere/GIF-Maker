@@ -11,6 +11,7 @@
 		AA17D4A51ECB713400E260A7 /* FancyButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA17D4A31ECB713400E260A7 /* FancyButtonCell.swift */; };
 		AA17D4A61ECB713400E260A7 /* FancyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA17D4A41ECB713400E260A7 /* FancyButton.swift */; };
 		AA1F32C521281EFD0043D1B3 /* NSBezierPathExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F32C421281EFD0043D1B3 /* NSBezierPathExtension.swift */; };
+		AA1F32C8212832590043D1B3 /* ColoredBezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F32C7212832590043D1B3 /* ColoredBezierPath.swift */; };
 		AA33867B1EBF3BEA0056354F /* GIFFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA33867A1EBF3BEA0056354F /* GIFFrame.swift */; };
 		AA33867E1EBF45970056354F /* SmartTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA33867D1EBF45970056354F /* SmartTextField.swift */; };
 		AA3E1E5E1F0000830030E636 /* MainViewController+NSCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3E1E5D1F0000830030E636 /* MainViewController+NSCollectionView.swift */; };
@@ -46,6 +47,7 @@
 		AA17D4A31ECB713400E260A7 /* FancyButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyButtonCell.swift; sourceTree = "<group>"; };
 		AA17D4A41ECB713400E260A7 /* FancyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyButton.swift; sourceTree = "<group>"; };
 		AA1F32C421281EFD0043D1B3 /* NSBezierPathExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSBezierPathExtension.swift; sourceTree = "<group>"; };
+		AA1F32C7212832590043D1B3 /* ColoredBezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredBezierPath.swift; sourceTree = "<group>"; };
 		AA33867A1EBF3BEA0056354F /* GIFFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFFrame.swift; sourceTree = "<group>"; };
 		AA33867D1EBF45970056354F /* SmartTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartTextField.swift; sourceTree = "<group>"; };
 		AA3E1E5D1F0000830030E636 /* MainViewController+NSCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainViewController+NSCollectionView.swift"; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				AA8F63951E787DE2000965B5 /* AppDelegate.swift */,
 				AAEF89D91F04432D00658D9F /* Document.swift */,
 				AA6992AE1F448781008F7409 /* Extensions */,
+				AA1F32C7212832590043D1B3 /* ColoredBezierPath.swift */,
 			);
 			name = "Misc classes";
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA1F32C8212832590043D1B3 /* ColoredBezierPath.swift in Sources */,
 				AA1F32C521281EFD0043D1B3 /* NSBezierPathExtension.swift in Sources */,
 				AAC1DF5B21204CA6000BA24A /* NSColorExtension.swift in Sources */,
 				AAA9C4CF1ECCA01A007EC0D4 /* FancyAlert.swift in Sources */,

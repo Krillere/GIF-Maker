@@ -161,7 +161,6 @@ class EditViewController: NSViewController, ZoomViewDelegate, NSWindowDelegate {
     func zoomChanged(magnification: CGFloat) {
         updateScrollViewSize()
         
-        self.currentFrameImageView.zoom(mag: magnification)
         self.currentFrameImageView.center(inView: imageBackgroundView)
     }
 

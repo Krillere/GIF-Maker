@@ -34,6 +34,13 @@ class ZoomView: NSView {
             newSize.height = zoomView.frame.size.height * (event.magnification + 1.0)
             
             zoomView.setFrameSize(newSize)
+            
+            if zoomView is PixelImageView {
+                (zoomView as! PixelImageView).overlayImageView?.setFrameSize(newSize)
+            }
+            
+            zoomView.needsDisplay = true
+            
             self.previousZoomSize = newSize
             
             self.delegate?.zoomChanged(magnification: event.magnification)

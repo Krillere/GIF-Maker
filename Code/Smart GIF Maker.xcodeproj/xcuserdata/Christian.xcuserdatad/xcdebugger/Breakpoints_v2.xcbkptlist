@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GIF/PixelImageView.swift"
-            timestampString = "556281789.278833"
+            timestampString = "556283576.960812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
             landmarkName = "createUndoOperation(x:y:newColor:size:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,28 +170,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GIF/MainViewController.swift"
-            timestampString = "556281789.2795"
+            timestampString = "556283576.960923"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "84"
             endingLineNumber = "84"
             landmarkName = "prepare(for:sender:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GIF/PixelImageView.swift"
-            timestampString = "556281789.279575"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "290"
-            endingLineNumber = "290"
-            landmarkName = "mouseUp(with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

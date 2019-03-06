@@ -24,13 +24,12 @@ class PixelImageView: NSImageView {
     static let imageChangedNotificationName = Notification.Name(rawValue: "ColorChangedOutside")
 
     // Drawing variables
-    fileprivate var currentPath : NSBezierPath?
-    fileprivate var paths : [NSBezierPath] = []
+    fileprivate var currentPath : ColoredBezierPath?
+    fileprivate var paths : [ColoredBezierPath] = []
     fileprivate var drawing = false
     fileprivate var previousDrawingPosition:(x: Int, y: Int)?
     
-    fileprivate var overlayImage : NSImage?
-    fileprivate var overlayImageView : NSImageView!
+    var overlayImageView : NSImageView?
     
     // Undo / redo variables
     fileprivate var undoOperations:[UndoOperation] = []
@@ -41,19 +40,32 @@ class PixelImageView: NSImageView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        NotificationCenter.default.addObserver(self, selector: #selector(PixelImageView.imageChanged),
+        self.postsFrameChangedNotifications = true
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(PixelImageView.imageChanged),
                                                name: PixelImageView.imageChangedNotificationName,
                                                object: nil)
-
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(PixelImageView.frameChanged(_:)),
+//                                               name: NSNotification.Name.NSViewFrameDidChange,
+//                                               object: nil)
     }
     
     // Disables antialiasing (No smoothing, clean pixels, makes sense when creating gifs.)
-//    override func draw(_ dirtyRect: NSRect) {
-//        NSGraphicsContext.saveGraphicsState()
-//        NSGraphicsContext.current()?.imageInterpolation = .none
-//        super.draw(dirtyRect)
-//        NSGraphicsContext.restoreGraphicsState()
-//    }
+    // Furthermore draws the current line being drawn, if any.
+    override func draw(_ dirtyRect: NSRect) {
+        NSGraphicsContext.saveGraphicsState()
+        NSGraphicsContext.current()?.imageInterpolation = .none
+        super.draw(dirtyRect)
+        
+        if let path = self.currentPath {
+            DrawingOptionsHandler.shared.drawingColor.set()
+            path.stroke()
+        }
+        
+        NSGraphicsContext.restoreGraphicsState()
+    }
+    
     
     // MARK: Notifications
     @objc func imageChanged() {
@@ -61,13 +73,28 @@ class PixelImageView: NSImageView {
             return
         }
         
+        if self.overlayImageView != nil {
+            self.overlayImageView?.removeFromSuperview()
+            self.overlayImageView = nil
+        }
+        
         // Overlay used for drawing
         self.overlayImageView = NSImageView(frame: NSRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
-        self.addSubview(overlayImageView)
-        
-        self.overlayImage = NSImage(size: self.frame.size)
-        self.overlayImageView?.image = self.overlayImage
+        self.addSubview(overlayImageView!)
     }
+    
+//    @objc func frameChanged(_ notif: Notification) {
+//        guard let obj = notif.object as? PixelImageView else {
+//            return
+//        }
+//        if obj != self {
+//            return
+//        }
+//
+//        if let overlay = self.overlayImageView {
+//            overlay.setFrameSize(<#T##newSize: NSSize##NSSize#>)
+//        }
+//    }
     
     // MARK: Mouse actions
     // Mouse down
@@ -255,7 +282,8 @@ class PixelImageView: NSImageView {
     
     override func mouseDown(with event: NSEvent) {
 
-        self.currentPath = NSBezierPath()
+        self.currentPath = ColoredBezierPath()
+        self.currentPath?.strokeColor = DrawingOptionsHandler.shared.drawingColor
         self.currentPath?.lineWidth = CGFloat(DrawingOptionsHandler.shared.brushSize)
         
         self.currentPath?.lineJoinStyle = .miterLineJoinStyle
@@ -280,38 +308,13 @@ class PixelImageView: NSImageView {
         self.currentPath = nil
         
         let img = NSImage(size: self.overlayImageView!.frame.size, flipped: false) { (rect) -> Bool in
-            
-            DrawingOptionsHandler.shared.drawingColor.set()
+
             for path in self.paths {
+                path.strokeColor.set()
                 path.stroke()
             }
             return true
         }
-        self.overlayImageView.image = img
-        Swift.print(img)
-    }
-    
-    // Should zoom with 'mag' magnification
-    func zoom(mag: CGFloat) {
-//        var newSize = NSMakeSize(0, 0)
-//        newSize.width = zoomView.frame.size.width * (event.magnification + 1.0)
-//        newSize.height = zoomView.frame.size.height * (event.magnification + 1.0)
-//        for path in self.paths {
-//            path.scaleBy(mag+1)
-//        }
-        
-        self.needsDisplay = true
-    }
-    
-    override func draw(_ dirtyRect: NSRect) {
-        NSGraphicsContext.saveGraphicsState()
-        NSGraphicsContext.current()?.imageInterpolation = .none
-        super.draw(dirtyRect)
-        
-//        for path in self.paths {
-//            path.stroke()
-//        }
-//        
-        NSGraphicsContext.restoreGraphicsState()
+        self.overlayImageView?.image = img
     }
 }
